@@ -1,4 +1,4 @@
-# **BlueArchive**
+# **BlueArchive-plugin**
 
 ### 介绍
 碧蓝档案的图包
