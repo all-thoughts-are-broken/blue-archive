@@ -29,7 +29,7 @@ git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/B
 3.  正在写
 
 ## 效果图
-#### ![如图所示]((https://pic.imgdb.cn/item/64ad63c11ddac507cc117116.jpg)
+#### ![如图所示]((https://files.superbed.cn/store/superbed/71/16/64ad63c11ddac507cc117116.jpg)
 
 
 ## 注意
