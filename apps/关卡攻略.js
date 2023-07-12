@@ -128,8 +128,8 @@ async pic1h3(e){
 async pic2n1(e){
     let msg = ["2-1",
                segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-1/1.png`),
-               segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-2/2.png`),
-               segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-3/3.png`)
+               segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-1/2.png`),
+               segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-1/3.png`)
               ];
     e.reply(msg)          
     return true
