@@ -1,0 +1,8 @@
+- {
+  version: "测试版",
+  data:
+    [
+      新增<span class="cmd">帮助</span>功能,
+
+    ],
+}
