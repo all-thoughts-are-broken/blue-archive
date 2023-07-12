@@ -153,6 +153,6 @@ body {
 .logo {
   text-align: center;
   font-size: 14px;
-  color: white;
+  color: rgb(0, 0, 0);
   font-family: 'tttgbnumber';
 }
