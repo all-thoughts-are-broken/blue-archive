@@ -1,7 +1,7 @@
 # **BlueArchive-plugin**
 
 ### 介绍
-碧蓝档案的图包
+碧蓝档案的攻略插件
 ***
 ## 已实现的功能
 - [x] 学生查询角评
@@ -24,17 +24,15 @@ git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/B
 
 ## 使用说明
 
-1.  正在写
-2.  正在写
+1.  用#Ba帮助查看帮助
+2.  用#BA插件更新来更新
 3.  正在写
 
-## 效果图
-#### ![如图所示](https://files.superbed.cn/store/superbed/71/16/64ad63c11ddac507cc117116.jpg)
+
 
 
 ## 注意
 1.  不少学生别名没有添加，所以没反应就是没添加别名。后续会添加的。  
-2.  不要找帮助了，还没写呢。
 ***
 #### 参与贡献
 - 万年断绝
