@@ -33,14 +33,14 @@
 - group: 
   list:
     - icon: qipao
-      title: "无"
-      desc: 无
+      title: "#1-1"
+      desc: 查看1-1的关卡攻略
     - icon: quannai
-      title: "无"
-      desc: 无
+      title: "#1-1H"
+      desc: 查看1-1hard的关卡攻略
     - icon: qqq
-      title: "无"
-      desc: 无
+      title: "#60秒看世界"
+      desc: 看新闻
     - icon: chahui
       title: "无"
       desc: 无
@@ -73,3 +73,6 @@
     - icon: xueshenghui
       title: "#BA插件更新"
       desc: "更新"
+    - icon: xueshenghui
+      title: "凑对称"
+      desc: "氵"
