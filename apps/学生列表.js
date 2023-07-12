@@ -1,5 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js'
-
+const _path=process.cwd()
 export class example extends plugin {
     constructor() {
       super({
