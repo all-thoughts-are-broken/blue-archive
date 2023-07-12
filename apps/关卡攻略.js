@@ -40,6 +40,12 @@ export class example extends plugin {
           {
             reg: '^#1-3H',
             fnc: 'pic1h3'
+         },
+         {
+            reg: '^#2-1',
+            fnc: 'pic2n1'
+
+
           }
        ]
     })
@@ -93,7 +99,7 @@ async pic1n5(e){
     return true
 }
 async pic1h1(e){
-    let msg = ["1-1",
+    let msg = ["1-1H",
                segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/1章/1-1H/1.png`),
                segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/1章/1-1H/2.png`)
                
@@ -102,7 +108,7 @@ async pic1h1(e){
     return true
 }
 async pic1h2(e){
-    let msg = ["1-1",
+    let msg = ["1-3H",
                segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/1章/1-2H/1.png`),
                segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/1章/1-2H/2.png`)
                
@@ -111,7 +117,7 @@ async pic1h2(e){
     return true
 }
 async pic1h3(e){
-    let msg = ["1-1",
+    let msg = ["1-3H",
                segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/1章/1-3H/1.png`),
                segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/1章/1-3H/2.png`)
               
@@ -119,6 +125,20 @@ async pic1h3(e){
     e.reply(msg)          
     return true
 }
+async pic2n1(e){
+    let msg = ["2-1",
+               segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-1/1.png`),
+               segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-2/2.png`),
+               segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/2章/2-3/3.png`)
+              ];
+    e.reply(msg)          
+    return true
+}
+
+
+
+
+
 }
 
 
