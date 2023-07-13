@@ -5,8 +5,8 @@ import md5 from "md5";
 export class help extends plugin {
     constructor(e) {
         super({
-            name: "R插件帮助",
-            dsc: "R插件帮助插件帮助",
+            name: "BA插件帮助",
+            dsc: "BA插件帮助",
             event: "message",
             priority: 500,
             rule: [
