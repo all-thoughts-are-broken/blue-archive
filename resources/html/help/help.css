@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "tttgbnumber";
-  src: url("../../../../../resources/font/tttgbnumber.ttf");
+  font-family: "shuxin";
+  src: url("../../../../../plugins/BlueArchive-plugin/resources/font/JetBrainsMonoNL-ThinItalic.ttf");
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 
 body {
   font-family: sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   width: 788px;
   color: #1e1f20;
   transform: scale(1.5);
@@ -30,7 +30,7 @@ body {
 
 .head_box {
   border-radius: 15px;
-  font-family: 'tttgbnumber';
+  font-family: 'JetBrainsMonoNL-ThinItalic';
   padding: 10px 20px;
   position: relative;
   color: rgb(5, 5, 5);
@@ -38,11 +38,11 @@ body {
 }
 
 .head_box .id_text {
-  font-size: 24px;
+  font-size: 35px;
 }
 
 .head_box .day_text {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .head_box .genshin_logo {
@@ -58,7 +58,7 @@ body {
 }
 
 .uid {
-  font-family: tttgbnumber;
+  font-family: shuxin;
 }
 
 .data_box {
@@ -97,7 +97,7 @@ body {
 }
 
 .num {
-  font-family: tttgbnumber;
+  font-family: shuxin;
   font-size: 24px;
 }
 
@@ -127,8 +127,8 @@ body {
 }
 
 .list .item .icon {
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: relative;
@@ -136,7 +136,7 @@ body {
 }
 
 .list .item .title {
-  font-size: 16px;
+  font-size: 20px;
   margin-left: 6px;
   line-height: 20px;
 }
@@ -145,14 +145,14 @@ body {
   white-space: nowrap;
 } */
 .list .item .title .dec {
-  font-size: 12px;
+  font-size: 15px;
   color: #030303;
   margin-top: 2px;
 }
 
 .logo {
   text-align: center;
-  font-size: 14px;
+  font-size: 20px;
   color: rgb(0, 0, 0);
-  font-family: 'tttgbnumber';
+  font-family: 'JetBrainsMonoNL-ThinItalic';
 }
