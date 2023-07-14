@@ -1,4 +1,4 @@
-- group: 查询类功能
+- group: 查询功能
   list:
     - icon: weihua
       title: "#未花"
@@ -30,8 +30,6 @@
     - icon: srt
       title: "#水宫子"
       desc: 查看泳装宫子的角评
-- group: 
-  list:
     - icon: qipao
       title: "#1-1"
       desc: 查看1-1的关卡攻略
