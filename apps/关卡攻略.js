@@ -792,8 +792,8 @@ return true
 }
 async pic8n1(e){
   let msg = ["8-1",
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/8章/2-1/1.png`),
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/8章/2-1/2.png`)
+             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/8章/8-1/1.png`),
+             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/8章/8-1/2.png`)
             ];
   e.reply(msg)          
   return true
