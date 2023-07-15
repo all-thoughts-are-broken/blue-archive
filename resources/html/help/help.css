@@ -45,13 +45,6 @@ body {
   font-size: 25px;
 }
 
-.head_box .genshin_logo {
-  position: absolute;
-  top: -10px;
-  right: 15px;
-  width: 97px;
-}
-
 .base_info {
   position: relative;
   padding-left: 10px;
