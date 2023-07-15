@@ -24,7 +24,7 @@ export class example extends plugin {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async gonggao(e) {
+  async Ba_Envent(e) {
     const puppeteer = require('puppeteer');
 
     const browser = await puppeteer.launch({
