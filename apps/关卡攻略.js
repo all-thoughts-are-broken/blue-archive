@@ -950,7 +950,7 @@ let msg = ["10-4",
 e.reply(msg)          
 return true
 }
-async pic2n1(e){
+async pic10n5(e){
 let msg = ["10-5",
            segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/10章/10-5/1.png`),
            segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/10章/10-5/2.png`)
