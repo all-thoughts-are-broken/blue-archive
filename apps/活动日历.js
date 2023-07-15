@@ -19,7 +19,12 @@ export class example extends plugin {
     });
   }
 
-  async Ba_Envent(e) {
+  // 封装延时函数
+  async delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async gonggao(e) {
     const puppeteer = require('puppeteer');
 
     const browser = await puppeteer.launch({
@@ -47,6 +52,8 @@ export class example extends plugin {
     });
 
     await page.goto('https://ba.gamekee.com/');
+    await this.delay(7000); // 等待7秒
+
     await page.waitForSelector('.right-model-container');
     const element = await page.$('.right-model-container');
 
