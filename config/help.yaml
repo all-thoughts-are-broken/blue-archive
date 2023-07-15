@@ -40,11 +40,11 @@
       title: "BA，启动"
       desc: 嘿嘿嘿
     - icon: chahui
-      title: "无"
-      desc: 无
-    - icon: nuoya
-      title: "无"
-      desc: 无
+      title: "#BA活动日历"
+      desc: 看看wiki上的活动日历
+    - icon: xialai
+      title: "#学生列表"
+      desc: 查看目前实装的学生（不全，还在弄）
     - icon: teyixianxiang
       title: "无"
       desc: 无
@@ -65,9 +65,9 @@
       desc: 无
 - group: 其他功能
   list:
-    - icon: xialai
-      title: "#学生列表"
-      desc: "查看所有学生"
+    - icon: xueshenghui
+      title: "凑对称"
+      desc: "氵"
     - icon: xueshenghui
       title: "#BA插件更新"
       desc: "更新"
