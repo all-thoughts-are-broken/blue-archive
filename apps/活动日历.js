@@ -68,7 +68,7 @@ export class example extends plugin {
           x: box.x - 10,         // 指定元素的左上角 x 坐标
           y: box.y - 10,         // 指定元素的左上角 y 坐标
           width: box.width + 59, // 指定元素的宽度
-          height: box.height + 2500, // 指定元素的高度
+          height: box.height + 3000, // 指定元素的高度
         };
 
         await this.reply(segment.image(await page.screenshot({
