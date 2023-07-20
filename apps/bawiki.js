@@ -9,35 +9,35 @@ export class example extends plugin {
         priority: 5000,
         rule: [
         {
-          reg: '^#wiki日奈$',
+          reg: '^#wk日奈$',
           fnc: 'pic1',
         },
         {
-          reg: '^#wiki(水|泳装)日奈$',
+          reg: '^#wk(水|泳装)日奈$',
           fnc: 'pic2',
         },
         {
-          reg: '^#wiki亚子$',
+          reg: '^#wk亚子$',
           fnc: 'npic3',
         },
         {
-          reg: '^#wiki伊织$',
+          reg: '^#wk伊织$',
           fnc: 'pic4',
         },
         {
-          reg: '^#wiki(水|泳装)伊织$',
+          reg: '^#wk(水|泳装)伊织$',
           fnc: 'pic5',
         },
         {
-          reg: '^#wiki千夏$',
+          reg: '^#wk千夏$',
           fnc: 'pic6',
         },
         {
-          reg: '^#wiki(温|温泉)千夏$',
+          reg: '^#wk(温|温泉)千夏$',
           fnc: 'pic7',
         },
         {
-          reg: '^#wiki(168|伊吕波)$',
+          reg: '^#wk(168|伊吕波)$',
           fnc: 'pic8',
 
 
