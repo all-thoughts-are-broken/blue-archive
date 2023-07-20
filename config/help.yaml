@@ -49,8 +49,8 @@
       title: "#npc列表"
       desc: 查看NPC
     - icon: xinnai
-      title: "无"
-      desc: 无
+      title: "#wiki日奈"
+      desc: 查看wiki上的攻略
     - icon: yantaohui
       title: "无"
       desc: 无
