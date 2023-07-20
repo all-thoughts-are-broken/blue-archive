@@ -10,14 +10,23 @@ export class example extends plugin {
         rule: [
           {
             reg: '^#学生列表$',
-            fnc: 'liebiao',
+            fnc: 'student_list',
           },
+          {
+            reg: '^#(npc|NPC)列表$',
+            fnc: 'npc_list',
+          }  
         ],
       });
     }
-    async liebiao (e){   
-        let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/学生列表.png`)]
+    async student_list (e){   
+        let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/student_list.png`)]
          await e.reply(msg)
          return true
     }
+    async npc_list (e){   
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/npc_list.png`)]
+       await e.reply(msg)
+       return true
+  }
 }    
