@@ -46,8 +46,8 @@
       title: "#学生列表"
       desc: 查看目前实装的学生
     - icon: teyixianxiang
-      title: "无"
-      desc: 无
+      title: "#npc列表"
+      desc: 查看NPC
     - icon: xinnai
       title: "无"
       desc: 无
