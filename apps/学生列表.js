@@ -44,7 +44,8 @@ export class example extends plugin {
     }
     async halo_list (e){   
       let msg = ["图片有点大哦",
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_1.png`),
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_11.png`),
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_12.png`),
       segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_2.png`),
       segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_3.png`)
     ]
