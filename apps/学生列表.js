@@ -15,6 +15,10 @@ export class example extends plugin {
           {
             reg: '^#(npc|NPC)列表$',
             fnc: 'npc_list',
+          },
+          {
+            reg: '^#往期活动$',
+            fnc: 'old_envent',
           }  
         ],
       });
@@ -29,4 +33,9 @@ export class example extends plugin {
        await e.reply(msg)
        return true
   }
+  async old_envent (e){   
+    let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/old_envent.png`)]
+     await e.reply(msg)
+     return true
+}
 }    
