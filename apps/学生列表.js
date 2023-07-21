@@ -43,7 +43,11 @@ export class example extends plugin {
        return true
     }
     async halo_list (e){   
-      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_list.jpg`)]
+      let msg = ["图片有点大哦",
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_1.png`),
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_2.png`),
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_3.png`)
+    ]
        await e.reply(msg)
        return true
     }
