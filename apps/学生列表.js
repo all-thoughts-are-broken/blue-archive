@@ -19,6 +19,10 @@ export class example extends plugin {
           {
             reg: '^#往期活动$',
             fnc: 'old_envent',
+          },
+          {
+            reg: '^#光环一览$',
+            fnc: 'halo_list',
           }  
         ],
       });
@@ -32,10 +36,15 @@ export class example extends plugin {
       let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/npc_list.png`)]
        await e.reply(msg)
        return true
-  }
-  async old_envent (e){   
-    let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/old_envent.png`)]
-     await e.reply(msg)
-     return true
-}
+    }
+    async old_envent (e){   
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/old_envent.png`)]
+       await e.reply(msg)
+       return true
+    }
+    async halo_list (e){   
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_list.jpg`)]
+       await e.reply(msg)
+       return true
+    }
 }    
