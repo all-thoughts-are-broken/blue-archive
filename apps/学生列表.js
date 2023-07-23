@@ -23,6 +23,10 @@ export class example extends plugin {
           {
             reg: '^#光环一览$',
             fnc: 'halo_list',
+          },
+          {
+            reg: '^#学生社团分布图$',
+            fnc: 'all_student',
           }  
         ],
       });
@@ -49,6 +53,11 @@ export class example extends plugin {
       segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_2.png`),
       segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/halo_3.png`)
     ]
+       await e.reply(msg)
+       return true
+    }
+    async all_student (e){   
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/all_student.jpg`)]
        await e.reply(msg)
        return true
     }
