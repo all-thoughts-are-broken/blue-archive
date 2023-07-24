@@ -42,7 +42,7 @@ export class example extends plugin {
           fnc:'pic28'
         },
         {
-          reg:'^(#|档案)+(尼禄|)$',
+          reg:'^(#|档案)+(尼禄|暴躁姐)$',
           fnc:'pic31'
         },
         {  
