@@ -23,7 +23,7 @@ git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/B
 ```
 github
 ```
-git clone https://github.com/all-thoughts-are-broken/BlueArchive-plugin.git ./plugins/BlueArchive-plugin
+git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin
 ```
 ### 第二步
 ####  重启你的只因器人
