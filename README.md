@@ -16,9 +16,14 @@
 ## 安装教程
 
 ###  第一步：下载插件
-#### 打开终端，输入并运行以下命令  
+#### 打开终端，输入并运行以下命令
+gitee  
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
+```
+github
+```
+git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
 ### 第二步
 ####  重启你的只因器人
