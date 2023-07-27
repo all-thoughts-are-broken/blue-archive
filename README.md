@@ -16,7 +16,7 @@
 ## 安装教程
 
 ###  第一步：下载插件
-#### 在云崽或喵崽或时雨崽打开终端，输入并运行以下命令  
+#### 打开终端，输入并运行以下命令  
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
@@ -50,3 +50,4 @@ git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/B
 3.   角评图片（还有别的图片）来自[wiki](https://ba.gamekee.com/155086.html)，已经征得了原作者[夜猫咪喵喵猫](https://space.bilibili.com/425535005)的授权
 4.   还有不少图片来源于[日本的碧蓝档案wiki](https://bluearchive.wikiru.jp/)和[schale](https://schale.gg/)
 5.   严禁用于任何商业用途和非法行为
+
