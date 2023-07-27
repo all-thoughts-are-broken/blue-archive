@@ -36,7 +36,7 @@ git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/B
 1.  不少学生别名没有添加，所以没反应就是没添加别名。后续会添加的。  
 ***
 ### 参与贡献
-- 万年断绝
+- 万念断绝
 
 ## 其他 
 
@@ -47,7 +47,7 @@ git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/B
 ## 后记
 1.   本插件借鉴了网上的不少插件
 2.   插件里的素材来源于网上，仅供交流与学习
-3.   角评图片（还有别的图片）来自[wiki](https://ba.gamekee.com/155086.html)，已经征得了原作者[夜猫咪喵喵猫](https://space.bilibili.com/425535005)的授权
-4.   还有不少图片来源于[日本的碧蓝档案wiki](https://bluearchive.wikiru.jp/)和[schale](https://schale.gg/)
+3.   角评图片（还有别的图片）来自[ba.gamekee.com](https://ba.gamekee.com)，已经征得了原作者[夜猫咪喵喵猫](https://space.bilibili.com/425535005)的授权
+4.   还有不少图片来源于[bluearchive.wikiru.jp](https://bluearchive.wikiru.jp/)和[schale.gg](https://schale.gg/)
 5.   严禁用于任何商业用途和非法行为
 
