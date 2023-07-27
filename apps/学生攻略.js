@@ -596,6 +596,22 @@ export class example extends plugin {
         {          
           reg:'^(#|档案)+(水白子|泳装白子)$',
           fnc:'pic162'
+        },
+        {          
+          reg:'^(#|档案)+(水小春|泳装小春)$',
+          fnc:'pic163'
+        },
+        {          
+          reg:'^(#|档案)+(水日向|泳装日向)$',
+          fnc:'pic164'
+        },
+        {          
+          reg:'^(#|档案)+(水忧|泳装忧)$',
+          fnc:'pic165'
+        },
+        {          
+          reg:'^(#|档案)+(水花子|泳装花子)$',
+          fnc:'pic166'
         }
       ]
     })
@@ -1561,6 +1577,30 @@ export class example extends plugin {
   async pic162(e){
     let msg =["你要的档案找到了",
         segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/student_information/162.png`)];
+     e.reply(msg)
+    return true
+  }
+  async pic163(e){
+    let msg =["你要的档案找到了",
+        segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/student_information/163.png`)];
+     e.reply(msg)
+    return true
+  }
+  async pic164(e){
+    let msg =["你要的档案找到了",
+        segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/student_information/164.png`)];
+     e.reply(msg)
+    return true
+  }
+  async pic165(e){
+    let msg =["你要的档案找到了",
+        segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/student_information/165.png`)];
+     e.reply(msg)
+    return true
+  }
+  async pic166(e){
+    let msg =["你要的档案找到了",
+        segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/student_information/166.png`)];
      e.reply(msg)
     return true
   }
