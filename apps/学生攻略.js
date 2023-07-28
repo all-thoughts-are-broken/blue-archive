@@ -612,6 +612,10 @@ export class example extends plugin {
         {          
           reg:'^(#|档案)+(水花子|泳装花子)$',
           fnc:'pic166'
+        },
+        {          
+          reg:'^(#|档案)+(水若藻|泳装若藻|水大狐狸|泳装大狐狸)$',
+          fnc:'pic158'
         }
       ]
     })
