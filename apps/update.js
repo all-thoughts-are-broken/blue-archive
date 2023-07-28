@@ -92,7 +92,7 @@ export class update extends plugin {
     } else {
       await this.reply(`BlueArchive-plugin\n最后更新时间：${time}`);
       this.isUp = true;
-      /** 获取ap-plugin的更新日志 */
+      /** 获取更新日志 */
       let log = await this.getLog("BlueArchive-plugin");
       await this.reply(log);
     }
@@ -103,7 +103,7 @@ export class update extends plugin {
   }
 
   /**
-   * 获取ap-plugin的更新日志
+   * 获取更新日志
    * @param {string} plugin 插件名称
    * @returns
    */
@@ -136,7 +136,7 @@ export class update extends plugin {
 
     let end = "";
     end =
-      "更多详细信息，请前往gitee查看\nhttps://gitee.com/all-thoughts-are-broken/blue-archive/blob/master/README.md";
+      "更多详细信息，请前往\nhttps://gitee.com/all-thoughts-are-broken/blue-archive/blob/master/README.md查看";
 
     log = await this.makeForwardMsg(`BlueArchive-plugin更新日志，共${line}条`, log, end);
 
