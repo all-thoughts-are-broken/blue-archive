@@ -623,7 +623,7 @@ export class example extends plugin {
 
   async pic1(e){
     let msg =["你要的档案找到了",
-    segment.image(`file:///${_path}/resources/1.png`)];
+    segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/student_information/1.png`)];
      e.reply(msg)
   return true
   }
