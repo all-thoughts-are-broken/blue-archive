@@ -59,10 +59,10 @@
       desc: 查看所有的光环
     - icon: yilvbo
       title: "#学生社团分布图"
-      desc: 无
+      desc: 这就不用描述了吧
     - icon: fengji
-      title: "无"
-      desc: 无
+      title: "未来视"
+      desc: 国际服未来视
 - group: 其他功能
   list:
     - icon: xueshenghui
