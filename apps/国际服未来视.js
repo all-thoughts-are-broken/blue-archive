@@ -13,7 +13,7 @@ export class lookFuture extends plugin {
         event: 'message',
         priority: 3000,
         rule: [{
-            reg: /#?(国际服)?未来视/g,
+            reg: '^#?(国际服)?未来视$',
             fnc: 'seeFuture',
           }
         ]
