@@ -355,7 +355,7 @@ export class example extends plugin {
         },
         {
           reg:'^(#|档案)+(沙耶|鼠鼠)$',
-          fnc:'p1c147'
+          fnc:'pic147'
         },
         {
           reg:'^(#|档案)+(真白)$',
