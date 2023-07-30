@@ -38,7 +38,7 @@ export class example extends plugin {
           fnc:'pic62'
         },
         {
-          reg:'^(#|档案)+(真纪|涂鸦|真希)$',
+          reg:'^(#|档案)+(真纪|涂鸦|真希|真纪老祖)$',
           fnc:'pic28'
         },
         {
@@ -86,7 +86,7 @@ export class example extends plugin {
           fnc:'pic36'
         },
         {
-          reg:'^(#|档案)+(梓)$',
+          reg:'^(#|档案)+(梓|小梓)$',
           fnc:'pic96'
         },
         {
@@ -94,7 +94,7 @@ export class example extends plugin {
           fnc:'pic125'
         },
         {
-          reg:'^(#|档案)+(水梓)$',
+          reg:'^(#|档案)+(水梓|泳装梓)$',
           fnc:'pic116'
         },
         {
@@ -110,7 +110,7 @@ export class example extends plugin {
           fnc:'pic128'
         },
         {
-          reg:'^(#|档案)+(幼女瞬)$',
+          reg:'^(#|档案)+(幼女瞬|幼瞬)$',
           fnc:'pic145'
         },
         {
@@ -206,7 +206,7 @@ export class example extends plugin {
           fnc:'pic18'
         },
         {
-          reg:'^(#|档案)+(和沙)$',
+          reg:'^(#|档案)+(和纱|和沙)$',
           fnc:'pic88'
         },
         {
@@ -354,7 +354,7 @@ export class example extends plugin {
           fnc:'pic35'
         },
         {
-          reg:'^(#|档案)+(沙凌)$',
+          reg:'^(#|档案)+(沙耶|鼠鼠)$',
           fnc:'p1c147'
         },
         {
@@ -370,7 +370,7 @@ export class example extends plugin {
           fnc:'pic117'
         },
         {
-          reg:'^(#|档案)+(私服沙凌)$',
+          reg:'^(#|档案)+(私服沙耶|私服鼠鼠)$',
           fnc:'pic149'
         },
         {
@@ -550,7 +550,7 @@ export class example extends plugin {
           fnc:'pic114'
         },
         {
-          reg:'^(#|档案)+(玲沙)$',
+          reg:'^(#|档案)+(玲沙|玲纱)$',
           fnc:'pic83'
         },
         {
