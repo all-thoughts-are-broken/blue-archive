@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 
 logger.info('--------- >_< ---------')
-logger.info('BlueArchive-plugin成功加载')
+logger.info('BlueArchive-plugin初始化')
 logger.info('阿罗娜来工作啦')
 logger.info('目前的阿罗娜会做的还不多')
 logger.info('请多多包涵哦')
@@ -30,5 +30,6 @@ for (let i in files) {
   apps[name] = ret[i].value[Object.keys(ret[i].value)[0]]
 }
 
+logger.mark('BlueArchive-plugin加载成功')
 
 export { apps }
