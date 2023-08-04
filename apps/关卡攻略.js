@@ -593,7 +593,7 @@ return true
 async pic4h3(e){
 let msg = ["4-3H",
            segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/4章/4-3H/1.png`),
-           segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/4章/4-3H/2.png`)
+           segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/4章/4-3H/2.jpg`)
           ];
 e.reply(msg)          
 return true
