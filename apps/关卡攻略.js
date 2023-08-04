@@ -14,319 +14,319 @@ export class example extends plugin {
             fnc: 'pic1n1'
           },
           {
-            reg: '^#1-2',
+            reg: '^#1-2$',
             fnc: 'pic1n2'
           },
           {
-            reg: '^#1-3',
+            reg: '^#1-3$',
             fnc: 'pic1n3'
           },
           {
-            reg: '^#1-4',
+            reg: '^#1-4$',
             fnc: 'pic1n4'
           },
           {
-            reg: '^#1-5',
+            reg: '^#1-5$',
             fnc: 'pic1n5'      
           },
           {
-            reg: '^#1-1H',
+            reg: '^#1-1H$',
             fnc: 'pic1h1'           
           },
           {
-            reg: '^#1-2H',
+            reg: '^#1-2H$',
             fnc: 'pic1h2'     
           },
           {
-            reg: '^#1-3H',
+            reg: '^#1-3H$',
             fnc: 'pic1h3'
           },
           {
-            reg: '^#2-1',
+            reg: '^#2-1$',
             fnc: 'pic2n1'
           },
           {
-            reg: '^#2-2',
+            reg: '^#2-2$',
             fnc: 'pic2n2'
           },
           {
-            reg: '^#2-3',
+            reg: '^#2-3$',
             fnc: 'pic2n3'
           },
           {
-            reg: '^#2-4',
+            reg: '^#2-4$',
             fnc: 'pic2n4'
           },
           {
-            reg: '^#2-5',
+            reg: '^#2-5$',
             fnc: 'pic2n5'      
           },
           {
-            reg: '^#2-1H',
+            reg: '^#2-1H$',
             fnc: 'pic2h1'           
           },
           {
-            reg: '^#2-2H',
+            reg: '^#2-2H$',
             fnc: 'pic2h2'     
           },
           {
-            reg: '^#2-3H',
+            reg: '^#2-3H$',
             fnc: 'pic2h3'
           },
           {
-            reg: '^#3-1',
+            reg: '^#3-1$',
             fnc: 'pic3n1'
           },
           {
-            reg: '^#3-2',
+            reg: '^#3-2$',
             fnc: 'pic3n2'
           },
           {
-            reg: '^#3-3',
+            reg: '^#3-3$',
             fnc: 'pic3n3'
           },
           {
-            reg: '^#3-4',
+            reg: '^#3-4$',
             fnc: 'pic3n4'
           },
           {
-            reg: '^#3-5',
+            reg: '^#3-5$',
             fnc: 'pic3n5'      
           },
           {
-            reg: '^#3-1H',
+            reg: '^#3-1H$',
             fnc: 'pic3h1'           
           },
           {
-            reg: '^#3-2H',
+            reg: '^#3-2H$',
             fnc: 'pic3h2'     
           },
           {
-            reg: '^#3-3H',
+            reg: '^#3-3H$',
             fnc: 'pic3h3'
           },
           {
-            reg: '^#4-1',
+            reg: '^#4-1$',
             fnc: 'pic4n1'
           },
           {
-            reg: '^#4-2',
+            reg: '^#4-2$',
             fnc: 'pic4n2'
           },
           {
-            reg: '^#4-3',
+            reg: '^#4-3$',
             fnc: 'pic4n3'
           },
           {
-            reg: '^#4-4',
+            reg: '^#4-4$',
             fnc: 'pic4n4'
           },
           {
-            reg: '^#4-5',
+            reg: '^#4-5$',
             fnc: 'pic4n5'      
           },
           {
-            reg: '^#4-1H',
+            reg: '^#4-1H$',
             fnc: 'pic4h1'           
           },
           {
-            reg: '^#4-2H',
+            reg: '^#4-2H$',
             fnc: 'pic4h2'     
           },
           {
-            reg: '^#4-3H',
+            reg: '^#4-3H$',
             fnc: 'pic4h3'
           },
           {
-            reg: '^#5-1',
+            reg: '^#5-1$',
             fnc: 'pic5n1'
           },
           {
-            reg: '^#5-2',
+            reg: '^#5-2$',
             fnc: 'pic5n2'
           },
           {
-            reg: '^#5-3',
+            reg: '^#5-3$',
             fnc: 'pic5n3'
           },
           {
-            reg: '^#5-4',
+            reg: '^#5-4$',
             fnc: 'pic5n4'
           },
           {
-            reg: '^#5-5',
+            reg: '^#5-5$',
             fnc: 'pic5n5'      
           },
           {
-            reg: '^#5-1H',
+            reg: '^#5-1H$',
             fnc: 'pic5h1'           
           },
           {
-            reg: '^#5-2H',
+            reg: '^#5-2H$',
             fnc: 'pic5h2'     
           },
           {
-            reg: '^#5-3H',
+            reg: '^#5-3H$',
             fnc: 'pic5h3'
           },
           {
-            reg: '^#6-1',
+            reg: '^#6-1$',
             fnc: 'pic6n1'
           },
           {
-            reg: '^#6-2',
+            reg: '^#6-2$',
             fnc: 'pic6n2'
           },
           {
-            reg: '^#6-3',
+            reg: '^#6-3$',
             fnc: 'pic6n3'
           },
           {
-            reg: '^#6-4',
+            reg: '^#6-4$',
             fnc: 'pic6n4'
           },
           {
-            reg: '^#6-5',
+            reg: '^#6-5$',
             fnc: 'pic6n5'      
           },
           {
-            reg: '^#6-1H',
+            reg: '^#6-1H$',
             fnc: 'pic6h1'           
           },
           {
-            reg: '^#6-2H',
+            reg: '^#6-2H$',
             fnc: 'pic6h2'     
           },
           {
-            reg: '^#6-3H',
+            reg: '^#6-3H$',
             fnc: 'pic6h3'
           },
           {
-            reg: '^#7-1',
+            reg: '^#7-1$',
             fnc: 'pic7n1'
           },
           {
-            reg: '^#7-2',
+            reg: '^#7-2$',
             fnc: 'pic7n2'
           },
           {
-            reg: '^#7-3',
+            reg: '^#7-3$',
             fnc: 'pic7n3'
           },
           {
-            reg: '^#7-4',
+            reg: '^#7-4$',
             fnc: 'pic7n4'
           },
           {
-            reg: '^#7-5',
+            reg: '^#7-5$',
             fnc: 'pic7n5'      
           },
           {
-            reg: '^#7-1H',
+            reg: '^#7-1H$',
             fnc: 'pic7h1'           
           },
           {
-            reg: '^#7-2H',
+            reg: '^#7-2H$',
             fnc: 'pic7h2'     
           },
           {
-            reg: '^#7-3H',
+            reg: '^#7-3H$',
             fnc: 'pic7h3'
           },
           {
-            reg: '^#8-1',
+            reg: '^#8-1$',
             fnc: 'pic8n1'
           },
           {
-            reg: '^#8-2',
+            reg: '^#8-2$',
             fnc: 'pic8n2'
           },
           {
-            reg: '^#8-3',
+            reg: '^#8-3$',
             fnc: 'pic8n3'
           },
           {
-            reg: '^#8-4',
+            reg: '^#8-4$',
             fnc: 'pic8n4'
           },
           {
-            reg: '^#8-5',
+            reg: '^#8-5$',
             fnc: 'pic8n5'      
           },
           {
-            reg: '^#8-1H',
+            reg: '^#8-1H$',
             fnc: 'pic8h1'           
           },
           {
-            reg: '^#8-2H',
+            reg: '^#8-2H$',
             fnc: 'pic8h2'     
           },
           {
-            reg: '^#8-3H',
+            reg: '^#8-3H$',
             fnc: 'pic8h3'
           },
           {
-            reg: '^#9-1',
+            reg: '^#9-1$',
             fnc: 'pic9n1'
           },
           {
-            reg: '^#9-2',
+            reg: '^#9-2$',
             fnc: 'pic9n2'
           },
           {
-            reg: '^#9-3',
+            reg: '^#9-3$',
             fnc: 'pic9n3'
           },
           {
-            reg: '^#9-4',
+            reg: '^#9-4$',
             fnc: 'pic9n4'
           },
           {
-            reg: '^#9-5',
+            reg: '^#9-5$',
             fnc: 'pic9n5'      
           },
           {
-            reg: '^#9-1H',
+            reg: '^#9-1H$',
             fnc: 'pic9h1'           
           },
           {
-            reg: '^#9-2H',
+            reg: '^#9-2H$',
             fnc: 'pic9h2'     
           },
           {
-            reg: '^#9-3H',
+            reg: '^#9-3H$',
             fnc: 'pic9h3'
           },
           {
-            reg: '^#10-1',
+            reg: '^#10-1$',
             fnc: 'pic10n1'
           },
           {
-            reg: '^#10-2',
+            reg: '^#10-2$',
             fnc: 'pic10n2'
           },
           {
-            reg: '^#10-3',
+            reg: '^#10-3$',
             fnc: 'pic10n3'
           },
           {
-            reg: '^#10-4',
+            reg: '^#10-4$',
             fnc: 'pic10n4'
           },
           {
-            reg: '^#10-5',
+            reg: '^#10-5$',
             fnc: 'pic10n5'      
           },
           {
-            reg: '^#10-1H',
+            reg: '^#10-1H$',
             fnc: 'pic10h1'           
           },
           {
-            reg: '^#10-2H',
+            reg: '^#10-2H$',
             fnc: 'pic10h2'     
           },
           {
-            reg: '^#10-3H',
+            reg: '^#10-3H$',
             fnc: 'pic10h3'
           }
        ]
