@@ -1,31 +1,31 @@
 - group: 查询功能
   list:
     - icon: weihua
-      title: "#未花"
+      title: "#ba未花"
       desc: 查看未花的角评攻略
     - icon: abiduosi
-      title: "#星野"
+      title: "#ba星野"
       desc: 查看星野的角评
     - icon: geheina
-      title: "#日奈"
+      title: "#ba日奈"
       desc: 查看日奈的角评
     - icon: qianxi
-      title: "#优香"
+      title: "#ba优香"
       desc: 查看优香的角评
     - icon: shengsanyi
-      title: "#响"
+      title: "#ba响"
       desc: 查看响的角评
     - icon: aliusi
-      title: "#纱织"
+      title: "#ba纱织"
       desc: 查看纱织的角评
     - icon: waerjili
-      title: "#吹雪"
+      title: "#ba吹雪"
       desc: 查看吹雪的角评
     - icon: baigui
-      title: "#小狐狸"
+      title: "#ba小狐狸"
       desc: 查看泉奈的角评
     - icon: shanhaijing
-      title: "#教官"
+      title: "#ba教官"
       desc: 查看瞬的角评
     - icon: srt
       title: "#总力战帮助"
