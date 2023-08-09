@@ -66,7 +66,7 @@ export class zonglizhan extends plugin {
         segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/总力战/大蛇/extreme.png`),
         segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/总力战/大蛇/insane.png`),
         segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/总力战/大蛇/torment.png`),
-        "格里高利的机制图如下",
+        "大蛇的机制图如下",
         segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/总力战/大蛇/机制.jpg`),
         "以上就是全部攻略"
                ]
