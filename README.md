@@ -1,7 +1,7 @@
 # **BlueArchive-plugin**
 
 ### 介绍
-碧蓝档案的攻略插件
+Miao-Yunzai机器人的碧蓝档案的攻略插件
 ***
 ## 已实现的功能
 - [x] 学生查询角评
@@ -16,12 +16,12 @@
 ## 安装教程
 
 ###  第一步：下载插件
-#### 打开终端，输入并运行以下命令
+#### 打开终端，输入并运行以下命令（看你网络任选其一）
 gitee  
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
-github
+github（更新可能不及时，建议gitee）
 ```
 git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
