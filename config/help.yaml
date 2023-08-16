@@ -31,10 +31,10 @@
       title: "#总力战帮助"
       desc: 有关总力战的说明
     - icon: qipao
-      title: "#1-1"
+      title: "/1-1"
       desc: 查看1-1的关卡攻略
     - icon: quannai
-      title: "#1-1H"
+      title: "/1-1H"
       desc: 查看1-1hard的关卡攻略
     - icon: qqq
       title: "BA，启动"
