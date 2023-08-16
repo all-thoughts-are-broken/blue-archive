@@ -138,7 +138,7 @@ export class update extends plugin {
     end =
       "更多详细信息，请前往\nhttps://gitee.com/all-thoughts-are-broken/blue-archive/blob/master/README.md查看";
 
-    log = await this.makeForwardMsg(e, log, `BlueArchive-plugin更新日志，共${line}条`);
+    log = await this.makeForwardMsg(`BlueArchive-plugin更新日志，共${line}条`, log, end);
 
     return log;
   }
@@ -176,116 +176,57 @@ export class update extends plugin {
     return time;
   }
 
-  // /* *
-  //  * 制作转发消息
-  //  * @param {string} title 标题 - 首条消息
-  //  * @param {string} msg 日志信息
-  //  * @param {string} end 最后一条信息
-  //  * @returns
-  //  */
-  // async makeForwardMsg(title, msg, end) {
-  //   let nickname = Bot.nickname;
-  //   if (this.e.isGroup) {
-  //     let info = await Bot.getGroupMemberInfo(this.e.group_id, Bot.uin);
-  //     nickname = info.card || info.nickname;
-  //   }
-  //   let userInfo = {
-  //     user_id: Bot.uin,
-  //     nickname,
-  //   };
-
-  //   let forwardMsg = [
-  //     {
-  //       ...userInfo,
-  //       message: title,
-  //     },
-  //     {
-  //       ...userInfo,
-  //       message: msg,
-  //     },
-  //   ];
-
-  //   if (end) {
-  //     forwardMsg.push({
-  //       ...userInfo,
-  //       message: end,
-  //     });
-  //   }
-
-  //   /** 制作转发内容 */
-  //   if (this.e.isGroup) {
-  //     forwardMsg = await this.e.group.makeForwardMsg(forwardMsg);
-  //   } else {
-  //     forwardMsg = await this.e.friend.makeForwardMsg(forwardMsg);
-  //   }
-
-  //   /** 处理描述 */
-  //   forwardMsg.data = forwardMsg.data
-  //     .replace(/\n/g, "")
-  //     .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, "___")
-  //     .replace(/___+/, `<title color="#777777" size="26">${title}</title>`);
-
-  //   return forwardMsg;
-  // }
-/**
- * 制作转发消息
- * @param e 消息事件
- * @param msg 消息数组
- * @param dec 转发描述
- * @param msgsscr 转发信息是否伪装
- */
-async  makeForwardMsg(e, msg = [], dec = '', msgsscr = false) {
-  if (!Array.isArray(msg)) msg = [msg]
-
-  let name = msgsscr ? e.sender.card || e.user_id : Bot.nickname
-  let id = msgsscr ? e.user_id : Bot.uin
-
-  if (e.isGroup) {
-    let info = await e.bot.getGroupMemberInfo(e.group_id, id)
-    name = info.card || info.nickname
-  }
-
-  let userInfo = {
-    user_id: id,
-    nickname: name
-  }
-
-  let forwardMsg = []
-  for (const message of msg){
-    if(!message) continue
-    forwardMsg.push({
-      ...userInfo,
-      message: message
-    })
-  }
-    
-
-  /** 制作转发内容 */
-  if (e?.group?.makeForwardMsg) {
-    forwardMsg = await e.group.makeForwardMsg(forwardMsg)
-  } else if (e?.friend?.makeForwardMsg) {
-    forwardMsg = await e.friend.makeForwardMsg(forwardMsg)
-  } else {
-    return msg.join('\n')
-  }
-
-  if (dec) {
-    /** 处理描述 */
-    if (typeof (forwardMsg.data) === 'object') {
-      let detail = forwardMsg.data?.meta?.detail
-      if (detail) {
-        detail.news = [{ text: dec }]
-      }
-    } else {
-      forwardMsg.data = forwardMsg.data
-        .replace(/\n/g, '')
-        .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, '___')
-        .replace(/___+/, `<title color="#777777" size="26">${dec}</title>`)
+  /**
+   * 制作转发消息
+   * @param {string} title 标题 - 首条消息
+   * @param {string} msg 日志信息
+   * @param {string} end 最后一条信息
+   * @returns
+   */
+  async makeForwardMsg(title, msg, end) {
+    let nickname = Bot.nickname;
+    if (this.e.isGroup) {
+      let info = await Bot.getGroupMemberInfo(this.e.group_id, Bot.uin);
+      nickname = info.card || info.nickname;
     }
-  }
+    let userInfo = {
+      user_id: Bot.uin,
+      nickname,
+    };
 
-  return forwardMsg
-}
+    let forwardMsg = [
+      {
+        ...userInfo,
+        message: title,
+      },
+      {
+        ...userInfo,
+        message: msg,
+      },
+    ];
+
+    if (end) {
+      forwardMsg.push({
+        ...userInfo,
+        message: end,
+      });
+    }
+
+    /** 制作转发内容 */
+    if (this.e.isGroup) {
+      forwardMsg = await this.e.group.makeForwardMsg(forwardMsg);
+    } else {
+      forwardMsg = await this.e.friend.makeForwardMsg(forwardMsg);
+    }
+
+    /** 处理描述 */
+    forwardMsg.data = forwardMsg.data
+      .replace(/\n/g, "")
+      .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, "___")
+      .replace(/___+/, `<title color="#777777" size="26">${title}</title>`);
+
+    return forwardMsg;
+  }
 
   /**
    * 处理更新失败的相关函数
