@@ -213,11 +213,7 @@ export class update extends plugin {
     }
 
     /** 制作转发内容 */
-    if (this.e.isGroup) {
-      forwardMsg = await this.e.group.makeForwardMsg(forwardMsg);
-    } else {
-      forwardMsg = await this.e.friend.makeForwardMsg(forwardMsg);
-    }
+    
 
     /** 处理描述 */
     forwardMsg.data = forwardMsg.data
