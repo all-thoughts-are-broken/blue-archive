@@ -138,7 +138,7 @@ export class update extends plugin {
     end =
       "更多详细信息，请前往\nhttps://gitee.com/all-thoughts-are-broken/blue-archive/blob/master/README.md查看";
 
-    log = await this.makeForwardMsg(`BlueArchive-plugin更新日志，共${line}条`, log, end);
+    //log = await this.makeForwardMsg(`BlueArchive-plugin更新日志，共${line}条`, log, end);
 
     return log;
   }
