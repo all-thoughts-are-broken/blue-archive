@@ -1,7 +1,8 @@
 import plugin from '../../../lib/plugins/plugin.js';
+import common from '../../../lib/common/common.js';
 import { createRequire } from 'module';
-
 const require = createRequire(import.meta.url);
+import {KnownDevices} from 'puppeteer';
 
 export class example extends plugin {
   constructor() {
@@ -12,7 +13,7 @@ export class example extends plugin {
       priority: 50,
       rule: [
         {
-          reg: '^#BA活动日历$',
+          reg: '^#(ba|BA|Ba|bA)活动日历$',
           fnc: 'Ba_Envent',
         },
       ],
@@ -26,7 +27,7 @@ export class example extends plugin {
 
 async Ba_Envent(e) {
   const puppeteer = require('puppeteer');
-
+  const iPhone = KnownDevices['iPhone 12 Pro'];
   const browser = await puppeteer.launch({
     headless: true,
     args: [
@@ -41,61 +42,23 @@ async Ba_Envent(e) {
   });
 
   const page = await browser.newPage();
+  await page.emulate(iPhone);
+  await page.goto('https://ba.gamekee.com/date');//目标网址
+  await common.sleep(1000)
 
-  // 修改页面的 navigator.language 属性
-  await page.evaluateOnNewDocument(() => {
-    Object.defineProperty(navigator, 'language', {
-      get: function () {
-        return 'zh-CN';
-      },
-    });
-  });
-
-  // 设置视口缩放
-  await page.setViewport({
-    width: 1920,
-    height: 1080,
-    deviceScaleFactor: 3, // 缩放因子为3，即放大到原来的300%
-  });
-
-  await page.goto('https://ba.gamekee.com/');//目标网址
-  await this.delay(7000); // 等待7秒
-  // 隐藏所有属性为 data-v-8c7efff0="" 的<span>元素
+  // 删除碍事的元素
   await page.evaluate(() => {
-  const spans = document.querySelectorAll('span[data-v-8c7efff0=""]');
-  spans.forEach((span) => {
-  span.style.display = 'none';
-  });
- });
-
-
-
-
-  await page.waitForSelector('.right-model-container');
-  const element = await page.$('.right-model-container');
-
-  if (element) {
-    // 获取元素的位置和尺寸信息
-    const box = await element.boundingBox();
-
-    // 截取指定区域的截图
-    if (box) {
-      // 调整 clip 选项的数值，缩小或扩大截图的区域
-      const newBox = {
-        x: box.x - 10,         // 指定元素的左上角 x 坐标
-        y: box.y + 650,         // 指定元素的左上角 y 坐标
-        width: box.width + 59, // 指定元素的宽度
-        height: box.height + 2700, // 指定元素的高度
-      };
-
-      await this.reply(segment.image(await page.screenshot({ clip: newBox })));
-    } else {
-      await this.reply('未找到指定元素');
+    const selectors = ['.header', '.nav-body'];
+    for (let selector of selectors) {
+      const elements = document.querySelectorAll(selector);
+      for (let element of elements) {
+        element.remove();
+      }
     }
-  } else {
-    await this.reply('未找到指定元素');
-  }
+  });
 
-  await browser.close();
-}
+  const element = await page.$(".left-warp")
+
+  await this.reply(segment.image(await element.screenshot()));
+  }
 }
