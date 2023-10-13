@@ -5,18 +5,18 @@ Miao-Yunzai机器人的碧蓝档案的攻略插件
 ***
 ## 已实现的功能
 - [x] 学生查询角评
-- [ ] 查询总力战BOSS
+- [ ] 查询总力战BOSS（加了两个）
 - [ ] 查看live2d
 - [x] 查看光环
-- [ ] 查看关卡图攻略(弄10章了) 
+- [x] 查看关卡图攻略
 - [x] 查看活动日历
-- [ ] 还没想好
+- [x] 查看学生列表
 - [x] 以后会加入上面的功能
 
 ## 安装教程
 
 ###  第一步：下载插件
-#### 打开终端，输入并运行以下命令（看你网络任选其一）
+#### 打开终端，输入并运行以下命令（看你网络任选其一，插件有点大，请耐心等待）
 gitee  
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
