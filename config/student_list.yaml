@@ -1,0 +1,318 @@
+- group: 学生列表
+  list:
+    - icon: 日奈
+      title: "日奈"
+    - icon: 日奈（泳装）
+      title: "日奈（泳装）"
+    - icon: 亚子
+      title: "亚子"
+    - icon: 伊织
+      title: "伊织"
+    - icon: 伊织（泳装）
+      title: "伊织（泳装）"
+    - icon: 千夏
+      title: "千夏"
+    - icon: 千夏（温泉）
+      title: "千夏（温泉）"
+    - icon: 伊吕波
+      title: "伊吕波"
+    - icon: 阿露
+      title: "阿露"
+    - icon: 阿露（正月）
+      title: "阿露（正月）"
+    - icon: 睦月
+      title: "睦月"
+    - icon: 睦月（正月） 
+      title: "睦月（正月）"
+    - icon: 佳代子
+      title: "佳代子"
+    - icon: 佳代子（正月）
+      title: "佳代子（正月）"
+    - icon: 遥香
+      title: "遥香"
+    - icon: 遥香（正月）
+      title: "遥香（正月）"
+    - icon: 晴奈
+      title: "晴奈"
+    - icon: 晴奈（体操服）
+      title: "晴奈（体操服）"
+    - icon: 晴奈（正月）
+      title: "晴奈（正月）"
+    - icon: 淳子
+      title: "淳子"
+    - icon: 淳子（正月）
+      title: "淳子（正月）"
+    - icon: 明里
+      title: "明里"
+    - icon: 泉
+      title: "泉"
+    - icon: 泉（泳装）
+      title: "泉（泳装）"
+    - icon: 枫香
+      title: "枫香"
+    - icon: 枫香（正月）
+      title: "枫香（正月）"
+    - icon: 朱莉
+      title: "朱莉"
+    - icon: 濑名
+      title: "濑名"
+    - icon: 惠
+      title: "惠"
+    - icon: 霞
+      title: "霞"
+    - icon: 优香
+      title: "优香"
+    - icon: 优香（体操服）
+      title: "优香（体操服）"
+    - icon: 诺亚
+      title: "诺亚"
+    - icon: 小雪
+      title: "小雪"
+    - icon: 尼禄
+      title: "尼禄"
+    - icon: 尼禄（兔女郎）
+      title: "尼禄（兔女郎）"
+    - icon: 明日奈
+      title: "明日奈"
+    - icon: 明日奈（兔女郎）
+      title: "明日奈（兔女郎）"
+    - icon: 花凛
+      title: "花凛"
+    - icon: 花凛（兔女郎）
+      title: "花凛（兔女郎）"
+    - icon: 朱音
+      title: "朱音"
+    - icon: 朱音（兔女郎）
+      title: "朱音（兔女郎）"
+    - icon: 时
+      title: "时"
+    - icon: 时（兔女郎）
+      title: "时（兔女郎）"
+    - icon: 歌原
+      title: "歌原"
+    - icon: 歌原（应援团）
+      title: "歌原（应援团）"
+    - icon: 响
+      title: "响"
+    - icon: 响（应援团）
+      title: "响（应援团）"
+    - icon: 柯托莉
+      title: "柯托莉"
+    - icon: 柯托莉（应援团）
+      title: "柯托莉（应援团）"
+    - icon: 柚子
+      title: "柚子"
+    - icon: 柚子（女仆）
+      title: "柚子（女仆）"
+    - icon: 桃井
+      title: "桃井"
+    - icon: 绿
+      title: "绿"
+    - icon: 爱丽丝
+      title: "爱丽丝"
+    - icon: 爱丽丝（女仆）
+      title: "爱丽丝（女仆）"
+    - icon: 千寻
+      title: "千寻"
+    - icon: 真纪
+      title: "真纪"
+    - icon: 晴
+      title: "晴"
+    - icon: 小玉
+      title: "小玉"
+    - icon: 日鞠
+      title: "日鞠"
+    - icon: 艾米
+      title: "艾米"
+    - icon: 菫
+      title: "菫"
+    - icon: 未花
+      title: "未花"
+    - icon: 渚
+      title: "渚"
+    - icon: 鹤城
+      title: "鹤城"
+    - icon: 鹤城（泳装）
+      title: "鹤城（泳装）"
+    - icon: 莲见
+      title: "莲见"
+    - icon: 莲见（体操服）
+      title: "莲见（体操服）"
+    - icon: 真白
+      title: "真白"
+    - icon: 真白（泳装）
+      title: "真白（泳装）"
+    - icon: 一花
+      title: "一花"
+    - icon: 樱子
+      title: "樱子"
+    - icon: 玛丽
+      title: "玛丽"
+    - icon: 玛丽（体操服）
+      title: "玛丽（体操服）"
+    - icon: 日向
+      title: "日向"
+    - icon: 日向（泳装）
+      title: "日向（泳装）"
+    - icon: 美祢
+      title: "美祢"
+    - icon: 芹娜
+      title: "芹娜"
+    - icon: 芹娜（圣诞）
+      title: "芹娜（圣诞）"
+    - icon: 花绘
+      title: "花绘"
+    - icon: 花绘（圣诞）
+      title: "花绘（圣诞）"
+    - icon: 日富美
+      title: "日富美"
+    - icon: 日富美（泳装）
+      title: "日富美（泳装）"
+    - icon: 梓
+      title: "梓"
+    - icon: 梓（泳装）
+      title: "梓（泳装）"
+    - icon: 小春
+      title: "小春"
+    - icon: 小春（泳装）
+      title: "小春（泳装）"
+    - icon: 花子
+      title: "花子"
+    - icon: 花子（泳装）
+      title: "花子（泳装）"
+    - icon: 夏
+      title: "夏"
+    - icon: 和纱
+      title: "和纱"
+    - icon: 好美
+      title: "好美"
+    - icon: 爱莉
+      title: "爱莉"
+    - icon: 铃美
+      title: "铃美"
+    - icon: 玲纱
+      title: "玲纱"
+    - icon: 忧
+      title: "忧"
+    - icon: 忧（泳装）
+      title: "忧（泳装）"
+    - icon: 志美子
+      title: "志美子"
+    - icon: 纱织
+      title: "纱织"
+    - icon: 亚津子
+      title: "亚津子"
+    - icon: 美咲
+      title: "美咲"
+    - icon: 日和
+      title: "日和"
+    - icon: 星野
+      title: "星野"
+    - icon: 星野（泳装）
+      title: "星野（泳装）"
+    - icon: 白子
+      title: "白子"
+    - icon: 白子（骑行）
+      title: "白子（骑行）"
+    - icon: 白子（泳装）
+      title: "白子（泳装）"
+    - icon: 野宫
+      title: "野宫"
+    - icon: 野宫（泳装）
+      title: "野宫（泳装）"
+    - icon: 芹香
+      title: "芹香"
+    - icon: 芹香（正月）
+      title: "芹香（正月）"
+    - icon: 绫音
+      title: "绫音"
+    - icon: 绫音（泳装）
+      title: "绫音（泳装）"
+    - icon: 若藻
+      title: "若藻"
+    - icon: 若藻（泳装）
+      title: "若藻（泳装）"
+    - icon: 果穗
+      title: "果穗"
+    - icon: 千世
+      title: "千世"
+    - icon: 千世（泳装）
+      title: "千世（泳装）"
+    - icon: 满
+      title: "满"
+    - icon: 月咏
+      title: "月咏"
+    - icon: 泉奈
+      title: "泉奈"
+    - icon: 泉奈（泳装）
+      title: "泉奈（泳装）"
+    - icon: 静子
+      title: "静子"
+    - icon: 静子（泳装）
+      title: "静子（泳装）"
+    - icon: 菲娜
+      title: "菲娜"
+    - icon: 椿
+      title: "椿"
+    - icon: 三森
+      title: "三森"
+    - icon: 三森（泳装）
+      title: "三森（泳装）"
+    - icon: 枫
+      title: "枫"
+    - icon: 南
+      title: "南"
+    - icon: 瑠美
+      title: "瑠美"
+    - icon: 瞬
+      title: "瞬"
+    - icon: 瞬（幼女）
+      title: "瞬（幼女）"
+    - icon: 心奈
+      title: "心奈"
+    - icon: 纱绫
+      title: "纱绫"
+    - icon: 纱绫（私服）
+      title: "纱绫（私服）"
+    - icon: 切里诺
+      title: "切里诺"
+    - icon: 切里诺（温泉）
+      title: "切里诺（温泉）"
+    - icon: 巴
+      title: "巴"
+    - icon: 玛丽娜
+      title: "玛丽娜"
+    - icon: 和香
+      title: "和香"
+    - icon: 和香（温泉）
+      title: "和香（温泉）"
+    - icon: 时雨
+      title: "时雨"
+    - icon: 实梨
+      title: "实梨"
+    - icon: 梅露
+      title: "梅露"
+    - icon: 红叶
+      title: "红叶"
+    - icon: 康娜
+      title: "康娜"
+    - icon: 桐乃
+      title: "桐乃"
+    - icon: 吹雪
+      title: "吹雪"
+    - icon: 宫子
+      title: "宫子"
+    - icon: 宫子（泳装）
+      title: "宫子（泳装）"
+    - icon: 咲
+      title: "咲"
+    - icon: 咲（泳装）
+      title: "咲（泳装）"
+    - icon: 萌绘
+      title: "萌绘"
+    - icon: 美游
+      title: "美游"
+    - icon: 美游（泳装）
+      title: "美游（泳装）"
+    - icon: 初音未来（联动）
+      title: "初音未来（联动）"
