@@ -11,7 +11,7 @@ export class list extends plugin {
             priority: 500,
             rule: [
                 {
-                    reg: "^/学生列表$",
+                    reg: "^#?学生列表$",
                     fnc: "list",
                 },
             ],
