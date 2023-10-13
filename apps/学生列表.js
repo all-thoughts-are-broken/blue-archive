@@ -9,10 +9,6 @@ export class example extends plugin {
         priority: 5000,
         rule: [
           {
-            reg: '^#学生列表$',
-            fnc: 'student_list',
-          },
-          {
             reg: '^#(npc|NPC)列表$',
             fnc: 'npc_list',
           },
@@ -31,11 +27,7 @@ export class example extends plugin {
         ],
       });
     }
-    async student_list (e){   
-        let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/student_list.png`)]
-         await e.reply(msg)
-         return true
-    }
+
     async npc_list (e){   
       let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/npc_list.png`)]
        await e.reply(msg)
