@@ -2,6 +2,7 @@
 
 ### 介绍
 碧蓝档案的攻略插件
+github停更了，去gitee吧
 ***
 ## 已实现的功能
 - [x] 学生查询角评
@@ -21,7 +22,7 @@ gitee
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
-github
+github（建议gitee）
 ```
 git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
