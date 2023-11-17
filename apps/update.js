@@ -51,7 +51,7 @@ export class update extends plugin {
 
     /** 是否需要重启 */
     if (this.isUp) {
-      await this.reply("更新完毕，正在重启云崽以应用更新")
+      await this.reply("更新完毕，正在重启机器人以应用更新")
       setTimeout(() => this.restart(), 2000)
     }
   }
