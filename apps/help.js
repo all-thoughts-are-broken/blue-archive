@@ -11,7 +11,7 @@ export class help extends plugin {
             priority: 500,
             rule: [
                 {
-                    reg: "^#*(ba|BA|Ba|阿罗娜)(插件)?(命令|帮助|菜单|help|说明|功能|指令|使用说明)$",
+                    reg: "^/*#*(ba|BA|Ba|bA)(插件)?(命令|帮助|功能|指令)$",
                     fnc: "help",
                 },
             ],
