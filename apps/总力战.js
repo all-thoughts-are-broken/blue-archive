@@ -29,9 +29,8 @@ export class zonglizhan extends plugin {
     }
 
    async help (e) {
-           let txt = ["目前共有九个总力战boss\n1.GOZ(戈兹)\n2.HOD(霍德)\n3.CHESED(眼球)\n4.BINAH(大蛇)\n5. KAITEN FX Mk.0(寿司)\n6.HIERONYMUS(主教)\n7.GREGORIUS(格里高利)\n8.SHIRO & KURO(黑与白)\n9.PEROROOZILLA(鸡斯拉)\n目前就只做了格里高利和大蛇的"]
-
-           await e.reply(txt)
+let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/总力战/sourisen.png`),"目前只有大蛇和格里高利的，慢慢鸽"]
+        await e.reply(msg)
            return true
 
    }
