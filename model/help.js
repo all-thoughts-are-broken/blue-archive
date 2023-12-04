@@ -35,6 +35,7 @@ export default class Help extends base {
         return {
             ...this.screenData,
             saveId: 'help',
+            quality: 100,
             version,
             helpData
         }
