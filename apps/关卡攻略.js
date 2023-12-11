@@ -1,5 +1,4 @@
-import plugin from '../lib/plugin.js'
-import common from '../lib/common.js'
+import plugin from '../../../lib/plugins/plugin.js'
 import tools from '../lib/tools.js'
 import { rulePrefixA , rulePrefixB } from '../lib/tools.js'
 
@@ -14,7 +13,7 @@ export class example extends plugin {
                 {
                     reg: `^${rulePrefixA}-${rulePrefixB}$`,
                     fnc:'GQGL'
-                                    
+
                 }
             ]
         })
@@ -31,7 +30,6 @@ async GQGL (e) {
           zhangJie = msgArray[0] + msgArray[1]
          }
          let xxl = tools.sendpic(zhangJie, juTi)
-         let forWardmsg = common.makeForwardMsg(e, xxl, `第${zhangJie}章${juTi}攻略`) // 将此行注释，不注释也可以
-        e.reply(forWardmsg) // 然后将这个改为 e.reply(xxl) 即可不用合并转发的消息
+        e.reply(xxl)
     }
-  }    
+  }
