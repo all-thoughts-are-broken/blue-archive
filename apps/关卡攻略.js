@@ -8,7 +8,7 @@ export class example extends plugin {
         super({
             name:"关卡攻略",
             dsc:"如名字所说",
-            envent: "message",
+            event: "message",
             priority: 7000,
             rule: [
                 {
@@ -31,7 +31,7 @@ async GQGL (e) {
           zhangJie = msgArray[0] + msgArray[1]
          }
          let xxl = tools.sendpic(zhangJie, juTi)
-         let forWardmsg = common.makeForwardMsg(e, xxl, `第${zhangJie}章${juTi}攻略`)
-        e.reply(forWardmsg)
+         let forWardmsg = common.makeForwardMsg(e, xxl, `第${zhangJie}章${juTi}攻略`) // 将此行注释，不注释也可以
+        e.reply(forWardmsg) // 然后将这个改为 e.reply(xxl) 即可不用合并转发的消息
     }
   }    
