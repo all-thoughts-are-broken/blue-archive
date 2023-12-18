@@ -12,7 +12,7 @@ export class example extends plugin {
       priority: 50,
       rule: [
         {
-          reg: '^#?(ba|Ba|BA)',
+          reg: '^#?[abAB]',
           fnc: 'baimg'
         }
       ]
@@ -20,7 +20,7 @@ export class example extends plugin {
   }
 
   async baimg(e){
-    let msg = e.msg.replace(/#|B|b|A|a/g, '').trim()
+    let msg = e.msg.replace(/#|[abAB]/g, '').trim()
     let name = cfg.getID(msg)
     if (!name) return false //判断名字是否存在
     //图片路径
