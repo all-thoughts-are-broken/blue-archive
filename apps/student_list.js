@@ -18,11 +18,10 @@ export class list extends plugin {
         });
     }
 
-    async list() {
-        let data = await List.get(this.e);
-        if (!data) {
-            return;
-        }
+    async list(e) {
+        let list = new List(e)
+        let data = await list.get();
+        if (!data) return;
         let img = await this.cache(data);
         await this.reply(img);
     }

@@ -1,6 +1,5 @@
 import base from './base.js'
-import config from './index.js'
-import cfg from '../../../lib/config/config.js'
+import config from './Cfg.js'
 
 export default class Help extends base {
     constructor(e) {
@@ -8,24 +7,8 @@ export default class Help extends base {
         this.model = 'help'
     }
 
-    static async get(e) {
-        let html = new Help(e)
-        return await html.getData()
-    }
-
-    async getData() {
+    async get(e) {
         let helpData = config.getConfig('help')
-
-        let groupCfg = cfg.getGroup(this.group_id)
-
-        if (groupCfg.disable && groupCfg.disable.length) {
-            helpData.map((item) => {
-                if (groupCfg.disable.includes(item.group)) {
-                    item.disable = true
-                }
-                return item
-            })
-        }
 
         const versionData = config.getConfig('version')
 

@@ -1,25 +1,39 @@
+import fs from 'fs';
+import fetch from 'node-fetch'
+import { join } from 'path'
+import path from 'node:path'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
-import fetch from 'node-fetch'
-import fs from 'node:fs'
-import path from 'node:path'
 
-/**
- * 发送私聊消息，仅给好友发送
- * @param user_id qq号
- * @param msg 消息
+const _path = process.cwd();
+const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
+
+ /**
+ * 下载图片 如果不传入路径会保存到临时文件夹并返回图片路径
+ * @param data 传入图片链接
+ * @param path 保存路径
  */
-async function relpyPrivate(userId, msg) {
-  userId = Number(userId)
-
-  let friend = Bot.fl.get(userId)
-  if (friend) {
-    logger.mark(`发送好友消息[${friend.nickname}](${userId})`)
-    return await Bot.pickUser(userId).sendMsg(msg).catch((err) => {
-      logger.mark(err)
-    })
-  }
-}
+ async function saveImg(data, path) {
+  let buffer
+  const img = await fetch(data)
+  const arrayBuffer = await img.arrayBuffer()
+  buffer = Buffer.from(arrayBuffer)
+    try {
+      if (!path) {
+        let a;
+          if (!fs.existsSync(Tepm_path)) fs.mkdirSync(Tepm_path);
+          a = fs.readdirSync(Tepm_path).length
+        path = join(Tepm_path, `${a + 1}.png`)
+        fs.writeFileSync(path, buffer)
+        return path
+      }else{
+        fs.writeFileSync(path, buffer)
+        return '已保存'
+      }
+    } catch (error) {
+      throw error;
+    }
+  } 
 
 /**
  * 休眠函数
@@ -118,5 +132,10 @@ async function makeForwardMsg(e, msg = [], dec = '', msgsscr = false) {
 
   return forwardMsg
 }
-
-export default { sleep, relpyPrivate, downFile, makeForwardMsg }
+  
+  export { 
+    saveImg,
+    sleep, 
+    downFile, 
+    makeForwardMsg
+   };

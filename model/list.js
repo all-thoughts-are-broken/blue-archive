@@ -1,6 +1,5 @@
 import base from './base.js'
-import config from './index.js'
-import cfg from '../../../lib/config/config.js'
+import config from './Cfg.js'
 
 export default class List extends base {
     constructor(e) {
@@ -8,24 +7,8 @@ export default class List extends base {
         this.model = 'student_list'
     }
 
-    static async get(e) {
-        let html = new List(e)
-        return await html.getData()
-    }
-
-    async getData() {
+    async get(e) {
         let studentData = config.getConfig('student_list')
-
-        let groupCfg = cfg.getGroup(this.group_id)
-
-        if (groupCfg.disable && groupCfg.disable.length) {
-            studentData.map((item) => {
-                if (groupCfg.disable.includes(item.group)) {
-                    item.disable = true
-                }
-                return item
-            })
-        }
 
         return {
             ...this.screenData,

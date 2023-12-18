@@ -11,18 +11,17 @@ export class help extends plugin {
             priority: 500,
             rule: [
                 {
-                    reg: "^/*#*(ba|BA|Ba|bA)(插件)?(命令|帮助|功能|指令)$",
+                    reg: "^(/|#)*(ba|BA|Ba|bA)(插件)?(命令|帮助|功能|指令)$",
                     fnc: "help",
                 },
             ],
         });
     }
 
-    async help() {
-        let data = await Help.get(this.e);
-        if (!data) {
-            return;
-        }
+    async help(e) {
+        let help = new Help(e)
+        let data = await help.get(this.e);
+        if (!data) return;
         let img = await this.cache(data);
         await this.reply(img);
     }

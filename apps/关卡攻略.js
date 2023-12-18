@@ -1,6 +1,4 @@
-import plugin from '../../../lib/plugins/plugin.js'
-import tools from '../lib/tools.js'
-import { rulePrefixA , rulePrefixB } from '../lib/tools.js'
+import gq from '../model/GQ.js'
 
 export class example extends plugin {
     constructor() {
@@ -8,28 +6,26 @@ export class example extends plugin {
             name:"关卡攻略",
             dsc:"如名字所说",
             event: "message",
-            priority: 7000,
+            priority: 1,
             rule: [
                 {
-                    reg: `^${rulePrefixA}-${rulePrefixB}$`,
+                    reg: `^(/|#)[0-9]{1,2}-[1-5][Hh]?$`,
                     fnc:'GQGL'
-
                 }
             ]
         })
     }
 
 async GQGL (e) {
-         let msg = e.msg.replace(/\/|H|-/g, '')
-         let msgArray = msg.split('')
-         let juTi = e.msg.replace(/\//g, '').trim()
-         let zhangJie = ''
-         if (msgArray.length == 2) {
-             zhangJie = msgArray[0]
-         } else if (msgArray.length == 3) {
-          zhangJie = msgArray[0] + msgArray[1]
-         }
-         let xxl = tools.sendpic(zhangJie, juTi)
-        e.reply(xxl)
+         let zhangJie = e.msg.replace(/\/|-[1-5][Hh]?|#/g, '')
+         let juTi = e.msg
+         .replace(/\/|#/g, '')
+         .replace(/h/g, 'H')
+         .trim()
+         logger.mark("章节:",zhangJie, "关卡:",juTi)
+         let msg = await gq.getImg(zhangJie, juTi)
+        e.reply(msg)
     }
+
+    
   }
