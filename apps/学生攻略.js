@@ -23,6 +23,7 @@ export class example extends plugin {
     let msg = e.msg.replace(/#|[abAB]/g, '').trim()
     let name = cfg.getID(msg)
     if (!name) return false //判断名字是否存在
+    name = cfg.getID(name) //用id重新获取名字
     //图片路径
     let img_path = `${_path}/plugins/BlueArchive-plugin/resources/student_information/${name}.png`
     logger.mark("图片路径:",img_path)
