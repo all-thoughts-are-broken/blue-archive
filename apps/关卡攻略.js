@@ -6,7 +6,7 @@ export class example extends plugin {
             name:"关卡攻略",
             dsc:"如名字所说",
             event: "message",
-            priority: 1,
+            priority: 1000,
             rule: [
                 {
                     reg: `^(/|#)[0-9]{1,2}-[1-5][Hh]?$`,

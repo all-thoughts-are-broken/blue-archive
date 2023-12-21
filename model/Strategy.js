@@ -1,8 +1,6 @@
 import base from './base.js'
-import fetch from 'node-fetch'
-import cheerio from 'cheerio'
 import fs from 'fs';
-import { saveImg } from "./tools.js";
+import { saveImg, gethtml } from "./tools.js";
 
 export default class Strategy extends base {
     constructor (e) {
@@ -40,13 +38,8 @@ export default class Strategy extends base {
       //获取网页数据
     async getdata() {
         try {
-          const response = await fetch('https://ba.gamekee.com/155086.html');
-          if (!response.ok) {
-            throw new Error('访问失败！');
-          }
-          const res = await response.text();
-          //logger.mark(res);
-          const $ = cheerio.load(res);
+          let html_url = 'https://ba.gamekee.com/155086.html'
+          const $ = await gethtml(html_url);
           //logger.mark($);
           let arr = []
           //选择指定元素
@@ -75,7 +68,7 @@ export default class Strategy extends base {
       }
   
       //对佳代子进行单独处理
-      data['鬼方 佳世子.正月(カヨコ/Kayoko)'] = 'https://cdnimg.gamekee.com/wiki2.0/images/w_1562/h_855/829/43637/2023/11/12/90313.png'
+      data['鬼方佳世子.正月(カヨコ/Kayoko)'] = 'https://cdnimg.gamekee.com/wiki2.0/images/w_1562/h_855/829/43637/2023/11/12/90313.png'
         
         //logger.mark(data);
 

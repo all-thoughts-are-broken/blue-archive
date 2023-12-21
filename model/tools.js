@@ -4,6 +4,7 @@ import { join } from 'path'
 import path from 'node:path'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
+import cheerio from 'cheerio'
 
 const _path = process.cwd();
 const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
@@ -37,6 +38,21 @@ const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
       throw error;
     }
   } 
+
+/**
+ * 获取网页数据
+ * @param url 链接
+ */
+  async function gethtml(url) {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('访问失败！');
+      const res = await response.text();
+          //logger.mark(res);
+        const $ = cheerio.load(res);
+        return $
+  }
+
+
 
 /**
  * 休眠函数
@@ -138,6 +154,7 @@ async function makeForwardMsg(e, msg = [], dec = '', msgsscr = false) {
   
   export { 
     saveImg,
+    gethtml,
     sleep, 
     downFile, 
     makeForwardMsg
