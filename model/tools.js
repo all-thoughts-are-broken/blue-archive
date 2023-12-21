@@ -12,8 +12,9 @@ const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
  * 下载图片 如果不传入路径会保存到临时文件夹并返回图片路径
  * @param data 传入图片链接
  * @param path 保存路径
+ * @param name 文件名字，没有名字为数字
  */
- async function saveImg(data, path) {
+ async function saveImg(data, path, name) {
   let buffer
   const img = await fetch(data)
   const arrayBuffer = await img.arrayBuffer()
@@ -23,10 +24,12 @@ const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
         let a;
           if (!fs.existsSync(Tepm_path)) fs.mkdirSync(Tepm_path);
           a = fs.readdirSync(Tepm_path).length
-        path = join(Tepm_path, `${a + 1}.png`)
+          if (name) path = join(Tepm_path, `${name}.png`)
+          else path = join(Tepm_path, `${a + 1}.png`)
         fs.writeFileSync(path, buffer)
         return path
       }else{
+        if (name) path = join(path, `${name}.png`)
         fs.writeFileSync(path, buffer)
         return '已保存'
       }
