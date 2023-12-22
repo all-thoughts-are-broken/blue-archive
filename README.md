@@ -21,7 +21,7 @@ gitee
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
-github（更新可能不及时，建议gitee）
+github（更新可能不及时，建议使用gitee）
 ```
 git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
@@ -42,7 +42,7 @@ git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/
 ***
 ### 参与贡献
 - 万念断绝
-
+- QingFu231
 ## 其他 
 
 1.  [QQ群636365320](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=LQg97N8CRWVqKZvZWOQ2xXFfNGb_NBZj&authKey=HL8mS0q94JrJcjyau5e18w0kudXEpVdA069K3JDls6kLEW733HRpC%2FTawvp5LQBW&noverify=0&group_code=636365320
