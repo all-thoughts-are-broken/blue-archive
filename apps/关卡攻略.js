@@ -11,7 +11,12 @@ export class example extends plugin {
                 {
                     reg: `^(/|#)[0-9]{1,2}-[1-5][Hh]?$`,
                     fnc:'GQGL'
-                }
+                },
+                {
+                    reg: `^(/|#)视频[0-9]{1,2}-[1-5][Hh]?$`,
+                    fnc:'video'
+                },
+
             ]
         })
     }
@@ -26,6 +31,19 @@ async GQGL (e) {
          let msg = await gq.getImg(zhangJie, juTi)
         e.reply(msg)
     }
+
+    async video (e) {
+        e.msg = e.msg
+        .replace(/\/|#|视频/g, '')
+        .replace(/h/g, 'H')
+        .trim()
+        logger.mark("关卡:",e.msg)
+        let path = await gq.getvideo(e.msg)
+        if (!path) return this.GQGL(e)  //没找到视频尝试找图片
+        //if (!path) return e.reply('没找到视频呢~尝试下找图片吧')
+        e.reply(segment.video(path))
+
+   }
 
     
   }

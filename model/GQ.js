@@ -8,7 +8,7 @@ const _path = process.cwd();
  * 发送关卡攻略
  * @param zhangJie 第某章
  * @param juTi 具体文件夹，如1-1
- * @param n 作者
+ * @param n 作者 1.嘉信 2.皮皮 3.hehedi 4.番茄酱怒炒西红柿   优先级按顺序
  */
 async function getImg(zhangJie, juTi, n = 0) {
     if (n < 0 || n > 2) return '啊嘞？没找到攻略呢'
@@ -26,9 +26,9 @@ async function getImg(zhangJie, juTi, n = 0) {
         //本地没找到就请求网页下载
         logger.mark(`未读取到文件`);
         logger.mark(`开始下载`);
-        let data = await getdata(n)
-        data = data[juTi]
-        logger.mark(`data`,data);
+        let data = await getdata(n, juTi)
+        //data = data[juTi]
+        //logger.mark(`data`,data);
         if (data) {
           if (!fs.existsSync(Path)) fs.mkdirSync(Path, { recursive: true });  //检查路径
             for (let i = 0; i < data.length; i++) {  //循环保存图片
@@ -42,20 +42,39 @@ async function getImg(zhangJie, juTi, n = 0) {
           }
         }
       }catch (err) {
-        logger.mark(`获取关卡攻略出错：${err}`);
-        return `获取关卡攻略出错：${err}`
+        msgs = `获取关卡攻略出错：${err}`
+        throw err
       }
     return msgs;
   }
 
+  async function getvideo(msg) {
+    let data = await getdata(3, msg)
+    if (data) {
+      //暂时不独立保存每个视频 先咕咕咕。。。
+      let path ='./plugins/BlueArchive-plugin/resources/video/video.mp4'
+      let res = await fetch(data, {
+        headers: {
+            'referer': 'https://www.bilibili.com/',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
+        }
+    })
+    res = await res.buffer()
+    fs.writeFileSync(path, res)
+    return path
+    }else{
+      return ''
+    }
+  }
+
+  /*
   async function getdata(n) {
     let uid
     if (n == 0) uid = 425613 //嘉信 425613
     else if (n == 1) uid = 287349  //皮皮 287349
     else if (n == 2) uid = 383528 //hehedi 383528
-    let url = `https://ba.gamekee.com/v1/user/contentList?uid=${uid}`
 
-     let res = await getres(url)
+     let res = await getres(uid)
      let data = {};
      let page_total = res.meta.pagination.page_total
      //logger.mark(res);
@@ -68,7 +87,7 @@ async function getImg(zhangJie, juTi, n = 0) {
           data[title] = urls.split(',')  //存对象
           //如果少于2张图片就到详情页面去获取
           if (data[title].length < 2) {
-            const $ = await gethtml(`https://ba.gamekee.com/${res.data[i].id}.html`) //请求网页
+            const $ = await gethtml(`https://ba.gamekee.com/${res.data[i].id}.html`) //请求详情页面
             const boldSpans = $('img[loading="lazy"][data-width][data-height][data-real]');  //选择图片元素
             let urls1 = []
             boldSpans.each((index, element) => {
@@ -80,13 +99,70 @@ async function getImg(zhangJie, juTi, n = 0) {
 
       }
       if (i+1 == page_total) break
-      res = await getres(`${url}&page_no=${i+2}`)  //获取下一页数据
+      res = await getres(uid, i+2)  //获取下一页数据
     }
       logger.mark('作者:', res.data[0].user.username, 'uid:',res.data[0].user.uid, '获取数量:', Object.keys(data).length, '页码总数:',page_total);
       return data
+  }*/
+
+/**
+ * 搜索对应作者的攻略，返回url
+ * @param n 作者 1.嘉信 2.皮皮 3.hehedi 4.番茄酱怒炒西红柿   优先级按顺序  
+ * @param barrier 关卡
+ */
+  async function getdata(n, barrier) {
+    let uid
+    if (n == 0) uid = 425613        //嘉信 425613
+    else if (n == 1) uid = 287349   //皮皮 287349
+    else if (n == 2) uid = 383528   //hehedi 383528
+    else if (n == 3) uid = 178843   //视频攻略 番茄酱怒炒西红柿 178843
+
+     let res = await getres(uid)
+     let page_total = res.meta.pagination.page_total
+     //logger.mark(res);
+      for (let i = 0; i < page_total; i++) {
+        for (let i = 0; i < res.data.length; i++) {
+          let title = res.data[i].title.replace(/ard|\（.*\）|\(.*\)/g, '')
+          if (title.match(/[Hh]/)) title = title.replace(/[Hh]/g, '') + 'H'  //将h统一在后面
+          if (!title.includes(barrier)) continue 
+            const $ = await gethtml(`https://ba.gamekee.com/${res.data[i].id}.html`) //请求详情页面
+            let Element = $('.uploadVideoImg');  //选择视频元素
+            let urls = []
+            if (Element.length) {
+              let data = Element.attr('data-url')
+              //logger.mark(data)
+              let avid = data.match(/aid=([0-9]{9})/)[1]
+              let cid = data.match(/cid=([0-9]{10})/)[1]
+              let url = `https://api.bilibili.com/x/player/playurl?avid=${avid}&cid=${cid}&qn=16&type=mp4&platform=html5`
+              let response = await fetch(url);
+              let res2 = await response.json();
+              urls = res2.data.durl[0].url
+            }else{
+              Element = $('img[loading="lazy"][data-width][data-height][data-real]');  //选择图片元素
+              Element.each((index, element) => {
+                let url = $(element).attr('data-real').replace(/\/\//g, 'https://') //图片链接
+                urls.push(url); 
+              });
+            }
+            logger.mark('作者:', res.data[0].user.username, 'uid:',res.data[0].user.uid, '获取链接:', [urls], '页码总数:',page_total);
+            return urls
+      }
+      if (i+1 == page_total) break
+      res = await getres(uid, i+2)  //获取下一页数据
+    }
+      return ''
   }
 
-  async function getres(url) {
+
+
+  /**
+ * 获取个人主页数据
+ * @param uid 作者uid
+ * @param page_no 页码
+ */
+  async function getres(uid, page_no) {
+    let url = `https://ba.gamekee.com/v1/user/contentList?uid=${uid}`
+    if (page_no) url = url + `&page_no=${page_no}`
     //logger.mark('url',url);
     let res = await fetch(url, {
       "headers": {
@@ -106,5 +182,6 @@ async function getImg(zhangJie, juTi, n = 0) {
   
   export default { 
     getImg,
+    getvideo,
     getdata
    };
