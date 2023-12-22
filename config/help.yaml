@@ -1,0 +1,76 @@
+- group: 查询功能
+  list:
+    - icon: weihua
+      title: "#ba未花"
+      desc: 查看未花的角评攻略
+    - icon: abiduosi
+      title: "#ba星野"
+      desc: 查看星野的角评
+    - icon: geheina
+      title: "#ba日奈"
+      desc: 查看日奈的角评
+    - icon: qianxi
+      title: "#ba优香"
+      desc: 查看优香的角评
+    - icon: shengsanyi
+      title: "#ba响"
+      desc: 查看响的角评
+    - icon: aliusi
+      title: "#ba纱织"
+      desc: 查看纱织的角评
+    - icon: waerjili
+      title: "#ba吹雪"
+      desc: 查看吹雪的角评
+    - icon: baigui
+      title: "#ba小狐狸"
+      desc: 查看泉奈的角评
+    - icon: shanhaijing
+      title: "#ba教官"
+      desc: 查看瞬的角评
+    - icon: srt
+      title: "#总力战帮助"
+      desc: 有关总力战的说明
+    - icon: qipao
+      title: "/1-1"
+      desc: 查看1-1的关卡攻略
+    - icon: quannai
+      title: "/1-1H"
+      desc: 查看1-1hard的关卡攻略
+    - icon: qqq
+      title: "BA，启动"
+      desc: 嘿嘿嘿
+    - icon: chahui
+      title: "#BA活动日历"
+      desc: 看看wiki上的活动日历
+    - icon: xialai
+      title: "#学生列表"
+      desc: 查看目前实装的学生
+    - icon: teyixianxiang
+      title: "#npc列表"
+      desc: 查看NPC
+    - icon: xinnai
+      title: "#wk日奈"
+      desc: 查看wiki上的攻略
+    - icon: yantaohui
+      title: "#往期活动"
+      desc: 查看日服往期活动
+    - icon: wanmo
+      title: "#光环一览"
+      desc: 查看所有的光环
+    - icon: yilvbo
+      title: "#学生社团分布图"
+      desc: 这就不用描述了吧
+    - icon: fengji
+      title: "#未来视"
+      desc: 国际服未来视
+- group: 其他功能
+  list:
+    - icon: xueshenghui
+      title: "凑对称"
+      desc: "氵"
+    - icon: xueshenghui
+      title: "#BA插件更新"
+      desc: "更新"
+    - icon: xueshenghui
+      title: "凑对称"
+      desc: "氵"
