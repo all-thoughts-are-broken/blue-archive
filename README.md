@@ -17,7 +17,7 @@ github更新不及时，建议去gitee
 ## 安装教程
 
 ###  第一步：下载插件
-#### 打开终端，输入并运行以下命令
+#### 在Yunzai根目录打开终端，输入并运行以下命令
 gitee  
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
