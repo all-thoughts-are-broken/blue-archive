@@ -1,5 +1,7 @@
 import gq from '../model/GQ.js'
 
+let state = false //更新状态
+
 export class example extends plugin {
     constructor() {
         super({
@@ -9,27 +11,35 @@ export class example extends plugin {
             priority: 1000,
             rule: [
                 {
-                    reg: `^(/|#)[0-9]{1,2}-[1-5][Hh]?$`,
+                    reg: `^(/|#)(更新)?[0-9]{1,2}-[1-5][Hh]?$`,
                     fnc:'GQGL'
                 },
                 {
                     reg: `^(/|#)视频[0-9]{1,2}-[1-5][Hh]?$`,
                     fnc:'video'
                 },
-
+                {
+                    reg: `^(/|#)?更新(全部)?([0-9]{1,2})?(关卡|章节|章)(攻略)?$`,
+                    fnc:'update'
+                },
             ]
         })
     }
 
 async GQGL (e) {
-         let zhangJie = e.msg.replace(/\/|-[1-5][Hh]?|#/g, '')
+         let zhangJie = e.msg.replace(/\/|-[1-5][Hh]?|#|更新/g, '')
+         let msg
          let juTi = e.msg
-         .replace(/\/|#/g, '')
+         .replace(/\/|#|更新/g, '')
          .replace(/h/g, 'H')
          .trim()
          logger.mark("章节:",zhangJie, "关卡:",juTi)
-         let msg = await gq.getImg(zhangJie, juTi)
-        e.reply(msg)
+         if (e.msg.match(/更新/))
+            msg = await gq.upimg(zhangJie, juTi)
+        else
+            msg = await gq.getImg(zhangJie, juTi)
+
+        return e.reply(msg)
     }
 
     async video (e) {
@@ -41,8 +51,23 @@ async GQGL (e) {
         let path = await gq.getvideo(e.msg)
         if (!path) return this.GQGL(e)  //没找到视频尝试找图片
         //if (!path) return e.reply('没找到视频呢~尝试下找图片吧')
-        e.reply(segment.video(path))
+        return e.reply(segment.video(path))
 
+   }
+
+   async update (e) {
+    if (state) return e.reply('正在更新中...')
+    let n = Number(e.msg.match(/[0-9]{1,2}/))
+    let msg
+    logger.mark("章节:",n)
+    if (!n) msg = '全部'
+    else msg = `${n}章`
+    msg = `开始更新${msg}关卡攻略...`
+    state = true
+    e.reply(msg)
+    mag = await gq.update(n)
+    state = false
+    return e.reply(mag)
    }
 
     

@@ -11,8 +11,7 @@ const _path = process.cwd();
  * @param n 作者 1.嘉信 2.皮皮 3.hehedi 4.番茄酱怒炒西红柿   优先级按顺序
  */
 async function getImg(zhangJie, juTi, n = 0) {
-    if (n < 0 || n > 2) return '啊嘞？没找到攻略呢'
-    let msgs = [`这是第${zhangJie}章${juTi}攻略`];
+    let msgs = [`这是第${zhangJie}章${juTi}攻略~`];
     const Path = _path + `/plugins/BlueArchive-plugin/resources/关卡攻略/${zhangJie}章/${juTi}`;
     let files;
       try {
@@ -25,21 +24,9 @@ async function getImg(zhangJie, juTi, n = 0) {
       }else{
         //本地没找到就请求网页下载
         logger.mark(`未读取到文件`);
-        logger.mark(`开始下载`);
-        let data = await getdata(n, juTi)
-        //data = data[juTi]
-        //logger.mark(`data`,data);
-        if (data) {
-          if (!fs.existsSync(Path)) fs.mkdirSync(Path, { recursive: true });  //检查路径
-            for (let i = 0; i < data.length; i++) {  //循环保存图片
-              let save = await saveImg(data[i], `${Path}/${i+1}.png`)
-              if (save) msgs.push(segment.image(`file:///${Path}/${i+1}.png`))
-              else msgs.push('图片下载失败')
-            }
-          }else{
-            n = n + 1 //没有找到想要数据，换个作者
-            msgs = await getImg(zhangJie, juTi, n)
-          }
+        let msg = await upimg(zhangJie, juTi, n)
+        if (!msg == '啊嘞？没找到攻略呢') msgs.push(msg)
+        else msgs = msg
         }
       }catch (err) {
         msgs = `获取关卡攻略出错：${err}`
@@ -65,6 +52,71 @@ async function getImg(zhangJie, juTi, n = 0) {
     }else{
       return ''
     }
+  }
+
+  async function update(n) {
+    let a = 1  //章节起始值
+    let a2 = 1  //困难章节起始值
+    let c = 50 //章节最大值
+    let fail = 0  //失败次数
+    if (n) {
+      c = n
+      a = n
+      a2 = n
+    }
+
+    logger.mark('开始更新普通关卡');
+    for (a ; a <= c; a++) {
+      if (fail == 2) 
+      break
+      for (let b = 1; b <= 5; b++) {
+        if (fail == 2) 
+        break
+        let gq = `${a}-${b}`
+        let msg = await upimg(a, gq)
+        if (msg == '啊嘞？没找到攻略呢')
+        fail += 1
+      }
+    }
+    logger.mark('fail', fail)
+    fail = 0
+    logger.mark('开始更新困难关卡')
+    for (a2 ; a2 <= c; a2++) {
+      if (fail == 2) 
+      break
+      for (let b = 1; b <= 3; b++) {
+        if (fail == 2) 
+        break
+        let gq = `${a2}-${b}H`
+        let msg = await upimg(a2, gq)
+        if (msg == '啊嘞？没找到攻略呢')
+        fail += 1
+      }
+    }
+    logger.mark('fail', fail)
+    fail = 0
+    return '更新完成！'
+  }
+
+  async function upimg(zhangJie, juTi, n = 0) {
+    if (n < 0 || n > 2) return '啊嘞？没找到攻略呢'
+    const Path = _path + `/plugins/BlueArchive-plugin/resources/关卡攻略/${zhangJie}章/${juTi}`
+    let msg = []
+    logger.mark(`开始下载`, juTi);
+    let data = await getdata(n, juTi)
+    if (data.length != 0) {
+      if (fs.existsSync(Path)) fs.rmdirSync(Path, { recursive: true });  //文件夹存在就删除，不存在就创建
+      if (!fs.existsSync(Path)) fs.mkdirSync(Path, { recursive: true });  
+        for (let i = 0; i < data.length; i++) {  //循环保存图片
+          let save = await saveImg(data[i], `${Path}/${i+1}.png`)
+          if (save) msg.push(segment.image(`file:///${Path}/${i+1}.png`))
+          else msg.push('图片下载失败')
+        }
+      }else{
+        n = n + 1 //没有找到想要数据，换个作者
+        msg = await upimg(zhangJie, juTi, n)
+      }
+      return msg
   }
 
   /*
@@ -183,5 +235,7 @@ async function getImg(zhangJie, juTi, n = 0) {
   export default { 
     getImg,
     getvideo,
+    update,
+    upimg,
     getdata
    };

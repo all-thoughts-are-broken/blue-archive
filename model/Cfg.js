@@ -3,6 +3,9 @@ import _ from 'lodash'
 import YAML from 'yaml'
 import chokidar from 'chokidar'
 
+const path = `./plugins/BlueArchive-plugin/resources/student_information/` //学生攻略路径
+const types = /泳装|私服|温泉|正月|骑行|应援|幼女|运动|体操|圣诞/  //角色类型
+
 class baCfg {
   constructor () {
     // 配置文件
@@ -49,18 +52,24 @@ class baCfg {
     return `${this.configPath}${name}.yaml`
   }
 
-  /**
-   * 听配置文件
-   * @param file
-   * @param name
-   */
-  watch (file, name) {
-    const watcher = chokidar.watch(file)
 
-    watcher.on('change', (path) => {
-      delete
-      logger.mark(`[修改配置文件][${name}]`)
+  /** 监听配置文件 */
+  watch (file, name, type = "config") {
+    let key = `${type}.${name}`
+
+    if (this.watcher[key]) return
+
+    const watcher = chokidar.watch(file)
+    watcher.on("change", path => {
+      delete this.config[key]
+      if (typeof Bot == "undefined") return
+      logger.mark(logger.yellow(`[修改ba配置文件][${type}][${name}]`))
+      if (this[`change_${name}`]) {
+        this[`change_${name}`]()
+      }
     })
+
+    this.watcher[key] = watcher
   }
 
   /**
@@ -80,13 +89,30 @@ class baCfg {
 
   /**直接cv大佬的代码
    * 获取角色id
-   * @param keyword id或名字
+   * @param keyword id或名字 'list'返回列表
    */
   getID(keyword) {
     if (!keyword) return false
     let nameID = ''
     //读取本地文件
-    let roleId = this.getYaml('role', 'resources')
+    let roleId = this.getYaml('role', 'config')
+    //返回列表
+    /*
+    if (keyword == 'list') {
+      let data = {}
+      for (let key in roleId) {
+        let key2 = roleId[key][0]
+        data[key2] = key
+      }
+      return data
+    }*/
+    if (keyword == 'list') {
+      nameID = new Map()
+      for (let key in roleId) {
+          nameID.set(roleId[key], key)
+      }
+      return nameID
+    }
     //id转角色名字
     if (!isNaN(Number(keyword))) {
         if (roleId[keyword] && roleId[keyword][0]) {
@@ -115,3 +141,4 @@ class baCfg {
 }
 
 export default new baCfg()
+export { path, types }
