@@ -46,7 +46,7 @@ export class example extends plugin {
       return e.reply(await new strategy().getimg(_name, type, file_name))
     }
 
-    let msg1 = ["你要的档案找到了~"];
+    let msg1 = [];
     //图片路径
     let img_path = `${path}${file_name}.png`
     logger.mark("图片路径:",img_path)
@@ -56,6 +56,8 @@ export class example extends plugin {
       msg1.push(await new strategy().getimg(_name, type, file_name))
     else
       msg1.push(segment.image('file:///' + img_path))
+
+    if (!msg1.includes('唔！没找到图片...')) msg1.unshift("你要的档案找到了~")
     
      return e.reply(msg1)
   }
