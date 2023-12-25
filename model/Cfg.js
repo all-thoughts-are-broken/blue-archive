@@ -7,7 +7,7 @@ const _path = process.cwd()
 const path = `${_path}/plugins/BlueArchive-plugin/resources/student_information/` //学生攻略路径
 const video_path = `${_path}/plugins/BlueArchive-plugin/resources/video/` //视频关卡攻略路径
 const gq_path = `${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/`  //关卡攻略路径
-const types = /泳装|私服|温泉|正月|骑行|应援|幼女|运动|体操|圣诞/  //角色类型
+const types = /泳装|私服|温泉|正月|骑行|自行车|应援|幼女|运动|体操|圣诞/  //角色类型
 
 class baCfg {
   constructor () {
