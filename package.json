@@ -1,0 +1,10 @@
+{
+  "name": "BlueArchive-plugin",
+  "version": "0.0.1",
+  "author": " 万念断绝",
+  "description": "蔚蓝档案",
+  "type": "module",
+  "dependencies": {
+    "cheerio": "1.0.0-rc.12"
+  }
+}

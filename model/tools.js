@@ -1,25 +1,58 @@
+import fs from 'fs';
+import fetch from 'node-fetch'
+import { join } from 'path'
+import path from 'node:path'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
-import fetch from 'node-fetch'
-import fs from 'node:fs'
-import path from 'node:path'
+import cheerio from 'cheerio'
+
+const _path = process.cwd();
+const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
+
+ /**
+ * 下载图片 如果不传入路径会保存到临时文件夹并返回图片路径
+ * @param data 传入图片链接
+ * @param path 保存路径
+ * @param name 文件名字，没有名字为数字
+ */
+ async function saveImg(data, path, name) {
+  let buffer
+  const img = await fetch(data)
+  const arrayBuffer = await img.arrayBuffer()
+  buffer = Buffer.from(arrayBuffer)
+    try {
+      if (!path) {
+        let a;
+          if (!fs.existsSync(Tepm_path)) fs.mkdirSync(Tepm_path);
+          a = fs.readdirSync(Tepm_path).length
+          if (name) path = join(Tepm_path, `${name}.png`)
+          else path = join(Tepm_path, `${a + 1}.png`)
+        fs.writeFileSync(path, buffer)
+        return path
+      }else{
+        if (name) path = join(path, `${name}.png`)
+        fs.writeFileSync(path, buffer)
+        return '已保存'
+      }
+    } catch (error) {
+      throw error;
+    }
+  } 
 
 /**
- * 发送私聊消息，仅给好友发送
- * @param user_id qq号
- * @param msg 消息
+ * 获取网页数据
+ * @param url 链接
  */
-async function relpyPrivate(userId, msg) {
-  userId = Number(userId)
-
-  let friend = Bot.fl.get(userId)
-  if (friend) {
-    logger.mark(`发送好友消息[${friend.nickname}](${userId})`)
-    return await Bot.pickUser(userId).sendMsg(msg).catch((err) => {
-      logger.mark(err)
-    })
+  async function gethtml(url) {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('访问失败！');
+      const res = await response.text();
+          //logger.mark(res);
+        const $ = cheerio.load(res);
+        return $
   }
-}
+
+
 
 /**
  * 休眠函数
@@ -118,5 +151,11 @@ async function makeForwardMsg(e, msg = [], dec = '', msgsscr = false) {
 
   return forwardMsg
 }
-
-export default { sleep, relpyPrivate, downFile, makeForwardMsg }
+  
+  export { 
+    saveImg,
+    gethtml,
+    sleep, 
+    downFile, 
+    makeForwardMsg
+   };
