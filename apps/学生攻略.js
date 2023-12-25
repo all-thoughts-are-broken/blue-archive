@@ -39,9 +39,12 @@ export class example extends plugin {
     if (type == '骑行') type = '自行车'
     if (type == '体操') type = '运动'
     if (type) _name = file_name.replace(/\(.*\)/g, '')
+    
     //更新指定学生攻略
-    if (e.msg.match(/更新/))
+    if (e.msg.match(/更新/)) {
+    if (state) return e.reply('正在更新中...请耐心等待！')
       return e.reply(await new strategy().getimg(_name, type, file_name))
+    }
 
     let msg1 = ["你要的档案找到了~"];
     //图片路径
@@ -58,6 +61,7 @@ export class example extends plugin {
   }
 
   async update(e) {
+    if (!e.isMaster) return false
     if (state) return e.reply('正在更新中...')
     state = true
     e.reply('开始更新...请耐心等待！')

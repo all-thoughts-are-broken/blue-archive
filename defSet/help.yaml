@@ -33,9 +33,15 @@
     - icon: qipao
       title: "/1-1"
       desc: 查看1-1的关卡攻略
+    - icon: qipao
+      title: "/视频1-1"
+      desc: 查看1-1的视频攻略
     - icon: quannai
       title: "/1-1H"
       desc: 查看1-1hard的关卡攻略
+    - icon: quannai
+      title: "/视频1-1H"
+      desc: 查看1-1hard的视频攻略
     - icon: qqq
       title: "BA，启动"
       desc: 嘿嘿嘿
@@ -66,11 +72,20 @@
 - group: 其他功能
   list:
     - icon: xueshenghui
-      title: "凑对称"
-      desc: "氵"
+      title: "#更新24-1"
+      desc: "更新指定关卡攻略"
+    - icon: xueshenghui
+      title: "#更新24章攻略"
+      desc: "更新指定章节关卡攻略"
+    - icon: xueshenghui
+      title: "#更新全部关卡"
+      desc: "更新关卡攻略"
+    - icon: xueshenghui
+      title: "#更新优香攻略"
+      desc: "更新指定学生攻略"
+    - icon: xueshenghui
+      title: "#更新全部学生"
+      desc: "更新学生攻略"
     - icon: xueshenghui
       title: "#BA插件更新"
       desc: "更新"
-    - icon: xueshenghui
-      title: "凑对称"
-      desc: "氵"

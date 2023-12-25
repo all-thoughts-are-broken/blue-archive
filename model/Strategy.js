@@ -61,8 +61,6 @@ export default class Strategy extends base {
             continue
             else if (type && !name2.includes(type))
             continue
-            //map.set(names, data[name2]);  //别名数组为键
-            //map.set(id, data[name2]);       //角色id为键
             map.set(names[0], data[name2]);
             break
           }
@@ -73,13 +71,12 @@ export default class Strategy extends base {
       //logger.mark('map', map) 
 
       // 将 Map 对象转换为普通对象并存为文件
-      /*
       let obj = {};
       for (let [key, value] of map) {
         obj[key] = value;
       }
       fs.writeFileSync('./plugins/BlueArchive-plugin/resources/测试用(map).json', JSON.stringify(obj), 'utf8')
-*/
+
       //保存
       for (let [file_name, url] of map) {
           logger.mark('下载:', file_name)
@@ -128,8 +125,8 @@ export default class Strategy extends base {
           logger.mark('获取数量：',Object.keys(data).length);
 
           //将获取数据保存为文件
-          //if (!fs.existsSync('./plugins/BlueArchive-plugin/resources/')) fs.mkdirSync('./plugins/BlueArchive-plugin/resources/', { recursive: true });
-          //fs.writeFileSync('./plugins/BlueArchive-plugin/resources/测试用(data).json', JSON.stringify(data), 'utf8')
+          if (!fs.existsSync('./plugins/BlueArchive-plugin/resources/')) fs.mkdirSync('./plugins/BlueArchive-plugin/resources/', { recursive: true });
+          fs.writeFileSync('./plugins/BlueArchive-plugin/resources/测试用(data).json', JSON.stringify(data), 'utf8')
 
           return data
           

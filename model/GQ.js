@@ -119,44 +119,6 @@ async function getImg(zhangJie, juTi, n = 0) {
       return msg
   }
 
-  /*
-  async function getdata(n) {
-    let uid
-    if (n == 0) uid = 425613 //嘉信 425613
-    else if (n == 1) uid = 287349  //皮皮 287349
-    else if (n == 2) uid = 383528 //hehedi 383528
-
-     let res = await getres(uid)
-     let data = {};
-     let page_total = res.meta.pagination.page_total
-     //logger.mark(res);
-      for (let i = 0; i < page_total; i++) {
-        for (let i = 0; i < res.data.length; i++) {
-          let title = res.data[i].title
-          if (!title.match(/[Hh]?\d{1,2}-\d/)) continue  //标题不匹配跳出
-          if (title.match(/[Hh]/)) title = title.replace(/[Hh]/g, '') + 'H'  //将h统一在后面
-          let urls = res.data[i].thumb.replace(/\/\//g, 'https://')
-          data[title] = urls.split(',')  //存对象
-          //如果少于2张图片就到详情页面去获取
-          if (data[title].length < 2) {
-            const $ = await gethtml(`https://ba.gamekee.com/${res.data[i].id}.html`) //请求详情页面
-            const boldSpans = $('img[loading="lazy"][data-width][data-height][data-real]');  //选择图片元素
-            let urls1 = []
-            boldSpans.each((index, element) => {
-              let img = $(element).attr('data-real').replace(/\/\//g, 'https://') //图片链接
-              urls1.push(img); 
-            });
-            data[title] = urls1  //存对象
-          }
-
-      }
-      if (i+1 == page_total) break
-      res = await getres(uid, i+2)  //获取下一页数据
-    }
-      logger.mark('作者:', res.data[0].user.username, 'uid:',res.data[0].user.uid, '获取数量:', Object.keys(data).length, '页码总数:',page_total);
-      return data
-  }*/
-
 /**
  * 搜索对应作者的攻略，返回url
  * @param n 作者 1.嘉信 2.皮皮 3.hehedi 4.番茄酱怒炒西红柿   优先级按顺序  
@@ -171,18 +133,16 @@ async function getImg(zhangJie, juTi, n = 0) {
 
      let res = await getres(uid)
      let page_total = res.meta.pagination.page_total
-     //logger.mark(res);
       for (let i = 0; i < page_total; i++) {
         for (let i = 0; i < res.data.length; i++) {
           let title = res.data[i].title.replace(/ard|\（.*\）|\(.*\)/g, '')
           if (title.match(/[Hh]/)) title = title.replace(/[Hh]/g, '') + 'H'  //将h统一在后面
-          if (!title.includes(barrier)) continue 
+          if (title != barrier) continue 
             const $ = await gethtml(`https://ba.gamekee.com/${res.data[i].id}.html`) //请求详情页面
             let Element = $('.uploadVideoImg');  //选择视频元素
             let urls = []
             if (Element.length) {
               let data = Element.attr('data-url')
-              //logger.mark(data)
               let avid = data.match(/aid=([0-9]{9})/)[1]
               let cid = data.match(/cid=([0-9]{10})/)[1]
               let url = `https://api.bilibili.com/x/player/playurl?avid=${avid}&cid=${cid}&qn=16&type=mp4&platform=html5`

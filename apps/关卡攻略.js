@@ -34,8 +34,11 @@ async GQGL (e) {
          .replace(/h/g, 'H')
          .trim()
          logger.mark("章节:",zhangJie, "关卡:",juTi)
-         if (e.msg.match(/更新/))
+         if (e.msg.match(/更新/)) {
+            if (state) 
+            return e.reply('正在更新中...请耐心等待！')
             msg = await gq.upimg(zhangJie, juTi)
+        }
         else
             msg = await gq.getImg(zhangJie, juTi)
 
@@ -49,23 +52,26 @@ async GQGL (e) {
         .trim()
         logger.mark("关卡:",e.msg)
         let path = await gq.getvideo(e.msg)
-        if (!path) return this.GQGL(e)  //没找到视频尝试找图片
+        if (!path) {
+            e.reply('没找到呢...尝试找图片攻略...')
+            return this.GQGL(e)  //没找到视频尝试找图片
+        }
         //if (!path) return e.reply('没找到视频呢~尝试下找图片吧')
         return e.reply(segment.video(path))
 
    }
 
    async update (e) {
+    if (!e.isMaster) return false
     if (state) return e.reply('正在更新中...')
     let n = Number(e.msg.match(/[0-9]{1,2}/))
     let msg
     logger.mark("章节:",n)
-    if (!n) msg = '全部'
-    else msg = `${n}章`
-    msg = `开始更新${msg}关卡攻略...`
+    if (!n) msg = `开始更新全部关卡攻略~\n时间较长请耐心等待...`
+    else msg = `开始更新${n}章关卡攻略...`
     state = true
     e.reply(msg)
-    mag = await gq.update(n)
+    let mag = await gq.update(n)
     state = false
     return e.reply(mag)
    }

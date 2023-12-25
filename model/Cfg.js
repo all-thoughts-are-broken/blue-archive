@@ -4,16 +4,44 @@ import YAML from 'yaml'
 import chokidar from 'chokidar'
 
 const path = `./plugins/BlueArchive-plugin/resources/student_information/` //学生攻略路径
+const video_path = `./plugins/BlueArchive-plugin/resources/video/` //视频关卡攻略路径
+const gq_path = `./plugins/BlueArchive-plugin/resources/关卡攻略/`  //关卡攻略路径
 const types = /泳装|私服|温泉|正月|骑行|应援|幼女|运动|体操|圣诞/  //角色类型
 
 class baCfg {
   constructor () {
+
+    /** 默认设置 */
+    this.defSetPath = "./plugins/BlueArchive-plugin/defSet/";
+    this.defSet = {};
+
     // 配置文件
     this.configPath = './plugins/BlueArchive-plugin/config/'
     this.config = {}
 
     // 监听文件
-    this.watcher = { config: {} }
+    this.watcher = { config: {} ,defSet: {}}
+
+    this.initCfg()
+  }
+
+  /** 初始化配置 */
+  initCfg () {
+    logger.mark(logger.yellow(`[BlueArchive]初始化配置中...`))
+    const configPath = this.configPath
+    const pathDef = this.defSetPath
+    const files = fs.readdirSync(pathDef).filter(file => file.endsWith(".yaml"))
+    const paths = [path, video_path, gq_path, configPath]
+    paths.forEach(path => {
+      if (!fs.existsSync(path)) {
+        fs.mkdirSync(path, { recursive: true }); // recursive选项表示创建多级路径
+        logger.mark(`${path.replace('./plugins/BlueArchive-plugin', '')} 创建成功`);
+      }
+    });
+    for (const file of files)
+      if (!fs.existsSync(`${configPath}${file}`))
+        fs.copyFileSync(`${pathDef}${file}`, `${configPath}${file}`)
+        logger.mark(logger.yellow(`[BlueArchive]初始化配置完成!`))
   }
 
   /**
@@ -23,6 +51,7 @@ class baCfg {
   getConfig (name) {
     return this.getYaml(name)
   }
+  
 
     /**
    * 获取配置yaml
@@ -141,4 +170,4 @@ class baCfg {
 }
 
 export default new baCfg()
-export { path, types }
+export { path, types, video_path }
