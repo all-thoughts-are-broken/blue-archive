@@ -21,9 +21,15 @@ gitee
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
+```
+pnpm i
+```
 github（更新可能不及时，建议使用gitee）
 ```
 git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
+```
+```
+pnpm i
 ```
 ### 第二步
 ####  重启你的只因器人
