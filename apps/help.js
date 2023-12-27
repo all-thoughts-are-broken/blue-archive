@@ -1,6 +1,4 @@
 import Help from "../model/help.js";
-import puppeteer from "../../../lib/puppeteer/puppeteer.js";
-import md5 from "md5";
 
 export class help extends plugin {
     constructor(e) {
@@ -21,25 +19,7 @@ export class help extends plugin {
     async help(e) {
         let help = new Help(e)
         let data = await help.get(this.e);
-        if (!data) return;
-        let img = await this.cache(data);
-        await this.reply(img);
+        if (!data) return '未获取到数据'
+        return e.runtime.render('BlueArchive-plugin', 'html/help/help', data)
     }
-
-    async cache(data) {
-        let tmp = md5(JSON.stringify(data));
-        if (help.helpData.md5 === tmp) {
-            return help.helpData.img;
-        }
-
-        help.helpData.img = await puppeteer.screenshot("help", data);
-        help.helpData.md5 = tmp;
-
-        return help.helpData.img;
-    }
-
-    static helpData = {
-        md5: "",
-        img: "",
-    };
 }
