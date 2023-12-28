@@ -1,7 +1,7 @@
 # **BlueArchive-plugin**
 
 ### 介绍
-Miao-Yunzai机器人的碧蓝档案的攻略插件
+Miao-Yunzai & TRSS-Yunzai 机器人的碧蓝档案的攻略插件
 ***
 ## 已实现的功能
 - [x] 学生查询角评
@@ -21,15 +21,17 @@ gitee
 ```
 git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
+安装依赖
 ```
-pnpm i
+pnpm install --filter=blue-archive-plugin
 ```
 github（更新可能不及时，建议使用gitee）
 ```
 git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
+安装依赖
 ```
-pnpm i
+pnpm install --filter=blue-archive-plugin
 ```
 ### 第二步
 ####  重启你的只因器人

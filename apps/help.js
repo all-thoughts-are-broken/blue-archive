@@ -17,9 +17,8 @@ export class help extends plugin {
     }
 
     async help(e) {
-        let help = new Help(e)
-        let data = await help.get(this.e);
-        if (!data) return '未获取到数据'
+        let data = await new Help(e).get(this.e);
+        if (!data) return e.reply('未获取到帮助数据')
         return e.runtime.render('BlueArchive-plugin', 'html/help/help', data)
     }
 }
