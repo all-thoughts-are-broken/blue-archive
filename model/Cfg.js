@@ -29,28 +29,34 @@ class baCfg {
   /** 初始化配置 */
   initCfg () {
     logger.mark(logger.yellow(`[BlueArchive]初始化配置中...`))
-    const configPath = this.configPath
-    const pathDef = this.defSetPath
-    const files = fs.readdirSync(pathDef).filter(file => file.endsWith(".yaml"))
-    const paths = [path, video_path, gq_path, configPath]
+    const files = fs.readdirSync(this.defSetPath).filter(file => file.endsWith(".yaml"))
+    const paths = [path, video_path, gq_path, this.configPath]
     paths.forEach(path => {
       if (!fs.existsSync(path)) {
         fs.mkdirSync(path, { recursive: true }); // recursive选项表示创建多级路径
-        logger.mark(`${path.replace('./plugins/BlueArchive-plugin', '')} 创建成功`);
+        logger.mark(`${path.replace(`${_path}/plugins/BlueArchive-plugin`, '')} 创建成功`);
       }
     });
     for (const file of files)
-      if (!fs.existsSync(`${configPath}${file}`))
-        fs.copyFileSync(`${pathDef}${file}`, `${configPath}${file}`)
+      if (!fs.existsSync(`${this.configPath}${file}`) && file != 'role.yaml' && file != 'version.yaml')
+        fs.copyFileSync(`${this.defSetPath}${file}`, `${this.configPath}${file}`)
         logger.mark(logger.yellow(`[BlueArchive]初始化配置完成!`))
   }
 
   /**
-   * 获取配置文件
+   * 获取用户配置文件
    * @param name
    */
   getConfig (name) {
     return this.getYaml(name)
+  }
+
+  /**
+   * 获取默认配置文件
+   * @param name
+   */
+  getdefSet (name) {
+    return this.getYaml(name, 'defSet')
   }
   
 
@@ -117,55 +123,90 @@ class baCfg {
     }
   }
 
-  /**直接cv大佬的代码
+  /**
+   * 获取消息内学生名称
+   * @param msg 判断消息
+   * @param filterMsg 过滤消息
+   * @return roleId 角色id
+   * @return name 角色名称
+   * @return alias 当前别名
+   */
+  getRole (msg, filterMsg = '') {
+    let alias = msg
+    if (filterMsg) {
+      alias = alias.replace(new RegExp(filterMsg, 'g'), '').trim()
+    }
+
+    logger.mark(alias);
+
+    let id = this.getID(alias)
+    let name = this.getID(id)
+
+    logger.mark(id);
+    logger.mark(name);
+
+    if (!id) {
+      return false
+    }
+
+    return {
+      roleId: id,
+      alias,
+      name: name
+    }
+  }
+
+  /**
    * 获取角色id
    * @param keyword id或名字 'list'返回列表
    */
   getID(keyword) {
     if (!keyword) return false
-    let nameID = ''
     //读取本地文件
-    let roleId = this.getYaml('role', 'config')
-    //返回列表
-    /*
-    if (keyword == 'list') {
-      let data = {}
-      for (let key in roleId) {
-        let key2 = roleId[key][0]
-        data[key2] = key
+    let role = this.getdefSet('role')
+    let role2 = this.getConfig('role')
+
+    //转为map对象
+      this.nameID = new Map()
+      let nameID2 = {}
+      for (let i in role) {
+        nameID2[role[i][0]] = i
+        for (let abbr of role[i]) {
+          this.nameID.set(String(abbr), i)
+        }
       }
-      return data
-    }*/
+      for (let i in role2) {
+        for (let abbr of role2[i]) {
+          this.nameID.set(String(abbr), nameID2[i])
+        }
+      }
+
+      //logger.mark(this.nameID);
+
+    //返回列表
     if (keyword == 'list') {
-      nameID = new Map()
-      for (let key in roleId) {
-          nameID.set(roleId[key], key)
+      let nameID = new Map()
+      for (let key in role) {
+          nameID.set(role[key], key)
       }
       return nameID
     }
+    
     //id转角色名字
     if (!isNaN(Number(keyword))) {
-        if (roleId[keyword] && roleId[keyword][0]) {
-            return roleId[keyword][0]
-        } else {
-            //logger.mark("本地文件无数据");
-            return ""
+      for (let [key, value] of this.nameID) {
+        if (value === keyword) {
+          return key;
         }
+      }
     }
+
     //角色名字转id
-    if (!nameID) {
-        nameID = new Map()
-        for (let i in roleId) {
-            for (let val of roleId[i]) {
-                nameID.set(val, i) //键i 值val
-            }
-        }
-    }
-    let name = nameID.get(keyword)
-    if (!name) {
+    let id = this.nameID.get(keyword)
+    if (!id) {
         //logger.mark("本地文件无数据");
     }
-    return name ? name : ""
+    return id ? id : ""
   }
 
 }

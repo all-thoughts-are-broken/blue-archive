@@ -1,6 +1,4 @@
 import List from "../model/list.js";
-import puppeteer from "../../../lib/puppeteer/puppeteer.js";
-import md5 from "md5";
 
 export class list extends plugin {
     constructor(e) {
@@ -13,33 +11,15 @@ export class list extends plugin {
                 {
                     reg: "^#?学生列表$",
                     fnc: "list",
-                },
+                }
             ],
         });
     }
 
     async list(e) {
-        let list = new List(e)
-        let data = await list.get();
-        if (!data) return;
-        let img = await this.cache(data);
-        await this.reply(img);
+        let data = await new List(e).get();
+        if (!data) return e.reply('未获取到列表数据')
+        if (!e.runtime) return e.reply('请更新到最新的喵崽 or T崽')
+        return e.runtime.render('BlueArchive-plugin', 'html/student_list/student_list', data)
     }
-
-    async cache(data) {
-        let tmp = md5(JSON.stringify(data));
-        if (list.studentData.md5 === tmp) {
-            return list.studentData.img;
-        }
-
-        list.studentData.img = await puppeteer.screenshot("list", data);
-        list.studentData.md5 = tmp;
-
-        return list.studentData.img;
-    }
-
-    static studentData = {
-        md5: "",
-        img: "",
-    };
 }

@@ -10,7 +10,7 @@ export default class Help extends base {
     async get(e) {
         let helpData = config.getConfig('help')
 
-        const versionData = config.getConfig('version')
+        const versionData = config.getdefSet('version')
 
         const version =
             (versionData && versionData.length && versionData[0].version) || '1.0.0'
