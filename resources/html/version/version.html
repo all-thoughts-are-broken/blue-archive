@@ -9,23 +9,34 @@
       href="{{pluResPath}}html/version/version.css"
     />
     <link rel="preload" href="{{resPath}}font/tttgbnumber.ttf" as="font" />
-    <link rel="preload" href="{{pluResPath}}img/bg.jpeg" as="image" />
   </head>
   <body>
     <div class="container" id="container">
-      {{each versionData item idx}}
+      <div class="logo"></div>
+      {{each changelogs item idx}}
       <div class="version-card">
-        <div class="title">{{item.update}}{{idx ? '': ' - 当前版本'}}</div>
+        <div class="title">{{item.version}}{{idx ? '': ' - 当前版本'}}</div>
         <div class="content">
-          <ul>
-            {{each item.data sub}}
-            <li>{{@sub}}</li>
-            {{/each}}
-          </ul>
+          
+            <ul class="log-ul">
+              {{each item.logs log}}
+              <li>
+                <p>{{@log.title}}</p>
+                {{if log.logs.length > 0}}
+                <ul class="sub-log-ul">
+                  {{each log.logs ls}}
+                  <li>{{@ls}}</li>
+                  {{/each}}
+                </ul>
+                {{/if}}
+              </li>
+              {{/each}}
+            </ul>
+
         </div>
       </div>
       {{/each}}
-      <div class="logo">Created By Miao-Yunzai & BlueArchive-plugin</div>
+      <div class="version">{{@versionHtml}}</div>
     </div>
   </body>
   <script type="text/javascript"></script>

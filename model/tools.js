@@ -5,9 +5,23 @@ import path from 'node:path'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
 import cheerio from 'cheerio'
+import Version from './version.js';
 
-const _path = process.cwd();
-const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
+const Tepm_path = process.cwd() + `/plugins/BlueArchive-plugin/resources/Tepm`
+
+/** 获取版本信息*/
+async function getV() {
+    let bot_version = `<span class="V">${Version.yunzai}</span>`,
+        currentVersion = `<span class="V">${Version.version}</span>`
+
+    return {
+      bot: Version.name,  //bot名字
+      bot_version: Version.yunzai,  //bot版本
+      currentVersion: Version.version,  //插件版本
+      changelogs: Version.changelogs,  //更新日志
+      versionHtml: `<span class="version">Created By ${Version.name} ${bot_version} & BlueArchive-plugin ${currentVersion}</span>`
+    }
+}
 
  /**
  * 下载图片 如果不传入路径会保存到临时文件夹并返回图片路径
@@ -41,15 +55,19 @@ const Tepm_path = _path + `/plugins/BlueArchive-plugin/resources/Tepm`
 
 /**
  * 获取网页数据
- * @param url 链接
+ * @param url
+ * @param headers
+ * @param savedata 是否将数据保存为文件
+ * @param savename 保存名字
  */
-  async function gethtml(url) {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('访问失败！');
+  async function gethtml(url, headers = {}, savedata = false, savename = 'tepm.js') {
+      const response = await fetch(url, { headers });
+      if (!response.ok) throw new Error('[BA]访问失败！');
       const res = await response.text();
-          //logger.mark(res);
-        const $ = cheerio.load(res);
-        return $
+      //logger.mark(res);
+      if (savedata) fs.writeFileSync(join(Tepm_path, savename), res, 'utf8')
+      const $ = cheerio.load(res);
+    return $
   }
 
 
@@ -153,6 +171,7 @@ async function makeForwardMsg(e, msg = [], dec = '', msgsscr = false) {
 }
   
   export { 
+    getV,
     saveImg,
     gethtml,
     sleep, 

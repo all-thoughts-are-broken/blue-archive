@@ -75,7 +75,7 @@ export default class Strategy extends base {
       for (let [key, value] of map) {
         obj[key] = value;
       }
-      fs.writeFileSync('./plugins/BlueArchive-plugin/resources/测试用(map).json', JSON.stringify(obj), 'utf8')
+      fs.writeFileSync('./plugins/BlueArchive-plugin/resources/Tepm/测试用(map).json', JSON.stringify(obj), 'utf8')
 
       //保存
       for (let [file_name, url] of map) {
@@ -125,8 +125,7 @@ export default class Strategy extends base {
           logger.mark('获取数量：',Object.keys(data).length);
 
           //将获取数据保存为文件
-          if (!fs.existsSync('./plugins/BlueArchive-plugin/resources/')) fs.mkdirSync('./plugins/BlueArchive-plugin/resources/', { recursive: true });
-          fs.writeFileSync('./plugins/BlueArchive-plugin/resources/测试用(data).json', JSON.stringify(data), 'utf8')
+          fs.writeFileSync('./plugins/BlueArchive-plugin/resources/Tepm/测试用(data).json', JSON.stringify(data), 'utf8')
 
           return data
           

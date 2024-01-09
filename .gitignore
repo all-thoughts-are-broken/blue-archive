@@ -3,5 +3,5 @@ config/
 resources/video/
 resources/student_information/
 resources/关卡攻略/
-resources/测试用(data).json
-resources/测试用(map).json
+resources/Tepm/
+apps/ba测试.js
