@@ -9,7 +9,7 @@ export class Activity extends plugin {
             priority: 1000,
             rule: [
                 {
-                    reg: "^#?[abAB]?((国|国际|日)服|全部)?(活动)?(日历)?$",
+                    reg: "^#?[abAB]?((国|国际|日)服|全部)?活动(日历)?$",
                     fnc: "Calendar",
                 }
             ],
@@ -25,6 +25,8 @@ export class Activity extends plugin {
       server = '国际服'
     else if (/日服/.test(e.msg))
       server = '日服'
+    else if (!/活动|日历/.test(e.msg))
+      return false
 
     return await new activity().activity(e, server)
 
