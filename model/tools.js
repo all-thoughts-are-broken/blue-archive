@@ -29,27 +29,32 @@ async function getV() {
  * @param path 保存路径
  * @param name 文件名字，没有名字为数字
  */
- async function saveImg(data, path, name) {
-  let buffer
-  const img = await fetch(data)
-  const arrayBuffer = await img.arrayBuffer()
-  buffer = Buffer.from(arrayBuffer)
-    try {
-      if (!path) {
+ async function saveImg(data, path, name, er = 0) {
+  try {
+    let buffer
+    let path1 = path
+    const img = await fetch(data)
+    const arrayBuffer = await img.arrayBuffer()
+    buffer = Buffer.from(arrayBuffer)
+    
+      if (!path1) {
         let a;
           if (!fs.existsSync(Tepm_path)) fs.mkdirSync(Tepm_path);
           a = fs.readdirSync(Tepm_path).length
-          if (name) path = join(Tepm_path, `${name}.png`)
-          else path = join(Tepm_path, `${a + 1}.png`)
-        fs.writeFileSync(path, buffer)
-        return path
+          if (name) path1 = join(Tepm_path, `${name}.png`)
+          else path1 = join(Tepm_path, `${a + 1}.png`)
+        fs.writeFileSync(path1, buffer)
+        return path1
       }else{
-        if (name) path = join(path, `${name}.png`)
-        fs.writeFileSync(path, buffer)
+        if (name) path1 = join(path1, `${name}.png`)
+        fs.writeFileSync(path1, buffer)
         return '已保存'
       }
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      logger.mark(err)
+      if (er > 0) throw new Error('出错，终止本次下载')
+      logger.mark(logger.yellow('出错！尝试第二次下载'))
+      await saveImg(data, path, name, er + 1)
     }
   } 
 

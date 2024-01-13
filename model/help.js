@@ -1,5 +1,6 @@
 import base from './base.js'
 import config from './Cfg.js'
+import { getV } from "./tools.js";
 
 export default class Help extends base {
     constructor(e) {
@@ -9,17 +10,12 @@ export default class Help extends base {
 
     async get(e) {
         let helpData = config.getConfig('help')
-
-        const versionData = config.getdefSet('version')
-
-        const version =
-            (versionData && versionData.length && versionData[0].version) || '1.0.0'
+        let version = await getV()
 
         return {
-            ...this.screenData,
+            ...version,
             saveId: 'help',
             quality: 100,
-            version,
             helpData
         }
     }
