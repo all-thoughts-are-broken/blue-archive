@@ -5,13 +5,15 @@ Miao-Yunzai & TRSS-Yunzai 机器人的碧蓝档案的攻略插件
 ***
 ## 已实现的功能
 - [x] 学生查询角评
-- [ ] 查询总力战BOSS（加了两个）
-- [ ] 查看live2d
 - [x] 查看光环
 - [x] 查看关卡图攻略
 - [x] 查看活动日历
 - [x] 查看学生列表
-- [x] 以后会加入上面的功能
+- [ ] 查询总力战BOSS（加了两个）
+- [ ] 查看live2d
+- [ ] 学生语音
+- [ ] 随机bgm
+- [ ] 档案标题生成
 
 ## 安装教程
 
@@ -19,7 +21,7 @@ Miao-Yunzai & TRSS-Yunzai 机器人的碧蓝档案的攻略插件
 #### 打开终端，输入并运行以下命令（看你网络任选其一，插件有点大，请耐心等待）
 gitee  
 ```
-git clone https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
+git clone --depth=1 https://gitee.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
 安装依赖
 ```
@@ -27,7 +29,7 @@ pnpm install --filter=blue-archive-plugin
 ```
 github（更新可能不及时，建议使用gitee）
 ```
-git clone https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
+git clone --depth=1 https://github.com/all-thoughts-are-broken/blue-archive.git ./plugins/BlueArchive-plugin/
 ```
 安装依赖
 ```
@@ -38,15 +40,15 @@ pnpm install --filter=blue-archive-plugin
 
 ## 使用说明
 
-1.  用#Ba帮助查看帮助
-2.  用#BA插件更新来更新
-3.  正在写
+1.  用 #ba帮助  查看帮助
+2.  用 #ba插件更新  来更新
+3.  用 #ba版本  查看更新日志
 
 
 
 
 ## 注意
-1.  不少学生别名没有添加，所以没反应就是没添加别名。后续会添加的。  
+1.  不少学生别名没有添加，没反应请使用 #设置星野别名 来添加别名。
 ***
 ### 参与贡献
 - 万念断绝

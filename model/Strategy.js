@@ -49,8 +49,19 @@ export default class Strategy extends base {
         for (let i=0; i < names.length; i++) {  //遍历所有别名
           let type = names[i].match(types); //类型
           if (Array.isArray(type)) type = type[0];
-          if (type == '骑行') type = '自行车';
-          if (type == '体操') type = '运动';
+
+          switch(type) {
+            case '骑行':
+              type = '自行车'
+              break
+            case '体操':
+              type = '运动'
+              break
+            case '新年':
+              type = '正月'
+              break
+            }
+
           let name = names[i].replace(/\(.*\)/g, '');  //名字
           //logger.mark('name', name);
           //logger.mark('type', type);
