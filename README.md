@@ -58,7 +58,6 @@ pnpm install --filter=blue-archive-plugin
 
 1.  [QQ群636365320](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=LQg97N8CRWVqKZvZWOQ2xXFfNGb_NBZj&authKey=HL8mS0q94JrJcjyau5e18w0kudXEpVdA069K3JDls6kLEW733HRpC%2FTawvp5LQBW&noverify=0&group_code=636365320
 ) :欢迎加入  
-2. 无了
 
 ## 后记
 1.   本插件借鉴了网上的不少插件
