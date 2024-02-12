@@ -2,7 +2,7 @@ import base from './base.js'
 import fs from 'fs';
 import { saveImg, gethtml } from "./tools.js";
 import cfg from './Cfg.js'
-import { path, types } from './Cfg.js'
+import { path, types, typeMap } from './Cfg.js'
 
 export default class Strategy extends base {
     constructor (e) {
@@ -24,13 +24,12 @@ export default class Strategy extends base {
         for (let key in data) {
             //logger.mark(key)
           if (key.includes(name)) {
-            if (!type && !key.match(types)) url = data[key];
-            else if (type && key.includes(type)) url = data[key];
-            else continue
-            //url = data[key]
-              logger.mark(`找到了"${key}" url "${url}"`);
+            if ((!type && !key.match(`.${types}`)) || (type && key.includes(type))) {
+              url = data[key]
+              logger.mark(`找到了"${key}" url "${url}"`)
               await saveImg(url, path, file_name)  //保存
               return segment.image(url)
+            } 
           }
         }
         return '唔！没找到图片...'
@@ -42,38 +41,21 @@ export default class Strategy extends base {
         let data = await this.getdata()
 
         let namelist = cfg.getID('list') //map对象
-
         let map = new Map()
      
       for (let [names, id] of namelist) {       //遍历map对象
         for (let i=0; i < names.length; i++) {  //遍历所有别名
-          let type = names[i].match(types); //类型
-          if (Array.isArray(type)) type = type[0];
+          let type = (names[i].match(`\((${types})\)`) || [])[1] //类型
+          let name = names[i].replace(/\(.*\)/g, '')  //名字
+          type = typeMap[type] || type
 
-          switch(type) {
-            case '骑行':
-              type = '自行车'
-              break
-            case '体操':
-              type = '运动'
-              break
-            case '新年':
-              type = '正月'
-              break
-            }
-
-          let name = names[i].replace(/\(.*\)/g, '');  //名字
-          //logger.mark('name', name);
-          //logger.mark('type', type);
           for (let name2 in data) {  //匹配名字和类型
-            if (!name2.includes(name)) 
-            continue
-            else if (!type && name2.match(types)) 
-            continue
-            else if (type && !name2.includes(type))
-            continue
-            map.set(names[0], data[name2]);
-            break
+            if (name2.includes(name)) {
+              if ((!type && !name2.match(`.${types}`)) || (type && name2.includes(type))) {
+                map.set(names[0], data[name2])
+                break
+              }
+            }
           }
           if (map.has(names[0])) break  //找到了！下一个！！
         }
@@ -99,8 +81,7 @@ export default class Strategy extends base {
       //获取网页数据
     async getdata() {
         try {
-          let html_url = 'https://ba.gamekee.com/155086.html'
-          const $ = await gethtml(html_url);
+          const $ = await gethtml('https://ba.gamekee.com/155086.html');
           //logger.mark($);
           let arr = []
           //选择指定元素

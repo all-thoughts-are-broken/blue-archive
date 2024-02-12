@@ -1,4 +1,5 @@
 import activity from '../model/activity.js'
+import { ba } from '../model/Cfg.js'
 
 export class Activity extends plugin {
     constructor() {
@@ -9,7 +10,7 @@ export class Activity extends plugin {
             priority: 1000,
             rule: [
                 {
-                    reg: "^#?[abAB]?((国|国际|日)服|全部)?活动(日历)?$",
+                    reg: ba + "?((国|国际|日)服|全部)?活动(日历)?$",
                     fnc: "Calendar",
                 }
             ],

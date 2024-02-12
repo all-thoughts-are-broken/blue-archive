@@ -1,7 +1,11 @@
 node_modules/
 config/
 resources/video/
+resources/audio/
 resources/student_information/
 resources/关卡攻略/
 resources/Tepm/
+resources/资源/
+resources/extraResources/
 apps/ba测试.js
+model/0/

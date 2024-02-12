@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}html/rank/rank.css" />
+  <link rel="preload" href="{{resPath}}font/FZLanTYJ_Cu.otf" as="font">
+</head>
+
+<body>
+  <div class="container" id="container">
+    <div class="title">{{@boss}}</div>
+    {{@infoSrc}}
+
+    <div class="dx_box">
+    <div class="dx_title">各档线分数</div>
+    <div class="dx">
+      <div class="dx_ icon" id="dx_1">{{@一档}}</div>
+      <div class="dx_ icon" id="dx_2">{{@二档}}</div>
+      <div class="dx_ icon" id="dx_3">{{@三档}}</div>
+    </div>
+  </div>
+
+  <div class="dx_box">
+    <div class="dx_title">各难度最低排名</div>
+    <div class="dx">
+      <div class="dx_2">{{@minRank.EX}}</div>
+      <div class="dx_2">{{@minRank.HC}}</div>
+      <div class="dx_2">{{@minRank.N}}</div>
+    </div>
+  </div>
+
+  <div class="rank_box">
+    <div class="bg">
+    {{each rank info}}
+    <div class="rank">{{@info}}</div>
+    {{/each}}
+  </div>
+  </div>
+
+    <div class="version">{{@versionHtml}}</div>
+  </div>
+</body>
+
+</html>

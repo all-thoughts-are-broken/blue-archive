@@ -1,6 +1,7 @@
 import moment from "moment"
 import base from './base.js'
-import { getV, gethtml } from "./tools.js";
+import { getV } from "./tools.js"
+import Api from './api.js'
 
 export default class Activity extends base {
     constructor (e) {
@@ -9,62 +10,70 @@ export default class Activity extends base {
     }
 
     async activity(e, server) {
-        let now = moment(),
-            currentYear = now.year(),
-            currentMonth = now.month() + 1,
-            currentDay = now.date(),
-            currentTime = now.format('HH:mm:ss');
+
+      let now = moment()
+      let future = moment().add(7, 'days') // 加上7天
+      let past = moment().subtract(20, 'days') // 减去20天
+      let futureTime = future.unix() // 转换为时间戳（秒级）
+      let pastTime = past.unix()
+      
+      let nowTime = now.format('X')  //当前时间戳 X返回秒级 x返回毫秒级
+
+      let api = new Api()
+      let { data } = await api.getdata('activity', {  past: pastTime, future: futureTime })
+      let info = { CN: [], INT: [], JP: [] }
+      let serverMap = { '国服': 'CN', '国际服': 'INT', '日服': 'JP' }
+
+
+      for (let elem of data) {
+        let start = moment.unix(elem.begin_at).format('YYYY年MM月DD HH:mm')
+        let end = moment.unix(elem.end_at).format('YYYY年MM月DD HH:mm')
+        let sv = serverMap[elem.pub_area]
+
+        info[sv].push({
+          server: elem.pub_area,  //服务器
+          banner: /\【.*卡池.*\】/.test(elem.title),  //是否卡池
+          title: elem.title.replace(/\【.*\】/g, ''),  //标题
+          activity_time: `${start} ~ ${end}`,   //活动时间
+          start: elem.begin_at,
+          end: elem.end_at,
+          img: elem.picture? 'https:'+elem.picture : ''  //活动图片
+        })
+      }
 
         //html数据
-        let data = {
-          day: currentYear + "年" + currentMonth + "月" + currentDay + '日',
-          time: currentTime,
+        let htmlData = {
+          day: now.format('YYYY年M月D'),
           activity: []
         }
-  
-        let activityData = await this.getdata(),
-            activity_star = false
 
             if (server == '国服') 
-              activityData = activityData.CN
+              info = info.CN
             else if (server == '国际服') 
-              activityData = activityData.INT
+              info = info.INT
             else if (server == '日服') 
-              activityData = activityData.JP
+              info = info.JP
             else
-              activityData = [
-            ...activityData.CN,
-            ...activityData.INT,
-            ...activityData.JP
+              info = [
+            ...info.CN,
+            ...info.INT,
+            ...info.JP
             ]
 
-            for (let activity of activityData) {
-              let { activity_time } = activity
-
-              let time = await this.convertTimeFormat(activity_time)  //解析时间
-
-              let { endYear, endMonth, endDay, endTime } = time.endTime
-              let { startYear, startMonth, startDay, startTime } = time.startTime
-
-              let startDate = `${startYear}-${startMonth}-${startDay} ${startTime}`
-              let endDate = `${endYear}-${endMonth}-${endDay} ${endTime}`
+            for (let act of info) {
   
-              let a = moment(startDate).format('x'),  //活动起始时间戳
-                  b = moment().format('x')  //当前时间戳
-  
-              if (b > a) activity_star = true
-              else activity_star = false
-  
+              let activity_star = false
               let date
+
+              if (nowTime >= act.start) activity_star = true
+              else activity_star = false          
+
+              if (!activity_star) date = act.start
+              else date = act.end
   
-              if (!activity_star)
-                date = startDate
-              else
-                date = endDate
-  
-              let start = moment(date),
-                  end = moment(),
-                  duration = moment.duration(start.diff(end));  //计算时间差
+              let time = moment.unix(date),
+                  diff = time.diff(now, 'seconds'),  //计算时间差
+                  duration = moment.duration(diff, 'seconds');  // 创建时间长度对象
 
               let day = duration.days(),
                   hour = duration.hours(),
@@ -95,158 +104,16 @@ export default class Activity extends base {
                 time_diff = `<span class="act${style} day">${day}</span> 天 <span class="act${style} hour">${hour}</span> 小时`
               }
   
-              data.activity.push({
+              htmlData.activity.push({
                 activity_star: activity_star,  //活动是否开始
-                day: day,  // 天
-                hour: hour,  // 小时
-                minute: minute,  // 分
-                second: second,  // 秒
                 time_diff: time_diff,  // 时间差
-                ...activity,
-                activity_time: `${startMonth}月${startDay}日\u0020${startTime}\u0020~\u0020${endMonth}月${endDay}日\u0020${endTime}`
+                ...act
               })
             }
-          
-            //logger.mark(data)
   
         return e.runtime.render('BlueArchive-plugin', 'html/activity/activity', {
           ...await getV(),
-          ...data
+          ...htmlData
         })
     }
-
-    /** 获取数据*/
-    async getdata() {
-      try {
-        const url = 'https://ba.gamekee.com/date';
-        const headers = {
-          'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
-        };
-    
-        const $ = await gethtml(url, headers, false, 'activity.html');
-  
-        // 删除碍事的元素
-      $('.header, .nav-body').remove();
-  
-      let data = {
-        CN: [],
-        INT: [],
-        JP: [],
-      }
-
-      const boldSpans = $('.c-item')
-      boldSpans.each((index, element) => {
-        let title = $(element).find('.item-title').text().trim();  
-        let time = $(element).find('.sub-title').text().trim();  
-        let img = $(element).find('img').attr('src');
-        let server = title.match(/\【(.*)\】/);
-        let banner;
-
-        if (Array.isArray(server)) server = server[1].replace(/卡池/g, '')
-        if (title.match(/卡池/)) banner = true
-        else banner = false
-  
-        let activity = {
-          server: server,  //服务器
-          banner: banner,  //是否卡池
-          title: title.replace(/\【.*\】/g, ''),  //标题
-          activity_time: time,   //活动时间
-          img: img? 'https:'+img : ''  //活动图片
-        }
-  
-        if (server == '国服') {
-          data.CN.push(activity)
-        }
-        if (server == '国际服') {
-          data.INT.push(activity)
-        }
-        if (server == '日服') {
-          data.JP.push(activity)
-        }
-      });
-  
-      //logger.mark(data)
-  
-      return data;
-    
-      } catch (error) {
-        logger.error(error);
-      }
-    }
-
-    /** 解析时间段*/
-    async convertTimeFormat(input) {
-
-      let times = input.split(' ~ '),
-          start = times[0],
-          end = times[1];
-    
-      let StartTime = await this.formatTime(start),
-          EndTime = await this.formatTime(end);
-
-      let startMonth = StartTime.month,
-          endMonth = EndTime.month,
-          currentMonth = moment().month() + 1,
-          currentYear = moment().year(),
-          startYear,
-          endYear
-
-      //判断年份
-      if (endMonth < startMonth) {
-        if (currentMonth >= startMonth) {
-          startYear = currentYear
-          endYear = currentYear + 1
-        } else {
-          startYear = currentYear - 1
-          endYear = currentYear
-        }
-      } else {
-        if (currentMonth >= startMonth && currentMonth <= endMonth) {
-          startYear = currentYear
-          endYear = currentYear
-        } else if (currentMonth < startMonth) {
-          startYear = currentYear - 1
-          endYear = currentYear
-        } else {
-          startYear = currentYear
-          endYear = currentYear + 1
-        }
-      }
-
-      let startTime = {
-            startYear: startYear,
-            startMonth: StartTime.month,
-            startDay: StartTime.day,
-            startTime: StartTime.hourMinute
-          },
-          endTime = {
-            endYear: endYear,
-            endMonth: EndTime.month,
-            endDay: EndTime.day,
-            endTime: EndTime.hourMinute
-          }
-    
-      return { startTime, endTime }
-    }
-    
-    /** 分割日期和时间*/
-    async formatTime(time) {
-      let parts = time.split(' ');
-      let monthDay = parts[0];
-      let hourMinute = parts[1];
-    
-      let { month, day } = await this.formatMonthDay(monthDay);
-    
-      return { month, day, hourMinute }
-    }
-    
-    /** 分割月日*/
-    async formatMonthDay(monthDay) {
-      let parts = monthDay.split('-');
-      let month = parseInt(parts[0], 10);
-      let day = parseInt(parts[1], 10);
-      return { month, day }
-    }
-  
-
 }

@@ -7,8 +7,17 @@ const _path = process.cwd()
 const path = `${_path}/plugins/BlueArchive-plugin/resources/student_information/` //学生攻略路径
 const video_path = `${_path}/plugins/BlueArchive-plugin/resources/video/` //视频关卡攻略路径
 const gq_path = `${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/`  //关卡攻略路径
-const Tepm_path = `${_path}/plugins/BlueArchive-plugin/resources/Tepm`
-const types = /泳装|私服|温泉|正月|新年|骑行|自行车|应援|幼女|运动|体操|圣诞|女仆|兔女郎|礼服/  //角色类型
+const Tepm_path = `${_path}/plugins/BlueArchive-plugin/resources/Tepm/`
+const audio_path = `${_path}/plugins/BlueArchive-plugin/resources/audio/`  //音频路径
+const types = `泳装|水着|私服|温泉|正月|新年|骑行|自行车|应援|幼女|运动|体操|圣诞|女仆|兔女郎|露营|野营|礼服`  //角色类型
+const typeMap = {
+  '骑行': '自行车',
+  '体操': '运动',
+  '新年': '正月',
+  '水着': '泳装',
+  '野营': '露营'
+};
+const ba = `^#?(ba|BA|Ba)`
 
 class baCfg {
   constructor () {
@@ -35,8 +44,9 @@ class baCfg {
       path, 
       video_path, 
       gq_path, 
-      this.configPath, 
-      Tepm_path
+      Tepm_path,
+      audio_path,
+      this.configPath
     ]
     paths.forEach(path => {
       if (!fs.existsSync(path)) {
@@ -91,8 +101,12 @@ class baCfg {
    * @param name
    * @returns {string}
    */
-  getFilePath (name) {
-    return `${this.configPath}${name}.yaml`
+  getFilePath (name, type = "config") {
+    if (type == 'defSet') {
+      return `${this.defSetPath}${name}.yaml`
+    } else {
+      return `${this.configPath}${name}.yaml`
+    }
   }
 
 
@@ -120,8 +134,8 @@ class baCfg {
    * @param name
    * @param data
    */
-  saveSet (name, data) {
-    let file = this.getFilePath(name)
+  saveSet (name, data, type = 'config') {
+    let file = this.getFilePath(name, type)
     if (_.isEmpty(data)) {
       fs.existsSync(file) && fs.unlinkSync(file)
     } else {
@@ -169,6 +183,7 @@ class baCfg {
    */
   getID(keyword) {
     if (!keyword) return false
+
     //读取本地文件
     let role = this.getdefSet('role')
     let role2 = this.getConfig('role')
@@ -202,21 +217,33 @@ class baCfg {
     //id转角色名字
     if (!isNaN(Number(keyword))) {
       for (let [key, value] of this.nameID) {
-        if (value === keyword) {
+        if (value == keyword) {
           return key;
         }
       }
+      return ''
     }
+    
+    keyword = keyword.replace(/（/g, '(').replace(/）/g, ')')
 
     //角色名字转id
     let id = this.nameID.get(keyword)
     if (!id) {
         //logger.mark("本地文件无数据");
     }
-    return id ? id : ""
+    return id ? id : ''
   }
 
 }
 
 export default new baCfg()
-export { path, types, video_path }
+export { 
+  _path,
+  path, 
+  types, 
+  typeMap,
+  video_path, 
+  audio_path,
+  Tepm_path,
+  ba
+ }

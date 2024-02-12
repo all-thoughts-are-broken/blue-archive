@@ -116,6 +116,29 @@ function mkdirs(dirname) {
 }
 
 /**
+ * 递归读取目录
+ * @param {*} dirPath 目录路径
+ * @returns arr
+ */
+function readDirSync(dirPath) {
+  let arr = []
+  let list = fs.readdirSync(dirPath)
+
+  list.forEach((file) => {
+    let filePath = path.join(dirPath, file)
+    let stat = fs.statSync(filePath)
+
+    if (stat && stat.isDirectory()) {
+      arr = arr.concat(readDirSync(filePath))
+    } else {
+      arr.push(filePath)
+    }
+  })
+
+  return arr
+}
+
+/**
  * 制作转发消息
  * @param e 消息事件
  * @param msg 消息数组
@@ -181,5 +204,7 @@ async function makeForwardMsg(e, msg = [], dec = '', msgsscr = false) {
     gethtml,
     sleep, 
     downFile, 
+    mkdirs,
+    readDirSync,
     makeForwardMsg
    };

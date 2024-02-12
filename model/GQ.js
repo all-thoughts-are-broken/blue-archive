@@ -1,6 +1,7 @@
-import fs from 'fs';
+import fs from 'fs'
 import fetch from 'node-fetch'
-import { saveImg, gethtml } from "./tools.js";
+import { saveImg, gethtml } from "./tools.js"
+import Api from './api.js'
 
 const _path = process.cwd();
 
