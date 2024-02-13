@@ -114,7 +114,7 @@ getUrl (type, data = {}) {
     arona_icu = {
       'User-Agent': Windows,
       'Referer': 'https://arona.icu',
-      'Authorization': `ba-token uuz:${data.token}`,
+      'Authorization': `ba-token ${data.token}`,
       'Content-Type': 'application/json'
     }
 
