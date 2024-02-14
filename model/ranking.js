@@ -58,7 +58,11 @@ createRankHTML(data) {
 
 async dx(token) {
   let res = await this.api.getdata('dx', { token })
-  let html = {}
+  let html = {
+    '三档': `<span class="dx_text">三档<br>暂无数据</span>`,
+    '二档': `<span class="dx_text">二档<br>暂无数据</span>`,
+    '一档': `<span class="dx_text">一档<br>暂无数据</span>`
+  }
   
   for (let data of res.data) {
     let rank = data.rank.toString()
@@ -66,9 +70,9 @@ async dx(token) {
     .replace(/120000/, '二档')
     .replace(/20000/, '一档')
 
-    html[rank] = `<span class="dx_text">${rank}</span>` + `<br>`
-    + `<span class="dx_text">${data.bestRankingPoint.toLocaleString()}</span>` + `<br>`
-    + `<span class="dx_text"><span class="_difficulty" id="${data.hard}">${data.hard}</span>&nbsp;${data.battleTime}</span>`
+    html[rank] = `<span class="dx_text">${rank}<br>
+    ${data.bestRankingPoint.toLocaleString()}<br>
+    <span class="_difficulty" id="${data.hard}">${data.hard}</span>&nbsp;${data.battleTime}</span>`
   }
 
   return html
