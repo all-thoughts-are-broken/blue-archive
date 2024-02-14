@@ -69,7 +69,7 @@ pnpm install --filter=blue-archive-plugin
 2.   插件里的素材来源于网上，仅供交流与学习
 3.   角评图片（还有别的图片）来自[ba.gamekee.com](https://ba.gamekee.com)
 4.   友情链接：角评图作者[夜猫咪喵喵猫](https://space.bilibili.com/425535005)的B站
-5.   一些资源及数据来源[schale.gg](https://schale.gg/)[arona.icu](https://arona.icu/)[arona.ai](https://arona.ai/)
+5.   一些资源及数据来源[schale.gg](https://schale.gg/)  [arona.icu](https://arona.icu/)  [arona.ai](https://arona.ai/)
 6.   还有不少图片来源于[bluearchive.wikiru.jp](https://bluearchive.wikiru.jp/)
 7.   严禁用于任何商业用途和非法行为
 
