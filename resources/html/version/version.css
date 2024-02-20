@@ -1,0 +1,96 @@
+@font-face {
+  font-family: "";
+  src: url("../../../font/.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+body {
+  font-size: 16px;
+  font-family: "tttgbnumber";
+  transform: scale(1.5);
+  transform-origin: 0 0;
+  color: white;
+}
+.container {
+  width: 536px;
+  background-image: url(./items/bg.png);
+  background-size: 100%;
+  padding: 10px 0 10px 0;
+}
+.logo {
+  height: 80px;
+  background: url(./items/pll.png) no-repeat, url(./items/logo.png) no-repeat;
+  background-position: bottom 10px right 15px, center;
+  background-size: 50px 50px, 80%;
+  margin: 0px 20px 10px;
+}
+.version-card {
+  box-sizing: border-box;
+  border-image: url(./items/1.png) round;
+  border-image-slice: 13% 0 8% 0 fill;
+  border-top: 50px solid;
+  border-bottom: 40px solid;
+  margin: 5px 5px 5px 12px;
+  position: relative;
+  /*overflow: hidden;*/
+}
+.version-card .title {
+  position: absolute;
+  top: -28px;
+  color: rgb(97, 97, 97);
+  font-family: Number, YS;
+  text-align: left;
+  font-size: 18px;
+  font-weight: bolder;
+  margin: 0px 12px;
+}
+.version-card .content {
+  top: 50px;
+  font-size: 12px;
+  /*background: rgba(38, 60, 255, 0.5);*/
+  color: rgba(97, 97, 97, 0.9);
+  font-family: "HYWenHei-55W";
+  font-weight: normal;
+  margin: 10px 20px 0px;
+}
+.version-card ul {
+  font-weight: 600;
+  font-size: 14px;
+  padding-left: 20px;
+}
+.version-card ul li {
+  margin: 3px 0;
+}
+.version-card .cmd {
+  color: #d3bc8e;
+  display: inline-block;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0 3px;
+  margin: 1px 2px;
+}
+.version-card .strong {
+  color: #24d5cd;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 0 3px;
+  margin: 1px 2px;
+}
+.version{
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  font-family: 'tttgbnumber';
+  text-shadow:2px 2px 3px #666;
+}
+.V {
+  color: #0065d8;
+}
