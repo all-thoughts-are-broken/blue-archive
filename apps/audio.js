@@ -7,7 +7,7 @@ export class Audio extends plugin {
             name: "BA音频",
             dsc: "bgm",
             event: "message",
-            priority: 1000,
+            priority: 100,
             rule: [
             {
               reg: `^(#ba|#BA|#Ba)?(随机)?bgm(.*)?$`,

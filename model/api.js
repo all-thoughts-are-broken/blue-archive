@@ -86,7 +86,7 @@ async cache (res, cacheKey) {
 }
 
 getUrl (type, data = {}) {
-  let urlMap = this.apiTool.getUrlMap(type, data)
+  let urlMap = this.apiTool.getUrlMap(data)
   if (!urlMap[type]) return false
 
   let { url, query = '', body = '' } = urlMap[type]
