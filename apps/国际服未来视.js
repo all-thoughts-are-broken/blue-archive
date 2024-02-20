@@ -23,10 +23,10 @@ export class lookFuture extends plugin {
 
    async seeFuture (e) {
          let msgs = [
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/未来视/extraResources/01.jpg`),
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/未来视/extraResources/02.png`),
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/未来视/extraResources/03.png`),
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/未来视/extraResources/04.png`),
+             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/01.jpg`),
+             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/02.png`),
+             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/03.png`),
+             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/04.png`),
              "以上攻略来自https://ba.gamekee.com/150045.html"
 
                      ]

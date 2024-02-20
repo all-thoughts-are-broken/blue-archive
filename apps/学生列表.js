@@ -34,27 +34,27 @@ export class student_list extends plugin {
     }
 
     async npc_list (e){   
-      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/extraResources/npc_list.png`)]
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/npc_list.png`)]
        await e.reply(msg)
        return true
     }
     async old_envent (e){   
-      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/extraResources/old_envent.png`)]
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/old_envent.png`)]
        await e.reply(msg)
        return true
     }
     async halo_list (e){   
       let msg = ["图片有点大哦",
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/extraResources/halo_11.png`),
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/extraResources/halo_12.png`),
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/extraResources/halo_2.png`),
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/extraResources/halo_3.png`)
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_11.png`),
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_12.png`),
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_2.png`),
+      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_3.png`)
     ]
        await e.reply(msg)
        return true
     }
     async all_student (e){   
-      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/list/extraResources/all_student.jpg`)]
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/all_student.jpg`)]
        await e.reply(msg)
        return true
     }
