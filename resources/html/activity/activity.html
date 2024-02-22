@@ -9,60 +9,51 @@
 </head>
 
 <body>
-  <div class="container" id="container">
+  <div class="bg">
+
     <div class="top_box">
-      <div class="title_box">
-        <div class="title">
-          <div class="id">
-            <p>老师！这是最近的活动~</p>
-          </div>
-          <div class="day">
-            <p><br>今天是{{day}}哦~</p>
+      <div class="arona">
+        <div class="message_box">
+          <span class="text" id="text">老师！这是最近的活动~</span>
+          <span class="text" id="day">今天是{{day}}哦~</span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="arona"></div>
-</div>
-  <div class="box">
-    {{each activity data}}
+
+    <div class="item_box">
+      
+      {{each activity data}}
     <div class="item">
       <div class="top">
-        {{if data.server=='国际服'}}
-        <div class="top_left" style="background-color: rgb(211, 52, 52)"><p>{{data.server}}</p></div>
-        {{else}}
-        {{if data.server=='日服'}}
-        <div class="top_left" style="background-color: rgb(204, 129, 16)"><p>{{data.server}}</p></div>
-        {{else}}
-        <div class="top_left"><p>{{data.server}}</p></div>
-        {{/if}}
-        {{/if}}
-        <div class="top_right"><p>{{data.title}}</p></div>
+        <span class="server" id="{{data.serverID}}">{{data.server}}</span>
+        <span class="title" id="title">&nbsp;&nbsp;{{data.title}}</span>
       </div>
        <hr class="solid">
         <div class="bottom">
           {{if data.img==''}}
           {{else}}
           {{if data.banner}}
-          <div class="img img2" style="background-image: url({{data.img}})"></div>
-         <div class="img img3" style="background-image: url({{data.img}})"></div>
+          <div class="img" id="img2" style="background-image: url({{data.img}})"></div>
+         <div class="img" id="img3" style="background-image: url({{data.img}})"></div>
          {{else}}
-         <div class="img img1" style="background-image: url({{data.img}})"></div>
+         <div class="img" id="img1" style="background-image: url({{data.img}})"></div>
          {{/if}}
          {{/if}}
          <div class="icon_box">
           <div class="icon icon-time"></div>
           <div class="icon icon-日历"></div>
         </div>
-           <div class="text">
+           <div class="info">
             <div class="time">{{data.activity_time}}</div>
             <div class="time1">距离{{if data.banner}}卡池{{else}}活动{{/if}}<span style='font-weight: bolder'> {{data.activity_star?'结束':'开始'}} </span>还有 {{@data.time_diff}}</div>
         </div>
       </div>
     </div>
     {{/each}}
+
+    </div>
+    {{@versionHtml}}
   </div>
-  {{@versionHtml}}
-</div>
 </body>
 
 

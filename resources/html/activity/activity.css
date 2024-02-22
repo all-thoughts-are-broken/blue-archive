@@ -4,21 +4,25 @@
   font-weight: normal;
   font-style: normal;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
 }
+
 body {
+  display: inline-flex;
   font-size: 16px;
   font-family: "FZLanTYJ_Cu";
   transform: scale(1.5);
   transform-origin: 0 0;
   color: #1e1f20;
 }
-.container {
-  display: inline-flex;
+
+.bg {
+  display: flex;
   flex-direction: column;
   background: url(./items/顶部.png), url(./items/bg.png);
   background-position: top -8px left -8px, bottom right;
@@ -27,52 +31,56 @@ body {
   padding: 20px 20px;
   padding-top: 50px;
 }
+
 .top_box {
   position: relative;
-  height: 300px;
+  /*background: rgba(0, 255, 42, 0.534);*/
 }
-.title_box {
+
+.message_box {
+  display: inline-flex;
+  justify-content: space-around;
   position: absolute;
-  right: 160px;
-  top: 10px;
-  display: flex;
-  width: 740px;
-  /*background: rgba(58, 168, 15, 0.541);*/
+  right: 13%;
   border-image-source: url(./items/对话框.png);
-  border-image-slice: 38 80 42 28 fill;
-  border-top: 38px solid;
+  border-image-slice: 40 80 40 28 fill;
+  border-top: 40px solid;
   border-right: 80px solid;
-  border-bottom: 42px solid;
+  border-bottom: 40px solid;
   border-left: 28px solid;
+  padding-left: 40px;
+  /*background: rgba(0, 152, 253, 0.534);*/
 }
-.title {
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  margin-bottom: 9px;
+
+.text {
   color: #ffffff;
   white-space: nowrap;  /*禁止文本自动换行*/
   font-weight: bold; 
   font-size: 30px;
-  margin-left: 10px;
 }
-.title .id {
+
+#text {
   line-height: 18px;
 }
-.title .day {
-  line-height: 25px;
+
+#day {
+  line-height: 60px;
 }
+
 .arona {
   height: 316px;
-  background: url(items/Arona1.png) no-repeat 100%;
-  margin-top: -15px;
+  background: url(items/Arona1.png) no-repeat;
+  background-position: right;
+  /*background-color: rgba(255, 0, 0, 0.2);*/
 }
-.box {
+
+.item_box {
   background: rgba(0, 0, 0, 0.2);
   padding: 10px 0px;
   margin: 0px 0px 10px;
   border-radius: 10px;
 }
+
 .item {
   display: inline-flex;
   flex-direction: column;
@@ -85,80 +93,94 @@ body {
   position: relative;
   box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.6);
 }
+
 /*盒子顶部*/
 .item .top {
   display: inline-flex;
   margin: 5px 15px;
 }
-/*盒子顶部左边*/
-.item .top_left {
+
+/* 服务器 */
+.server {
   height: 30px;
-  background: rgb(59, 150, 255);
-  border-radius: 5px;
-  margin: 0px 0px;
-}
-/*盒子顶部左边文本*/
-.item .top_left p {
-  white-space: nowrap;
+  white-space: nowrap; 
   font-weight: bold; 
   font-size: 22px;
+  text-align: center;
+  line-height: 140%;
   color: rgb(255, 255, 255);
-  margin: 0px 17px 0px;
-}
-/*盒子顶部右边*/
-.item .top_right {
-  height: 25px;
-  margin: 2px 15px;
+  padding: 0px 17px 0px;
+  border-radius: 5px;
 }
 
-/*盒子顶部右边文本*/
-.item .top_right p {
+#CN {
+  background: rgb(59, 150, 255);
+}
+
+#INT {
+  background: rgb(211, 52, 52);
+}
+
+#JP {
+  background: rgb(204, 129, 16);
+}
+
+/*标题*/
+#title {
+  height: 25px;
+  line-height: 160%;
   white-space: nowrap;
   font-weight: bolder;
   font-size: 30px;
   color: rgb(51, 65, 77);
   margin: -8px 0px 0px;
 }
+
 /* 分割线 */
 .item .solid {
-	border-top: 1px solid rgb(169, 169, 177);
+	border-top: 2px solid rgb(169, 169, 177);
   border-radius: 10px;
   margin: 5px 15px;
 }
+
 /* 盒子底部 */
 .item .bottom {
   display: inline-flex;
   margin: 5px 15px;
 }
+
 .item .img {
   width: 300px;
   height: 150px;
   border-radius: 3px;
 }
-/* 盒子底部图片1 */
-.item .img1 {
+
+/* 盒子图片1 */
+#img1 {
   margin-right: 10px;
   background: url(./items/红.png) center no-repeat;
   background-size: cover;
 }
-/* 盒子底部图片卡池1 */
-.item .img2 {
+
+/* 盒子卡池图片1 */
+#img2 {
   background: url(./items/红.png) no-repeat left top;
   background-size: cover;
 }
-/* 盒子底部图片卡池2 */
-.item .img3 {
+
+/* 盒子卡池图片2 */
+#img3 {
   margin-left: 10px;
   margin-right: 10px;
   background: url(./items/红.png) no-repeat right bottom;
   background-size: cover;
 }
 
-/* 图标盒子 */
-.item .icon_box {
+.icon_box {
   display: flex;
   flex-direction: column;
 }
+
 /* 图标 */
 .item .icon {
   width: 40px;
@@ -181,33 +203,38 @@ body {
 }
 
 /*方格内顶部填充*/
-.item .text {
+.info {
   padding-top: 7px;
 }
-.item .text .time {
+
+.info .time {
   white-space: nowrap;
   font-weight: 600;
   font-size: 28px;
   line-height: 30px;
   margin: 10px 0px 18px;
 }
-.item .text .time1 {
+
+.info .time1 {
   white-space: nowrap;
   font-weight: 500;
   font-size: 28px;
   line-height: 30px;
   margin: 40px 0px 20px;
 }
+
 .time1 .act1 {
   font-size: 30px;
   color: rgb(81, 156, 243); 
   font-weight: bolder
 }
+
 .time1 .act2 {
   font-size: 30px;
   color: red; 
   font-weight: bolder
 }
+
 .version {
   height: 40px;
   white-space: nowrap;
@@ -218,6 +245,7 @@ body {
   text-shadow:3px 3px 4px #666;
   /*-webkit-text-stroke: 1px rgba(101, 181, 255, 0.836);  /*字体描边*/
 }
+
 .V {
   color: #0065d8;
   font-weight: 1000;

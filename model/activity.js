@@ -26,12 +26,13 @@ export default class Activity extends base {
 
 
       for (let elem of data) {
-        let start = moment.unix(elem.begin_at).format('YYYY年MM月DD HH:mm')
-        let end = moment.unix(elem.end_at).format('YYYY年MM月DD HH:mm')
-        let sv = serverMap[elem.pub_area]
+        let start = moment.unix(elem.begin_at).format('MM月DD HH:mm')
+        let end = moment.unix(elem.end_at).format('MM月DD HH:mm')
+        let serverID = serverMap[elem.pub_area]
 
-        info[sv].push({
+        info[serverID].push({
           server: elem.pub_area,  //服务器
+          serverID: serverID, 
           banner: /\【.*卡池.*\】/.test(elem.title),  //是否卡池
           title: elem.title.replace(/\【.*\】/g, ''),  //标题
           activity_time: `${start} ~ ${end}`,   //活动时间
@@ -43,7 +44,7 @@ export default class Activity extends base {
 
         //html数据
         let htmlData = {
-          day: now.format('YYYY年M月D'),
+          day: now.format('YYYY年M月D日'),
           activity: []
         }
 
