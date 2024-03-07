@@ -1,8 +1,8 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import common from '../../../lib/common/common.js'
+import fs from 'fs'
+
 const _path=process.cwd()
-
-
 
 
 export class lookFuture extends plugin {
@@ -18,21 +18,30 @@ export class lookFuture extends plugin {
           }
         ]
       })
+      this.path = `file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/`
+      this.filePath = `file:///` + this.path
     }
 
 
    async seeFuture (e) {
-         let msgs = [
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/01.jpg`),
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/02.png`),
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/03.png`),
-             segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/04.png`),
-             "以上攻略来自https://ba.gamekee.com/150045.html"
+    const paths = [
+      this.filePath + `04.jpg`,
+      this.filePath + `03.jpg`,
+      this.filePath + `02.jpg`,
+      this.filePath + `01.jpg`,
+    ]
+    let msg = ["以上攻略来自https://ba.gamekee.com/150045.html"]
 
-                     ]
+    for (let path of paths) {
+      if (!fs.existsSync(path)) {
+        return await e.reply('请先发送 #ba更新资源')
+      }
+      msg.unshift(segment.image(path))
+    }
 
-        let forwardMsg = await common.makeForwardMsg(e, msgs, '国际服未来视')    //制作转发的消息
-        await e.reply(forwardMsg)
+    let forwardMsg = await common.makeForwardMsg(e, msg, '国际服未来视')    //制作转发的消息
 
+     await e.reply(forwardMsg)
+     return true
    }
 }   

@@ -142,6 +142,11 @@ body {
   border: 3px solid hsl(199, 80%, 42%);
 }
 
+#H {
+  background-color: hsla(81, 65%, 55%, 0.815);
+  border: 3px solid hsl(88, 80%, 42%);
+}
+
 #N {
   background-color: hsla(59, 67%, 62%, 0.815);
   border: 3px solid hsl(59, 80%, 42%);

@@ -9,6 +9,7 @@ const video_path = `${_path}/plugins/BlueArchive-plugin/resources/video/` //视�
 const gq_path = `${_path}/plugins/BlueArchive-plugin/resources/关卡攻略/`  //关卡攻略路径
 const Tepm_path = `${_path}/plugins/BlueArchive-plugin/resources/Tepm/`
 const audio_path = `${_path}/plugins/BlueArchive-plugin/resources/audio/`  //音频路径
+const extraRes_path = `${_path}/plugins/BlueArchive-plugin/resources/extraResources/` //额外资源路径
 const types = `泳装|水着|私服|温泉|正月|新年|骑行|自行车|应援|幼女|运动|体操|圣诞|女仆|兔女郎|露营|野营|礼服`  //角色类型
 const typeMap = {
   '骑行': '自行车',
@@ -245,5 +246,6 @@ export {
   video_path, 
   audio_path,
   Tepm_path,
+  extraRes_path,
   ba
  }

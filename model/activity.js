@@ -26,8 +26,8 @@ export default class Activity extends base {
 
 
       for (let elem of data) {
-        let start = moment.unix(elem.begin_at).format('MM月DD HH:mm')
-        let end = moment.unix(elem.end_at).format('MM月DD HH:mm')
+        let start = moment.unix(elem.begin_at).format('MM月DD日 HH:mm')
+        let end = moment.unix(elem.end_at).format('MM月DD日 HH:mm')
         let serverID = serverMap[elem.pub_area]
 
         info[serverID].push({

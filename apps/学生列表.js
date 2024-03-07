@@ -1,6 +1,8 @@
 import cfg, { _path } from '../model/Cfg.js'
 import Api from '../model/api.js'
+import fs from 'fs'
 
+//先这么写着 有空再改
 export class student_list extends plugin {
     constructor() {
       super({
@@ -29,34 +31,57 @@ export class student_list extends plugin {
             reg: '^#更新学生列表$',
             fnc: 'uplist',
           },
-        ],
-      });
+        ]
+      })
+      this.path = `file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/`
+      this.filePath = `file:///` + this.path
     }
 
     async npc_list (e){   
-      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/npc_list.png`)]
+      const path = this.filePath + `npc_list.png`
+      if (!fs.existsSync(path)) {
+        return await e.reply('请先发送 #ba更新资源')
+      }
+      await e.reply([segment.image(path)])
+      return true
+    }
+
+    async old_envent (e){
+      const path = this.filePath + `old_envent.png`
+      if (!fs.existsSync(path)) {
+        return await e.reply('请先发送 #ba更新资源')
+      }
+      await e.reply([segment.image(path)])
+      return true
+    }
+
+    async halo_list (e){  
+      const paths = [
+        this.filePath + `halo_11.png`,
+        this.filePath + `halo_12.png`,
+        this.filePath + `halo_2.png`,
+        this.filePath + `halo_3.png`,
+      ]
+      let msg = ["图片有点大哦"]
+
+      for (let path of paths) {
+        if (!fs.existsSync(path)) {
+          return await e.reply('请先发送 #ba更新资源')
+        }
+        msg.push(segment.image(path))
+      }
+
        await e.reply(msg)
        return true
     }
-    async old_envent (e){   
-      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/old_envent.png`)]
-       await e.reply(msg)
-       return true
-    }
-    async halo_list (e){   
-      let msg = ["图片有点大哦",
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_11.png`),
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_12.png`),
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_2.png`),
-      segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/halo_3.png`)
-    ]
-       await e.reply(msg)
-       return true
-    }
-    async all_student (e){   
-      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/all_student.jpg`)]
-       await e.reply(msg)
-       return true
+
+    async all_student (e){ 
+      const path = this.filePath + `all_student.jpg`
+      if (!fs.existsSync(path)) {
+        return await e.reply('请先发送 #ba更新资源')
+      }
+      await e.reply([segment.image(path)])
+      return true 
     }
 
     async uplist (e){ 

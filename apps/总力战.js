@@ -1,9 +1,8 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import common from '../../../lib/common/common.js'
+import fs from 'fs'
+
 const _path=process.cwd()
-
-
-
 
 export class zonglizhan extends plugin {
     constructor() {
@@ -26,16 +25,23 @@ export class zonglizhan extends plugin {
                }
         ]
       })
+      this.path = `${_path}/plugins/BlueArchive-plugin/resources/extraResources/总力战/`
+      this.filePath = `file:///` + this.path
     }
 
    async help (e) {
-let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/sourisen.png`),"目前只有大蛇和格里高利的，慢慢鸽"]
+      if (!fs.existsSync(this.path)) {
+         return await e.reply('请先发送 #ba更新资源')
+       }
+      let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/总力战/sourisen.png`),"目前只有大蛇和格里高利的，慢慢鸽"]
         await e.reply(msg)
            return true
-
    }
 
    async guregoreo (e) {
+      if (!fs.existsSync(this.path)) {
+         return await e.reply('请先发送 #ba更新资源')
+       }
          let msgs = [
              "7个难度的属性图如下",
              segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/总力战/格里高利/normal.png`),
@@ -56,6 +62,9 @@ let msg = [segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/
    }
 
    async binah (e) {
+      if (!fs.existsSync(this.path)) {
+         return await e.reply('请先发送 #ba更新资源')
+       }
     let msgs = [
         "7个难度的属性图如下",
         segment.image(`file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/总力战/大蛇/normal.png`),

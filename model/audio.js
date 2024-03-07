@@ -1,14 +1,12 @@
 import base from './base.js'
 import { downFile, mkdirs, readDirSync } from './tools.js'
-import cfg, { audio_path } from './Cfg.js'
+import cfg, { audio_path, extraRes_path } from './Cfg.js'
 import fs from 'fs'
 import path from 'path'
 import Api from './api.js'
 import fetch from 'node-fetch'
 
-const bgmPath = process.cwd() + `/plugins/BlueArchive-plugin/resources/extraResources/audio/bgm/`
-
-mkdirs(bgmPath)
+const bgmPath = path.join(extraRes_path, `audio/bgm/`)
 
 export default class Audio extends base {
     constructor (e) {
@@ -21,13 +19,17 @@ export default class Audio extends base {
 
     async bgm(key) {
       let filename
-      let files = fs.readdirSync(bgmPath)
+      let files
+
+      if (fs.existsSync(bgmPath)) {
+        files = fs.readdirSync(bgmPath)
+      }
 
       if (!files || files == 0) {
-        await this.e.reply('未下载资源')
+        await this.e.reply('未下载资源,请先发送 #ba更新资源')
         return true
       }
-  
+
       if (/随机/.test(key)) {
         filename = files[Math.floor(Math.random() * files.length)]
       } else {

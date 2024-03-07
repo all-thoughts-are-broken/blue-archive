@@ -1,9 +1,6 @@
-import { ba } from '../model/Cfg.js'
+import { ba, extraRes_path } from '../model/Cfg.js'
 import { exec, execSync } from "child_process"
 import fs from "fs"
-
-const _path = process.cwd()
-const resPath = `${_path}/plugins/BlueArchive-plugin/resources/extraResources/`
 
 let uping = false
 
@@ -34,7 +31,7 @@ export class UpRes extends plugin {
     }
 
     let cmd = ``
-    if (fs.existsSync(`${resPath}.git`)) {
+    if (fs.existsSync(`${extraRes_path}.git`)) {
       cmd = `git pull`
       if (e.msg.includes("强制")) {
         cmd = "git checkout . && git pull"
@@ -45,7 +42,7 @@ export class UpRes extends plugin {
       uping = true
 
       exec(cmd, {
-		  	cwd: resPath
+		  	cwd: extraRes_path
 		  }, function(error, stdout, stderr) {
 		  	logger.mark(stdout)
 		  	if (/Already up to date/.test(stdout)||stdout.includes("最新")) {
@@ -68,8 +65,8 @@ export class UpRes extends plugin {
 		  	}
 		  })
     } else {
-      cmd = `git clone --depth 1 https://gitee.com/molan10406/ba_resources.git "${resPath}"`
-		  // cmd = `git clone --depth 1 https://gitee.com/molan10406/ba_resources.git "${resPath}"`
+      cmd = `git clone --depth 1 https://gitee.com/molan10406/ba_resources.git "${extraRes_path}"`
+		  // cmd = `git clone --depth 1 https://gitee.com/molan10406/ba_resources.git "${extraRes_path}"`
 		  e.reply("开始尝试拉取资源，可能会需要一段时间，请耐心等待~")
       uping = true
 		  exec(cmd, function(error, stdout, stderr) {
