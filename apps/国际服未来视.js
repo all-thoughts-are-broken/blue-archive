@@ -19,7 +19,7 @@ export class lookFuture extends plugin {
         ]
       })
       this.path = `file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/`
-      this.filePath = `file:///` + this.path
+      this.filePath = this.path
     }
 
 
