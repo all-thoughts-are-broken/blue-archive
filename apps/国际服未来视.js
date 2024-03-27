@@ -25,9 +25,9 @@ export class lookFuture extends plugin {
 
    async seeFuture (e) {
     const paths = [
-      this.filePath + `04.jpg`,
-      this.filePath + `03.jpg`,
-      this.filePath + `02.jpg`,
+      this.filePath + `04.png`,
+      this.filePath + `03.png`,
+      this.filePath + `02.png`,
       this.filePath + `01.jpg`,
     ]
     let msg = ["以上攻略来自https://ba.gamekee.com/150045.html"]
