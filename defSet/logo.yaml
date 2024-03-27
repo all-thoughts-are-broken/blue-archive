@@ -1,0 +1,10 @@
+transparentBg: true
+bgColour: white
+height: 250
+width: 200
+graphOffset:
+  X: -15
+  Y: 0
+colourL: "#128AFA"
+colourR: "#2B2B2B"
+outline: white
