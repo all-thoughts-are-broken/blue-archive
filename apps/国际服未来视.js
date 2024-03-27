@@ -18,7 +18,7 @@ export class lookFuture extends plugin {
           }
         ]
       })
-      this.path = `file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/`
+      this.path = `${_path}/plugins/BlueArchive-plugin/resources/extraResources/未来视/`
       this.filePath = this.path
     }
 
@@ -36,7 +36,7 @@ export class lookFuture extends plugin {
       if (!fs.existsSync(path)) {
         return await e.reply('请先发送 #ba更新资源')
       }
-      msg.unshift(segment.image(path))
+      msg.unshift(segment.image(`file:///${path}`))
     }
 
     let forwardMsg = await common.makeForwardMsg(e, msg, '国际服未来视')    //制作转发的消息
