@@ -1,8 +1,9 @@
-import cfg, { _path } from '../model/Cfg.js'
+import Cfg, { _path, ba, searchList } from '../model/Cfg.js'
 import Api from '../model/api.js'
 import fs from 'fs'
+import Strategy from '../model/Strategy.js'
+import StudentList from "../model/StudentList.js"
 
-//先这么写着 有空再改
 export class student_list extends plugin {
     constructor() {
       super({
@@ -11,6 +12,10 @@ export class student_list extends plugin {
         event: 'message',
         priority: 5000,
         rule: [
+          {
+            reg: "^#?学生列表$",
+            fnc: "student_list",
+          },
           {
             reg: '^#(npc|NPC)列表$',
             fnc: 'npc_list',
@@ -31,10 +36,18 @@ export class student_list extends plugin {
             reg: '^#更新学生列表$',
             fnc: 'uplist',
           },
+          {
+            reg: ba + '查询',
+            fnc: 'search',
+          }
         ]
       })
-      this.path = `file:///${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/`
+      this.path = `${_path}/plugins/BlueArchive-plugin/resources/extraResources/list/`
       this.filePath = `file:///` + this.path
+    }
+
+    async student_list(e) {
+      return await new StudentList(e).student_list()
     }
 
     async npc_list (e){   
@@ -90,7 +103,7 @@ export class student_list extends plugin {
         let cn = await api.getdata('students', { lang: 'cn' })
         let jp = await api.getdata('students', { lang: 'jp' })
         let en = await api.getdata('students', { lang: 'en' })
-        let role = cfg.getdefSet('role')
+        let role = Cfg.getdefSet('role')
   
         for (let i = 0, len = cn.length; i < len; i++) {
           let cnType = this.toType(cn[i].Name)
@@ -123,9 +136,9 @@ export class student_list extends plugin {
           role[cn[i].Id] = [...new Set([...(role[cn[i].Id] || []), ...arr])]
         }
 
-        cfg.saveSet('role', role, 'defSet')
+        Cfg.saveSet('role', role, 'defSet')
 
-        e.reply('更新完成')
+        await e.reply('更新完成')
       } catch(err) {
         logger.error(err)
       }
@@ -136,5 +149,31 @@ export class student_list extends plugin {
       let matchResult = /（.*）|\(.*\)/.exec(name)
       let type = matchResult ? matchResult[0] : ''
       return type.replace(/（/g, '\(').replace(/）/g, '\)')
+    }
+
+    async search(e) {
+      let key = e.msg.replace(/#|ba|BA|Ba|查询/g, '').trim()
+      let list = Cfg.search(key, true)
+      if (list.length == 0) {
+        await e.reply('未查询到角色')
+        return true
+      }
+      let msg = '您是否在找：\n' + list.join('\n') + '\n\n发送序号以查询角色攻略'
+      await e.reply(msg)
+      this.setContext('select')
+      return true
+    }
+
+    async select() {
+      let key = this.e.msg.trim()
+      logger.debug('key', key)
+      let name = searchList[key]
+      if (!name) return false
+      let str = await Strategy.init(this.e, name)
+      if (str) {
+        this.e.reply(await str.getImg())
+      }
+      this.finish('select')
+      return true
     }
 }    

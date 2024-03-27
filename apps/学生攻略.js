@@ -1,11 +1,9 @@
-import cfg from '../model/Cfg.js'
-import fs from "node:fs";
-import strategy from '../model/Strategy.js'
-import { path, types, typeMap, ba } from '../model/Cfg.js'
+import Strategy from '../model/Strategy.js'
+import { ba } from '../model/Cfg.js'
 
 let state = false //更新状态
 
-export class example extends plugin {
+export class strategy extends plugin {
   constructor () {
     super({
       name: '学生攻略',
@@ -29,48 +27,41 @@ export class example extends plugin {
     })
   }
 
-  async baimg(e){
-    let name = e.msg.replace(/#|[abAB]|更新|攻略/g, '').trim()
-    let id = cfg.getID(name)
-    if (!id) return false //判断名字是否存在
-    name = cfg.getID(id) //用id重新获取名字
-    let _name = name
-    let type = (name.match(`\((${types})\)`) || [])[1]
-    type = typeMap[type] || type
-    name = type? name.replace(/\(.*\)/g, '') : name
+  async baimg(){
+    let key = this.e.msg.replace(/#|ba|BA|Ba|更新|攻略/g, '').trim()
+    let str = await Strategy.init(this.e, key)
+
+    if (!str) return false
     
     //更新指定学生攻略
-    if (e.msg.match(/更新/)) {
-    if (state) return e.reply('正在更新中...请耐心等待！')
-      return e.reply(await new strategy().getimg(name, type, _name))
+    if (this.e.msg.match(/更新/)) {
+      let msg = state ? '正在更新中...请耐心等待！' : await str.getStr()
+      return this.e.reply(msg)
     }
 
-    let msg1 = [];
-    //图片路径
-    let img_path = `${path}${name}.png`
-    logger.mark("图片路径:",img_path)
-    //if (!fs.existsSync(img_path)) return e.reply('唔！图片不见了...')
+    logger.mark("图片路径:", str.imgPath)
 
-    if (!fs.existsSync(img_path))
-      msg1.push(await new strategy().getimg(name, type, _name))
-    else
-      msg1.push(segment.image('file:///' + img_path))
+    let msg = []
+    let img = await str.getImg()
 
-    if (!msg1.includes('唔！没找到图片...')) msg1.unshift("你要的档案找到了~")
+    if (!img) {
+      msg = '唔！没找到图片...'
+    } else {
+      msg.push("你要的档案找到了~", img)
+    }
     
-     return e.reply(msg1)
+     return this.e.reply(msg)
   }
 
-  async update(e) {
-    if (!e.isMaster) return false
-    if (state) return e.reply('正在更新中...')
+  async update() {
+    if (!this.e.isMaster) return false
+    if (state) return this.e.reply('正在更新中...')
     state = true
-    e.reply('开始更新...请耐心等待！')
-    let msg = await new strategy().update()
+    this.e.reply('开始更新...请耐心等待！')
+    let msg = await new Strategy().update()
     state = false
-    return e.reply(msg)
+    return this.e.reply(msg)
   }
-
   
 }
 

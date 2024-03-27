@@ -1,13 +1,21 @@
+import render from './puppeteer/puppeteer.js'
+import { getV } from './tools.js'
+
 export default class base {
   constructor (e = {}) {
     this.e = e
     this.userId = e?.user_id
-    this.model = 'BlueArchive-plugin'
+    this.model = 'base'
     this._path = process.cwd().replace(/\\/g, '/')
+    this.render = render
   }
 
   get prefix () {
     return `Yz:BlueArchive-plugin:${this.model}:`
+  }
+
+  get V() {
+    return getV()
   }
 
   /**

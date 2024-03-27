@@ -1,6 +1,5 @@
 import moment from "moment"
 import base from './base.js'
-import { getV } from "./tools.js"
 import Api from './api.js'
 
 export default class Activity extends base {
@@ -9,21 +8,28 @@ export default class Activity extends base {
         this.model = 'activity'
     }
 
-    async activity(e, server) {
-
-      let now = moment()
+    async getdata() {
       let future = moment().add(7, 'days') // 加上7天
       let past = moment().subtract(20, 'days') // 减去20天
       let futureTime = future.unix() // 转换为时间戳（秒级）
       let pastTime = past.unix()
-      
-      let nowTime = now.format('X')  //当前时间戳 X返回秒级 x返回毫秒级
-
       let api = new Api()
       let { data } = await api.getdata('activity', {  past: pastTime, future: futureTime })
+      return data
+    }
+
+    async activity(server, data) {
+      let now = moment()
+      let nowTime = now.format('X')  //当前时间戳 X返回秒级 x返回毫秒级
+      let day = `<span class="text" id="text">老师！这是最近的活动~</span><span class="text" id="day">今天是${now.format('YYYY年M月D日')}哦~</span>`
+
+      if (data) {
+        day = `<span class="text" id="text">老师~有新活动！</span><span class="text" id="day">今天是${now.format('YYYY年M月D日')}哦~</span>`
+      }
+
+      data = data || await this.getdata()
       let info = { CN: [], INT: [], JP: [] }
       let serverMap = { '国服': 'CN', '国际服': 'INT', '日服': 'JP' }
-
 
       for (let elem of data) {
         let start = moment.unix(elem.begin_at).format('MM月DD日 HH:mm')
@@ -44,7 +50,7 @@ export default class Activity extends base {
 
         //html数据
         let htmlData = {
-          day: now.format('YYYY年M月D日'),
+          day,
           activity: []
         }
 
@@ -83,7 +89,7 @@ export default class Activity extends base {
                   time_diff,
                   style
 
-              //logger.mark('时间差:', day,'天',hour,'时',minute,'分',second,'秒');
+              logger.debug('时间差:', day,'天',hour,'时',minute,'分',second,'秒');
 
               if (activity_star) //判断样式
                 style = 2
@@ -112,8 +118,8 @@ export default class Activity extends base {
               })
             }
   
-        return e.runtime.render('BlueArchive-plugin', 'html/activity/activity', {
-          ...await getV(),
+        return await this.render('html/activity/activity.html', {
+          ...this.V,
           ...htmlData
         })
     }

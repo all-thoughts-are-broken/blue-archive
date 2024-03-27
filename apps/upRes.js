@@ -31,7 +31,7 @@ export class UpRes extends plugin {
     }
 
     let cmd = ``
-    if (fs.existsSync(`${extraRes_path}.git`)) {
+    if (fs.existsSync(`${extraRes_path}`)) {
       cmd = `git pull`
       if (e.msg.includes("强制")) {
         cmd = "git checkout . && git pull"

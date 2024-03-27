@@ -1,58 +1,99 @@
 import base from './base.js'
-import fs from 'fs';
-import { saveImg, gethtml } from "./tools.js";
-import cfg from './Cfg.js'
-import { path, types, typeMap } from './Cfg.js'
+import fs from 'fs'
+import { saveImg, gethtml } from "./tools.js"
+import Cfg,{ strategy_path, types, typeMap } from './Cfg.js'
 
 export default class Strategy extends base {
-    constructor (e) {
+    constructor (e, id) {
         super(e)
         this.model = 'Strategy'
+        this.roleID = id
+        this.roleName = Cfg.getName(this.roleID)
+        this.imgPath = `${strategy_path}${this.roleName}.png`
+        this.otherName()
     }
 
-    /**
-     * 检索网页是否有匹配数据并下载图片
-     * @param name 角色名
-     * @param type 角色类型
-     * @param file_name 文件保存名字
-     */
-    async getimg(name, type, file_name){
-        let data = await this.getdata()
-        let url
-        logger.mark('name', name)
-        logger.mark('type', type)
-        for (let key in data) {
-            //logger.mark(key)
-          if (key.includes(name)) {
-            if ((!type && !key.match(`.${types}`)) || (type && key.includes(type))) {
-              url = data[key]
-              logger.mark(`找到了"${key}" url "${url}"`)
-              await saveImg(url, path, file_name)  //保存
-              return segment.image(url)
-            } 
+    /** 获取英文和日文名 */
+    otherName() {
+      this.getJpName()
+      this.getEnName()
+    }
+
+    getJpName(id) {//优先用日文名检索以提高准确性
+      this.jpName = Cfg.getName(id || this.roleID, 'jp').replace(/\(.*\)/g, '') || '没有日文名' 
+    }
+
+    getEnName(id) {
+      this.enName = Cfg.getName(id || this.roleID, 'en').replace(/\(.*\)/g, '') || '没有英文名'
+    }
+
+    static async init (e, key) {
+      let id = Cfg.getID(key)
+      return id ? new Strategy(e, id) : false
+    }
+
+    async getImg() {
+      if (fs.existsSync(this.imgPath)) {
+        return segment.image(`file:///${this.imgPath}`)
+      }
+      return await this.getStr()
+    }
+
+    /** 检索网页是否有匹配数据并下载图片 */
+    async getStr(){
+      let { name, type } = this.toType(this.roleName)
+      let data = await this.getdata()
+
+      logger.mark(`name:${name}，enName:${this.enName}，jpName:${this.jpName}`)
+      logger.mark('type', type)
+
+      for (let i = 0; i < data.length; i += 2) {
+        let role = data[i]
+        let url = data[i + 1]
+
+        if (!role) continue
+        if (role.includes(this.jpName) || role.includes(name)) {
+          if (!type && !role.match(`.${types}`) || type && role.includes(type)) {
+            logger.mark(`找到了${role}`)
+            logger.mark(`url ${url}`)
+            await saveImg(url, strategy_path, this.roleName)  //保存
+            return segment.image(url)
           }
         }
-        return '唔！没找到图片...'
       }
+      return false
+    }
+
+    /** 解析类型和名字 */
+    toType(name) {
+      let type = (name.match(`\((${types})\)`) || [])[1]
+      type = typeMap[type] || type
+      name = name.replace(/\(.*\)/g, '')
+      return { type, name }
+    }
 
 
       //更新全部学生攻略
       async update(){
         let data = await this.getdata()
 
-        let namelist = cfg.getID('list') //map对象
+        let namelist = Cfg.getRoleMap()
         let map = new Map()
      
-      for (let [names, id] of namelist) {       //遍历map对象
+      for (let [names, id] of namelist) {     //遍历列表
         for (let i=0; i < names.length; i++) {  //遍历所有别名
-          let type = (names[i].match(`\((${types})\)`) || [])[1] //类型
-          let name = names[i].replace(/\(.*\)/g, '')  //名字
-          type = typeMap[type] || type
 
-          for (let name2 in data) {  //匹配名字和类型
-            if (name2.includes(name)) {
-              if ((!type && !name2.match(`.${types}`)) || (type && name2.includes(type))) {
-                map.set(names[0], data[name2])
+          let { name, type } = this.toType(names[i])
+
+          for (let i = 0; i < data.length; i += 2) {  //匹配名字和类型
+            let role = data[i]
+            let url = data[i + 1]
+            if (!role) continue
+            this.getJpName(id)
+
+            if (role.includes(this.jpName) || role.includes(name)) {
+              if (!type && !role.match(`.${types}`) || type && role.includes(type)) {
+                map.set(names[0], url)
                 break
               }
             }
@@ -61,10 +102,10 @@ export default class Strategy extends base {
         }
       }
 
-      //logger.mark('map', map) 
+      //logger.debug('map', map) 
 
       // 将 Map 对象转换为普通对象并存为文件
-      let obj = {};
+      let obj = {}
       for (let [key, value] of map) {
         obj[key] = value;
       }
@@ -72,8 +113,8 @@ export default class Strategy extends base {
 
       //保存
       for (let [file_name, url] of map) {
-          logger.mark('下载:', file_name)
-          await saveImg(url, path, file_name)  
+          logger.debug('下载:', file_name)
+          await saveImg(url, strategy_path, file_name)
       }
         return `更新完成！学生数量${map.size}`
       }
@@ -81,46 +122,44 @@ export default class Strategy extends base {
       //获取网页数据
     async getdata() {
         try {
-          const $ = await gethtml('https://ba.gamekee.com/155086.html');
-          //logger.mark($);
-          let arr = []
-          //选择指定元素
-          const boldSpans = $('span[style*="font-weight: bold"], span[style*="font-weight:bold"], span[style*="font-weight: 700"], img[loading="lazy"][data-width][data-height][data-real]');
-          boldSpans.each((index, element) => {
-          let content = $(element).text().trim();
-          if (!content) content = 'https:' + $(element).attr('data-real'); //如果为空就是图片链接
-          if (!content.match('undefined')) arr.push(content) //排除undefined
-        });
-        //删除不必要数据
-        let s = arr.indexOf('戒野 美咲(ミサキ/Misaki)')
-        arr.splice(0, s)
-        //logger.mark(s);
-  
-        let data = {}
-        let key
-        let url
-        //逆向遍历数组处理排版问题并转为对象
-        for (let i = arr.length - 1; i >= 0; i--) {
-          if (arr[i].startsWith("https")) {
-              url = arr[i];  //如果是链接就存起来
-          } else {
-              key = arr[i].replace(/防吞|\s/g, '')   //不是链接就存为键
-              if (url) data[key] = url
-          }
-      }
-  
-      //对佳代子进行单独处理
-      data['鬼方佳世子.正月(カヨコ/Kayoko)'] = 'https://cdnimg.gamekee.com/wiki2.0/images/w_1562/h_855/829/43637/2023/11/12/90313.png'
-        
-        //logger.mark(data);
+          const $ = await gethtml('https://ba.gamekee.com/155086.html')
+          //logger.debug($)
+          let data = []
 
-          logger.mark('获取数量：',Object.keys(data).length);
+          //删除多余元素
+          $('.fold-content:first').remove()
+
+          //选择指定元素
+          const parent = $('.fold-content')
+          const boldSpans = parent.find('span[style*="font-weight: bold"], span[style*="font-weight:bold"], span[style*="font-weight: 700"], img[loading="lazy"][data-real]')
+
+          boldSpans.each((i, element) => {
+          let content = $(element).text().trim()
+          if (!content) content = '$https:' + $(element).attr('data-real') + '$' //如果为空就是图片链接
+          if (!content.match('undefined')) data.push(content) //排除undefined
+        })
+
+        //处理排版问题
+        let index = data.indexOf('鬼方 佳世子/佳代子.正月(カヨコ/Kayoko)')
+        data[index] = data[index + 1]
+        data[index + 1] = '鬼方 佳世子/佳代子.正月(カヨコ/Kayoko)'
+
+        //对数组进行处理
+        data = data.join('')
+        .replace(/\s|防吞|227号温泉浴场营运日志常驻更新追加常驻PU/g, '')
+        .replace(/（/g, '(')
+        .replace(/）/g, ')')
+        .split('$')
+
+
+          logger.debug('获取数量：',data.length)
+          logger.debug(data)
 
           //将获取数据保存为文件
           fs.writeFileSync('./plugins/BlueArchive-plugin/resources/Tepm/测试用(data).json', JSON.stringify(data), 'utf8')
 
           return data
-          
+
         } catch (error) {
           //logger.error(error);
           throw error

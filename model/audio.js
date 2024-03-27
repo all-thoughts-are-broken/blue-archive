@@ -7,114 +7,153 @@ import Api from './api.js'
 import fetch from 'node-fetch'
 
 const bgmPath = path.join(extraRes_path, `audio/bgm/`)
+const voicePath = path.join(audio_path, 'students')
 
 export default class Audio extends base {
-    constructor (e) {
+    constructor (e, keyword, bgmList) {
         super(e)
         this.model = 'audio'
         this.cd = 86400 //24小时
-        this.key = `Yz:BlueArchive:${this.model}:`
+        this.key = `${this.prefix}index`
+        this.keyword = keyword
+        this.bgmList = bgmList || ''
+        this.fileName = ''
+        this.filePath = ''
+
+        this.searchResult = []
     }
 
+    /** 初始化bgm */
+    static async initBGM (e) {
+      let bgmList = this.getBGM()
+      if (!bgmList) return false
+      let keyword = e.msg.replace(/#ba|#BA|#Ba|bgm/g, '').trim()
+      return new Audio(e, keyword, bgmList)
+    }
 
-    async bgm(key) {
-      let filename
-      let files
+    /** 初始化语音 */
+    static async initVoice (e) {
+      let keyword = e.msg.replace(/#|语音|[AaBb]/g, '').trim()
+      if (!keyword) return false
+      return new Audio(e, keyword)
+    }
 
-      if (fs.existsSync(bgmPath)) {
-        files = fs.readdirSync(bgmPath)
+    /** 获取bgm列表 */
+    static getBGM() {
+      const files = fs.existsSync(bgmPath) ? fs.readdirSync(bgmPath) : false
+      if (!files || files.length == 0) {
+        return false
+      }
+      return files
+    }
+
+    /** 返回数组随机一个元素 */
+    random(arr) {
+      return arr[Math.floor(Math.random() * arr.length)]
+    }
+
+    /** 获取路径 */
+    getFilePath(filename, isBGM = true) {
+      this.fileName = filename
+      this.filePath = path.join(isBGM ? bgmPath : voicePath, filename)
+      return this.filePath
+    }
+
+    /** 发送消息 */
+    async replyBGM() {
+      await this.e.reply(this.fileName.replace(/.ogg/, ''))
+      await this.e.reply(segment.record(this.filePath))
+    }
+
+    async bgm() {
+      if (/随机/.test(this.keyword)) {
+        let filename = this.random(this.bgmList)
+        this.getFilePath(filename)
+      } else if (/列表/.test(this.keyword)) {
+        let msg = this.bgmList.join('\n')
+
+        return this.e.reply(await Bot.makeForwardMsg({
+          message: msg,
+          nickname: '阿罗那的老公',
+          user_id: this.e.user_id
+        }))
+      } else{
+        return this.searchBGM()
       }
 
-      if (!files || files == 0) {
-        await this.e.reply('未下载资源,请先发送 #ba更新资源')
-        return true
-      }
-
-      if (/随机/.test(key)) {
-        filename = files[Math.floor(Math.random() * files.length)]
-      } else {
-
-        if (files.includes(key)) {
-          filename = key
-        } else {
-          let regex = new RegExp(`${key}`, 'ig')
-          let arr = []
-
-          for (let i of files) {
-            if (regex.test(i)) {
-              //logger.mark(i)
-              arr.push(i)
-            }
-          }
-
-          if (arr.length == 0) {
-            await this.e.reply('没找到这首bgm呢')
-            return true
-          }
-          if (arr.length == 1 && files.includes(arr[0])) {
-            filename = arr[0]
-          } else {
-            await this.e.reply('请选择\n' + arr.join('\n').replace(/.ogg/g, '') + '\n指令示例：#13')
-            return 'search'
-          }
-        }
-      }
-        
-      let filePath = path.join(bgmPath, filename)
-
-      //logger.mark(filePath)
-
-      await this.e.reply(filename.replace(/.ogg/, ''))
-      await this.e.reply(segment.record(filePath))
+      await this.replyBGM()
       return true
     }
 
-    async searchBGM(e) {
+    /** 搜索bgm */
+    async searchBGM() {
+      if (this.bgmList.includes(this.keyword)) {
+        this.getFilePath(this.keyword)
+      } else {
+        const regex = new RegExp(`${this.keyword}`, 'ig')
+        const result = []
 
+        for (let i of this.bgmList) {
+          if (regex.test(i)) {
+            //logger.mark(i)
+            result.push(i)
+          }
+        }
+
+        if (result.length == 0) {
+          await this.e.reply('没找到这首bgm呢')
+          return false
+        }
+
+        if (result.length == 1 && this.bgmList.includes(result[0])) {
+          this.getFilePath(result[0])
+        } else {
+          await this.e.reply('请选择\n' + result.join('\n').replace(/.ogg/g, '') + '\n指令示例：#13')
+          return 'select'
+        }
+      }
+      await this.replyBGM()
+      return true
+    }
+
+    /** 选择bgm */
+    async selectBGM(e) {
       if (!e.msg) return false
 
       let idx = /#\d+/.exec(e.msg)
       if (!idx) return true
-      let files = fs.readdirSync(bgmPath)
-      let filename = files.filter(file => file.includes(idx[0]))
+      let filename = this.bgmList.filter(file => file.includes(idx[0]))
 
       if (filename == 0) {
         await e.reply('输入错误')
         return true
       }
 
-      let filePath = path.join(bgmPath, filename[0])
-
-      //logger.mark(filePath)
-
-      await e.reply(filename[0].replace(/.ogg/, ''))
-      await e.reply(segment.record(filePath))
+      this.getFilePath(filename[0])
+      this.replyBGM()
       return true
     }
 
-    async voice(key) {
-      let Path = path.join(audio_path, 'students')
+    /** 语音 */
+    async voice() {
       let id, name
-      let n
 
-      if (key == '随机学生') {
-        let role = cfg.getdefSet('role')
-        let keys = Object.keys(role)
-        n = Math.floor(Math.random() * keys.length)
-        id = keys[n]
-        name = cfg.getID(id)
+      if (this.keyword == '随机学生') {
+        let role = cfg.random_role()
+        id = role.id
+        name = role.name
       } else {
-        id = cfg.getID(key)
+        id = cfg.getID(this.keyword)
         if (!id) {
-          logger.mark(`[ba语音]未找到${key}`)
+          logger.mark(`[ba语音]未找到${this.keyword}`)
           return false
         }
-        name = cfg.getID(id)
+        name = cfg.getName(id)
       }
 
       logger.mark(id, name)
       
-      Path = path.join(Path, name)
+      let Path = path.join(voicePath, name)
 
       if (!fs.existsSync(Path)) {
         await this.downVoice(id)
@@ -122,14 +161,14 @@ export default class Audio extends base {
 
       let files = fs.readdirSync(Path)
 
-      if (files == 0) {
+      if (files.length == 0) {
         await this.downVoice(id)
       }
       
-      n = Math.floor(Math.random() * files.length)
-      Path = path.join(Path, files[n])
+      let fileName = this.random(files)
+      this.getFilePath(fileName, false)
 
-      let text = path.parse(files[n]).name
+      let text = path.parse(fileName).name
 
       text = name + 'n' + text
       text = text
@@ -138,7 +177,7 @@ export default class Audio extends base {
       .trim()
 
       await this.e.reply(text)
-      await this.e.reply(segment.record(Path))
+      await this.e.reply(segment.record(this.filePath))
       return true
     }
 
@@ -146,8 +185,7 @@ export default class Audio extends base {
       await this.e.reply('开始下载')
 
       let api = new Api()
-      let cacheKey = this.key + 'index'
-      let index = await redis.get(cacheKey)
+      let index = await redis.get(this.key)
       let res = await api.getdata('voice', {}, true)
       let idx = {}
 
@@ -162,13 +200,13 @@ export default class Audio extends base {
           }
         }
 
-        redis.setEx(cacheKey, this.cd, JSON.stringify(idx))
+        redis.setEx(this.key, this.cd, JSON.stringify(idx))
       }
 
       if (Id) res = { [Id]: res[Id] }
 
         for (let id in res) {
-          let name = cfg.getID(id)
+          let name = cfg.getName(id)
           if (!name) return false
           for (let key in res[id]) {
             for (let elem of res[id][key]) {
@@ -214,8 +252,8 @@ function timeout(ms) {
 
 async function fetchTimeout(url, options, timeoutMs) {
   const response = await fetch(url, options)
-  //logger.mark(response.status, response.statusText)
-  //logger.mark(response.headers)
+  logger.debug(response.status, response.statusText)
+  logger.debug(response.headers)
   if (!response.ok) {
     throw new Error(`${response.status} ${response.statusText}`)
   }

@@ -1,11 +1,12 @@
 {
   "name": "blue-archive-plugin",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": " 万念断绝",
   "description": "蔚蓝档案",
   "type": "module",
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
-    "qrcode": "^1.5.3"
+    "qrcode": "^1.5.3",
+    "sharp": "^0.32.6"
   }
 }

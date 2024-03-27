@@ -29,7 +29,9 @@ export class Activity extends plugin {
     else if (!/活动|日历/.test(e.msg))
       return false
 
-    return await new activity().activity(e, server)
+    let img = await new activity(e).activity(server)
+    await e.reply(segment.image(img))
+    return true
 
   }
 }

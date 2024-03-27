@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+  <html lang="zh">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜头像</title>
+    <link rel="preload" href="{{src}}" as="image">
+    <style>
+        *, html, body {padding: 0;margin: 0;}
+        .container {overflow: hidden;position: relative;transform-origin: 0 0;}
+        .container img {position: absolute;}
+        .container .invert {filter: invert(100%);}
+        .container .grayscale {filter: grayscale(100%);}
+        #answer-wrap {margin:auto;display: flex;align-items: center;justify-content: center;}
+        #answer-wrap #mask{position:absolute;z-index: 1;border: 1px solid white;box-shadow: 0 0 0 2000px rgba(0,0,0,0.6);}
+    </style>
+  </head>
+  
+  <body>
+  <div class="container" id="container">
+    <img id="img" src="{{src}}" alt="头像">
+    <div id="answer-wrap" style="display: none;">
+      <img src="{{src}}" alt="头像">
+      <div id="mask"></div>
+    </div>
+  </div>
+  <script>
+  // 图片大小
+  const flag = {{flag}}
+  const size = {{size}}
+  const imgTop = {{imgTop}}
+  const imgLeft = {{imgLeft}}
+  const imgWidth = {{imgWidth}}
+  const imgHeight = {{imgHeight}}
+  const imgColor = "{{imgColor}}"
+  const hardMode = {{hardMode}}
+  const hellMode = {{hellMode}}
+  
+  const boxEl = document.getElementById("container")
+  if (flag) {
+    boxEl.style.width = size + "px"
+    boxEl.style.height = size + "px"
+    boxEl.style.transform = 'scale(3)'
+  } else {
+    boxEl.style.width = imgWidth + "px"
+    boxEl.style.height = imgHeight + "px"
+    boxEl.style.transform = 'scale(1.5)'
+    document.getElementById('answer-wrap').style.display = 'block'
+  }
+  boxEl.style.backgroundColor = imgColor
+  
+  let controlEl 
+  if (flag) {
+    controlEl = document.getElementById('img')
+    controlEl.style.top = "-" + imgTop + "px"
+    controlEl.style.left = "-" + imgLeft + "px"
+    if (hardMode) {
+      controlEl.classList.add('grayscale')
+    } else if (hellMode) {
+      controlEl.classList.add('invert')
+    }
+  } else {
+    controlEl = document.getElementById('mask')
+    controlEl.style.top =  imgTop + "px"
+    controlEl.style.left =  imgLeft + "px"
+    controlEl.style.width =  size + "px"
+    controlEl.style.height =  size + "px"
+  }
+  </script>
+  </body>
+  </html>

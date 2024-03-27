@@ -1,7 +1,7 @@
-import audio from '../model/audio.js'
+import Audio from '../model/audio.js'
 import { ba } from '../model/Cfg.js'
 
-export class Audio extends plugin {
+export class Audio_ extends plugin {
     constructor() {
         super({
             name: "BA音频",
@@ -13,10 +13,6 @@ export class Audio extends plugin {
               reg: `^(#ba|#BA|#Ba)?(随机)?bgm(.*)?$`,
               fnc: "bgm",
             },
-            //{
-            //  reg: ba + "?下载bgm$",
-            //  fnc: "downBGM",
-            //},
             { 
               reg: ba + "?(.*)语音$",
               fnc: "voice",
@@ -30,35 +26,37 @@ export class Audio extends plugin {
     }
 
   async bgm(e) {
-    let key = e.msg.replace(/#ba|#BA|#Ba|bgm/g, '').trim()
-    if (await new audio(e).bgm(key) == 'search') {
-      this.setContext('searchBGM')
+    const audio = await Audio.initBGM(e)
+    if (!audio) {
+      await e.reply('未下载资源,请先发送 #ba更新资源')
+      return true
+    }
+
+    if (await audio.bgm() == 'select') {
+      e.audio = audio
+      this.setContext('selectBGM')
     }
     return true
   }
 
-  async searchBGM() {
-    if (await new audio(this.e).searchBGM(this.e)) {
-      this.finish('searchBGM')
+  async selectBGM(e) {
+    const audio = e.audio
+    if (audio.selectBGM(this.e)) {
+      this.finish('selectBGM')
     }
     return true
   }
-
-  //async downBGM(e) {
-  //  if (!e.isMaster) return false
-  //  return await new audio(e).downBGM()
-  //}
 
   async voice(e) {
-    let key = e.msg.replace(/#|语音|[AaBb]/g, '').trim()
-    if (!key)
+    const audio = await Audio.initVoice(e)
+    if (!audio)
       return false
     else
-      return await new audio(e).voice(key)
+      return await audio.voice()
   }
 
-  async downVoice() {
+  async downVoice(e) {
     if (!e.isMaster) return false
-    return await new audio(e).downVoice()
+    return await new Audio(e).downVoice()
   }
 }

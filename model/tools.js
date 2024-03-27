@@ -1,6 +1,5 @@
 import fs from 'fs';
 import fetch from 'node-fetch'
-import { join } from 'path'
 import path from 'node:path'
 import { pipeline } from 'stream'
 import { promisify } from 'util'
@@ -10,7 +9,7 @@ import Version from './version.js';
 const Tepm_path = process.cwd() + `/plugins/BlueArchive-plugin/resources/Tepm`
 
 /** 获取版本信息*/
-async function getV() {
+function getV() {
     let bot_version = `<span class="V">${Version.yunzai}</span>`,
         currentVersion = `<span class="V">${Version.version}</span>`
 
@@ -25,36 +24,36 @@ async function getV() {
 
  /**
  * 下载图片 如果不传入路径会保存到临时文件夹并返回图片路径
- * @param data 传入图片链接
- * @param path 保存路径
+ * @param url 传入图片链接
+ * @param savePath 保存路径
  * @param name 文件名字，没有名字为数字
  */
- async function saveImg(data, path, name, er = 0) {
+ async function saveImg(url, savePath, name, er = 0) {
   try {
-    let buffer
-    let path1 = path
-    const img = await fetch(data)
-    const arrayBuffer = await img.arrayBuffer()
-    buffer = Buffer.from(arrayBuffer)
+    let _savePath = savePath
+    const img = await fetch(url)
+    const buffer = await img.buffer()
     
-      if (!path1) {
-        let a;
-          if (!fs.existsSync(Tepm_path)) fs.mkdirSync(Tepm_path);
-          a = fs.readdirSync(Tepm_path).length
-          if (name) path1 = join(Tepm_path, `${name}.png`)
-          else path1 = join(Tepm_path, `${a + 1}.png`)
-        fs.writeFileSync(path1, buffer)
-        return path1
+      if (!_savePath) {
+        mkdirs(path.dirname(Tepm_path))
+        let num = fs.readdirSync(Tepm_path).length
+        _savePath = path.join(Tepm_path, `${name || num + 1}.png`)
+        fs.writeFileSync(_savePath, buffer)
+        return _savePath
       }else{
-        if (name) path1 = join(path1, `${name}.png`)
-        fs.writeFileSync(path1, buffer)
+        if (name) _savePath = path.join(_savePath, `${name}.png`)
+        mkdirs(path.dirname(_savePath))
+        fs.writeFileSync(_savePath, buffer)
         return '已保存'
       }
     } catch (err) {
-      logger.mark(err)
-      if (er > 0) throw new Error('出错，终止本次下载')
+      logger.error(err)
+      if (er > 0) {
+        logger.mark(logger.yellow('出错，终止本次下载'))
+        return false
+      }
       logger.mark(logger.yellow('出错！尝试第二次下载'))
-      await saveImg(data, path, name, er + 1)
+      await saveImg(url, savePath, name, er + 1)
     }
   } 
 
@@ -66,12 +65,12 @@ async function getV() {
  * @param savename 保存名字
  */
   async function gethtml(url, headers = {}, savedata = false, savename = 'tepm.js') {
-      const response = await fetch(url, { headers });
-      if (!response.ok) throw new Error('[BA]访问失败！');
-      const res = await response.text();
+      const response = await fetch(url, { headers })
+      if (!response.ok) throw new Error('[BA]访问失败！')
+      const res = await response.text()
       //logger.mark(res);
-      if (savedata) fs.writeFileSync(join(Tepm_path, savename), res, 'utf8')
-      const $ = cheerio.load(res);
+      if (savedata) fs.writeFileSync(path.join(Tepm_path, savename), res, 'utf8')
+      const $ = cheerio.load(res)
     return $
   }
 

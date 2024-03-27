@@ -3,3 +3,27 @@ abbrSetAuth: 0
 
 # arona.icu  加群(949830458)申请
 token: ''
+
+# BA模拟抽卡设置
+gacha:
+  # 卡池默认服区 国服、国际服、日服
+  server: '国服'
+  # 每日抽卡数限制 一次是十连 默认20次
+  count: 20
+  # 撤回消息 0-120 秒, 0不撤回
+  delMsg: 110
+
+# BA塔罗牌
+tarot:
+  # 每日次数限制 默认5
+  limit: 5
+
+# 是否启用活动更新推送 开启true 关闭false
+actPush: true
+
+# ba活动更新推送的群
+actPushList: 
+  - 636365320
+
+# ba活动更新推送 国服、国际服、日服，为空字符串则是全部
+actPushServer: ''

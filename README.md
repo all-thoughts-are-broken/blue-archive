@@ -12,9 +12,13 @@ Miao-Yunzai & TRSS-Yunzai 机器人的碧蓝档案的攻略插件
 - [x] 查询总力战档线(国服)
 - [x] 学生语音
 - [x] 随机bgm
+- [x] 猜角色
+- [x] 塔罗牌
+- [x] 模拟抽卡
+- [x] 活动推送
+- [x] 档案标题生成
 - [ ] 查询总力战BOSS（加了两个）
 - [ ] 查看live2d
-- [ ] 档案标题生成
 
 ## 安装教程
 
@@ -71,5 +75,7 @@ pnpm install --filter=blue-archive-plugin
 4.   友情链接：角评图作者[夜猫咪喵喵猫](https://space.bilibili.com/425535005)的B站
 5.   一些资源及数据来源[schale.gg](https://schale.gg/)、[arona.icu](https://arona.icu/)、[arona.ai](https://arona.ai/)
 6.   还有不少图片来源于[bluearchive.wikiru.jp](https://bluearchive.wikiru.jp/)
-7.   严禁用于任何商业用途和非法行为
+7.   ba标题制作 作者[@Yujio_Nako](https://github.com/ldcivan/BA_logo)
+8.   ba塔罗牌 作者[@Perseus037(黑纸折扇)](https://github.com/Perseus037/nonebot_plugin_batarot)
+9.   严禁用于任何商业用途和非法行为
 

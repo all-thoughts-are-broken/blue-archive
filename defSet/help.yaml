@@ -1,5 +1,8 @@
 - group: 查询功能
   list:
+    - icon: Hoshino
+      title: "#ba查询星野"
+      desc: 关键词查询角评攻略
     - icon: weihua
       title: "#ba未花"
       desc: 查看未花的角评攻略
@@ -46,8 +49,8 @@
       title: "BA，启动"
       desc: 嘿嘿嘿
     - icon: chahui
-      title: "#BA活动日历"
-      desc: 看看wiki上的活动日历
+      title: "#国服活动"
+      desc: 国际服、日服都可查
     - icon: xialai
       title: "#学生列表"
       desc: 查看目前实装的学生
@@ -69,8 +72,50 @@
     - icon: fengji
       title: "#未来视"
       desc: 国际服未来视
+    - icon: Hoshino
+      title: "#ba猜角色"
+      desc: 猜猜我是谁？
+    - icon: Hoshino
+      title: "#ba标题"
+      desc: 制作标题，两端文本用空格隔开
+    - icon: Hoshino
+      title: "#ba塔罗牌"
+      desc: 来张塔罗牌
+    - icon: Hoshino
+      title: "#ba运势"
+      desc: 看看今日运势如何
+    - icon: Hoshino
+      title: "#ba占卜"
+      desc: 占卜
+    - icon: Hoshino
+      title: "#ba塔罗牌解读教皇"
+      desc: 解读塔罗牌
+    - icon: Hoshino
+      title: "#ba十连"
+      desc: 模拟抽卡
 - group: 其他功能
   list:
+    - icon: xueshenghui
+      title: "#ba设置"
+      desc: "标题制作的设置"
+    - icon: xueshenghui
+      title: "#ba设置透明背景关"
+      desc: "标题制作的设置"
+    - icon: xueshenghui
+      title: "#ba设置背景颜色white"
+      desc: "输入颜色代码"
+    - icon: xueshenghui
+      title: "#ba设置图标位置-15 0"
+      desc: "X和Y用空格隔开"
+    - icon: xueshenghui
+      title: "#ba设置文字左#00FFFF"
+      desc: "左边文字颜色"
+    - icon: xueshenghui
+      title: "#ba设置文字右#00FFFF"
+      desc: "右边文字颜色"
+    - icon: xueshenghui
+      title: "#ba设置文字边框red"
+      desc: "文字边框颜色"
     - icon: xueshenghui
       title: "#更新24-1"
       desc: "更新指定关卡攻略"
