@@ -1,5 +1,6 @@
 import Cfg, {ba} from '../model/Cfg.js'
 import Activity from '../model/activity.js'
+import { sleep } from '../model/tools.js'
 
 export class ActPush extends plugin {
     constructor() {
@@ -66,7 +67,7 @@ export class ActPush extends plugin {
 				  } catch (err) {
 					logger.error(`ba活动更新推送${key}失败:`, err)
 				  }
-                  await Bot.sleep(10000) //休息10秒
+                  await sleep(10000) //休息10秒
             }
             await redis.set(this.key, JSON.stringify(actData))
         }

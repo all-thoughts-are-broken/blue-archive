@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer'
 import lodash from 'lodash'
 import path from 'path'
 import fs from 'fs'
+import { mkdirs } from '../tools.js'
 
 const _path = process.cwd()
 
@@ -80,7 +81,7 @@ async function doRender(savePath, {saveId, _htmlPath, screenshot, imgType, pageG
         await page.goto(`file:///${path.resolve(savePath)}`, pageGotoParams)
         if (!screenshot) return page
         await page.waitForSelector("#container")
-        await page.waitForTimeout(100)
+        await page.waitForSelector('img')
         let body = await page.$("#container")
         let randData = {
             type: imgType,
@@ -149,10 +150,9 @@ async function render(path, data = {}, cfg = {}) {
     let paths = lodash.filter(path.split("/"), (p) => !!p)
     path = paths.join("/")
     // 创建目录
-    await Bot.mkdir(`temp/html/BlueArchive-plugin/${path}`)
+    mkdirs(`temp/html/BlueArchive-plugin/${path}`)
     // 自动计算pluResPath
     let pluResPath = `../../../${lodash.repeat("../", paths.length)}plugins/BlueArchive-plugin/resources/`
-    const layoutPath = _path + "/plugins/BlueArchive-plugin/resources/common/layout/"
     // 渲染data
     data = {
       screenshot: true, //是否截图

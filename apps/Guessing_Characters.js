@@ -6,6 +6,7 @@ import render from "../model/puppeteer/puppeteer.js"
 import Cfg, { ba } from '../model/Cfg.js'
 import sharp from 'sharp'
 import fetch from 'node-fetch'
+import { mkdirs } from '../model/tools.js'
 
 const _path = process.cwd()
 const portraitPath = path.join(_path, 'plugins/BlueArchive-plugin/resources/img/students/portrait')
@@ -61,7 +62,7 @@ export class Caijuese extends plugin {
                 },
                 {
                     reg: ba + '结束猜(头像|角色)',
-                    fnc: 'end'
+                    fnc: 'endGame'
                 },
                 {
                     reg: '',
@@ -95,7 +96,7 @@ export class Caijuese extends plugin {
         }
     }
 
-    async end(e) {
+    async endGame(e) {
         let config = getGuessConfig(e)
         clearTimeout(config.timer)
         config.delete()
@@ -164,7 +165,7 @@ export class Caijuese extends plugin {
             const res = await fetch(imgSrc)
             buffer = await res.buffer()
             this.props.src = imgSrc
-            await Bot.mkdir(path.dirname(filePath))
+            mkdirs(path.dirname(filePath))
             fs.writeFileSync(filePath, buffer)
         } else {
             buffer = fs.readFileSync(filePath)
@@ -176,6 +177,7 @@ export class Caijuese extends plugin {
         logger.debug(props)
 
         if (!props) {
+            guessConfig.playing = false
             return await e.reply('呜~ 图片生成失败了…')
         }
 
