@@ -153,8 +153,7 @@ export default class GachaData extends base {
     logger.debug('卡池', this.pool)
     logger.debug('截图数据', data)
 
-    let base64 = await this.render('html/gacha/index.html', data)
-    data.img = base64
+    data.img = await this.render('index', data)
     return data
   }
 

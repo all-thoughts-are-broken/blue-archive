@@ -42,7 +42,7 @@ async function replayAnswer(e, message, cfg, isReply = false) {
     let answer = await cfg.answer
     if (answer) {
         message.push('\n')
-        message.push(segment.image(answer))
+        message.push(answer)
     }
     await e.reply(message, isReply)
     cfg.delete()
@@ -184,9 +184,9 @@ export class Caijuese extends plugin {
         // 生成图片不阻断运行 
         let promise = render('html/Guessing_Characters/index.html', props)
         setTimeout(async () => {
-            let base64 = await promise
-            if (base64) {
-                e.reply(segment.image(base64))
+            let img = await promise
+            if (img) {
+                e.reply(img)
                 props.flag = false
                 guessConfig.normalMode = props.normalMode
                 guessConfig.answer = await render('html/Guessing_Characters/index.html', props)

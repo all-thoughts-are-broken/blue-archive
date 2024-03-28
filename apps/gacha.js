@@ -43,7 +43,7 @@ export class gacha extends plugin {
     })
 
     await this.e.reply(msg)*/
-    await this.e.reply(segment.image(data.img))
+    await this.e.reply(data.img)
   }
 
   /** 检查限制 */

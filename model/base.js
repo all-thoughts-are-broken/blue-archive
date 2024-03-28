@@ -7,7 +7,6 @@ export default class base {
     this.userId = e?.user_id
     this.model = 'base'
     this._path = process.cwd().replace(/\\/g, '/')
-    this.render = render
   }
 
   get prefix () {
@@ -31,5 +30,9 @@ export default class base {
       /** 绝对路径 */
       pluResPath: `${this._path}/plugins/BlueArchive-plugin/resources/`
     }
+  }
+
+  async render(name, data, cfg) {
+    return await render(`html/${this.model}/${name}`, data, cfg)
   }
 }

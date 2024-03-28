@@ -69,7 +69,7 @@ export class BA_title extends plugin {
 
         //html参数
         let data = {
-            //screenshot: false,
+            omitBackground: this.parameter.transparentBg,
             imgType: this.parameter.transparentBg ? 'png' : 'jpeg',
             a: textL || '布鲁',
             b: textR || '阿凯！！！',
@@ -82,7 +82,7 @@ export class BA_title extends plugin {
         //const image = canvas.replace("data:image/png;base64,", "base64://")
 
         const image = await render('html/BA_logo/index.html', data)
-        await e.reply(segment.image(image))
+        await e.reply(image)
         return true
     }
 

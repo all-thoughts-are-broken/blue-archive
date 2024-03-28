@@ -118,7 +118,7 @@ export default class Activity extends base {
               })
             }
   
-        return await this.render('html/activity/activity.html', {
+        return await this.render('activity', {
           ...this.V,
           ...htmlData
         })

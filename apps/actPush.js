@@ -63,7 +63,7 @@ export class ActPush extends plugin {
 
             for (let key of pushList) {
                 try {
-					await Bot.pickGroup(key).sendMsg(segment.image(img))
+					await Bot.pickGroup(key).sendMsg(img)
 				  } catch (err) {
 					logger.error(`ba活动更新推送${key}失败:`, err)
 				  }

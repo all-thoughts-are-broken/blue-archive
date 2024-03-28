@@ -30,7 +30,7 @@ export class Activity extends plugin {
       return false
 
     let img = await new activity(e).activity(server)
-    await e.reply(segment.image(img))
+    await e.reply(img)
     return true
 
   }

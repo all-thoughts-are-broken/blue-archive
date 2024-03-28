@@ -9,6 +9,7 @@ export default class StudentList extends base {
 
     async student_list() {
         let studentData = Cfg.getConfig('student_list')
-        return this.e.runtime.render('BlueArchive-plugin', 'html/student_list/student_list', {studentData})
+        let img = await this.render('student_list', {studentData})
+        return await this.e.reply(img)
     }
 }
