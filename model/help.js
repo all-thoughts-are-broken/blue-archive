@@ -1,6 +1,5 @@
 import base from './base.js'
 import config from './Cfg.js'
-import { getV } from "./tools.js";
 
 export default class Help extends base {
     constructor(e) {
@@ -8,15 +7,17 @@ export default class Help extends base {
         this.model = 'help'
     }
 
-    async get(e) {
-        let helpData = config.getConfig('help')
-        let version = await getV()
+    async help() {
+        let img = await this.render('help', { 
+            quality: 100, 
+            helpData: config.getConfig('help')
+        })
+        return await this.e.reply(img)
+    }
 
-        return {
-            ...version,
-            saveId: 'help',
-            quality: 100,
-            helpData
-        }
+    async version() {
+        this.model = 'version'
+        let img = await this.render('version', this.V)
+        return await this.e.reply(img)
     }
 }

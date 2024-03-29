@@ -143,9 +143,6 @@ export default class GachaData extends base {
 
     /** 截图数据 */
     let data = {
-      //name: this.e.sender.card,
-      //quality: 80,
-      ...this.V,
       ...this.lotteryInfo(),
       list
     }

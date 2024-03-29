@@ -10,7 +10,10 @@
     />
     <link rel="preload" href="{{resPath}}font/tttgbnumber.ttf" as="font" />
   </head>
+
+
   <body>
+
     <div class="container" id="container">
       <div class="logo"></div>
       {{each changelogs item idx}}
@@ -36,8 +39,9 @@
         </div>
       </div>
       {{/each}}
-      <div class="version">{{@versionHtml}}</div>
+      <div class="version">{{@copyright}}</div>
     </div>
+    
   </body>
-  <script type="text/javascript"></script>
+
 </html>

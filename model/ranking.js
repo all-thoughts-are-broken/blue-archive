@@ -101,13 +101,14 @@ async _dx() {
   let src = `<span class="infoSrc">数据来源：什亭之匣</span>` 
   let infoSrc = `<div class="arona_icu" style="background-image: url(${qr})">${src}</div>`
 
-  this.e.runtime.render('BlueArchive-plugin', 'html/rank/rank', {
+  let img = await this.render('rank', {
     infoSrc,
     boss,
     ...rank,
-    ...dx,
-    ...await getV()
+    ...dx
   })
+
+  return this.e.reply(img)
 }
 
 

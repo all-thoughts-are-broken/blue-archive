@@ -1,7 +1,6 @@
-import Help from "../model/help.js";
-import { getV } from "../model/tools.js";
+import Help from "../model/help.js"
 
-export class help extends plugin {
+export class Help_ extends plugin {
     constructor(e) {
         super({
             name: "BA插件帮助",
@@ -19,17 +18,14 @@ export class help extends plugin {
                 },
             ],
         });
+        this.Help = new Help(e)
     }
 
-    async help(e) {
-        let data = await new Help(e).get(this.e);
-        if (!data) return e.reply('未获取到帮助数据')
-        if (!e.runtime) return e.reply('请更新至最新的云崽')
-        return e.runtime.render('BlueArchive-plugin', 'html/help/help', data)
+    async help() {
+        return this.Help.help()
     }
 
-    async version (e) {
-        if (!e.runtime) return e.reply('请更新至最新的云崽')
-        return await e.runtime.render('BlueArchive-plugin', 'html/version/version', await getV())
+    async version () {
+        return this.Help.version()
     }
 }
