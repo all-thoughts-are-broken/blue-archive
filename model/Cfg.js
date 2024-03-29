@@ -350,17 +350,22 @@ class baCfg {
     let randomKey = keys[Math.floor(Math.random() * keys.length)]
     logger.debug('随机id:', randomKey)
     let roleName = role[randomKey][0]
-    let data = {
-      id: randomKey, 
-      name: roleName
-    }
+    
     logger.debug('isNormalRole', this.isNormalRole(roleName))
+
     if (normalRole && !this.isNormalRole(roleName)) {
-      let { id, name } = this.getNormalRole(roleName)
-      data.normalRoleId = id
-      data.normalRoleName = name
+      var { 
+        id: normalRoleId, 
+        name: normalRoleName 
+      } = this.getNormalRole(roleName)
     }
-    return data
+
+    return {
+      id: randomKey, 
+      name: roleName,
+      normalRoleId,
+      normalRoleName
+    }
   }
 
   /** 普通服装角色 */

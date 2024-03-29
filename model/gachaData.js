@@ -296,12 +296,12 @@ export default class GachaData extends base {
 
   /** 更新卡池 */
   async upPool() {
-    let act = new Activity(this.e)
-    let actList = await act.getdata()
+    const act = await Activity.init(this.e)
+    let actList = act.data
     logger.debug(actList)
     let poolArr = Cfg.getConfig('pool')
     for (let elem of actList) {
-      if (/\【.*卡池.*\】/.test(elem.title)) {
+      if (/【.*卡池.*】/.test(elem.title)) {
         let server = elem.pub_area
         let push = true
 
@@ -309,7 +309,7 @@ export default class GachaData extends base {
           if (e.id == elem.id) push = false
 
         if (push) {
-          let title = elem.title.replace(/\【.*\】|\(3★\)|\(★3\)/g, '')
+          let title = elem.title.replace(/【.*】|\(3★\)|\(★3\)/g, '')
           let role = title.split(/\s|&/g)
           let startTime = moment.unix(elem.begin_at).format('YYYY-MM-DD HH:mm:ss')
           let endTime = moment.unix(elem.end_at).format('YYYY-MM-DD HH:mm:ss')

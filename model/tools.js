@@ -74,7 +74,19 @@ function getV() {
     return $
   }
 
-
+  /**
+   * 从集合中返回随机元素
+   * @param {Array} collectivity 
+   * @returns 随机元素
+   */
+  function random(collectivity) {
+    if (Array.isArray(collectivity)) {
+      return collectivity[Math.floor(Math.random() * collectivity.length)]
+    }
+    let keys = Object.keys(collectivity)
+    let key = keys[Math.floor(Math.random() * keys.length)]
+    return collectivity[key]
+  }
 
 /**
  * 休眠函数
@@ -205,5 +217,6 @@ async function makeForwardMsg(e, msg = [], dec = '', msgsscr = false) {
     downFile, 
     mkdirs,
     readDirSync,
-    makeForwardMsg
+    makeForwardMsg,
+    random
    };

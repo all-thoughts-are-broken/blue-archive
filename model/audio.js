@@ -1,10 +1,11 @@
 import base from './base.js'
-import { downFile, mkdirs, readDirSync } from './tools.js'
+import { mkdirs } from './tools.js'
 import cfg, { audio_path, extraRes_path } from './Cfg.js'
 import fs from 'fs'
 import path from 'path'
 import Api from './api.js'
 import fetch from 'node-fetch'
+import lodash from "lodash"
 
 const bgmPath = path.join(extraRes_path, `audio/bgm/`)
 const voicePath = path.join(audio_path, 'students')
@@ -47,11 +48,6 @@ export default class Audio extends base {
       return files
     }
 
-    /** 返回数组随机一个元素 */
-    random(arr) {
-      return arr[Math.floor(Math.random() * arr.length)]
-    }
-
     /** 获取路径 */
     getFilePath(filename, isBGM = true) {
       this.fileName = filename
@@ -67,9 +63,10 @@ export default class Audio extends base {
 
     async bgm() {
       if (/随机/.test(this.keyword)) {
-        let filename = this.random(this.bgmList)
+        let filename = lodash.sample(this.bgmList)
         this.getFilePath(filename)
       } else if (/列表/.test(this.keyword)) {
+        this.bgmList = lodash.orderBy(this.bgmList, item => Number(/\d+/.exec(item)[0]))
         let msg = this.bgmList.join('\n')
 
         return this.e.reply(await Bot.makeForwardMsg({
@@ -165,7 +162,7 @@ export default class Audio extends base {
         await this.downVoice(id)
       }
       
-      let fileName = this.random(files)
+      let fileName = lodash.sample(files)
       this.getFilePath(fileName, false)
 
       let text = path.parse(fileName).name
