@@ -20,6 +20,7 @@ export class ActPush extends plugin {
                 }
             ]
         })
+        this.key = `Yz:BlueArchive-plugin:actPush`
         this.push = Cfg.set.actPush
         this.task = !this.push || {
 			cron: '0 0 0/2 * * ?', //Cron表达式，(秒 分 时 日 月 星期)
@@ -28,15 +29,11 @@ export class ActPush extends plugin {
             log: true
 		}
     }
-
-    get key() {
-        return `Yz:BlueArchive-plugin:actPush`
-    }
     
     async actPush(){
-        const act = new Activity(this.e)
+        const act = await Activity.init(this.e)
         let data = JSON.parse(await redis.get(this.key))
-        let actData = await act.getdata()
+        let actData = act.data
         if (!data) {
             logger.mark('[ba活动更新推送]：未获取到缓存数据')
             await redis.set(this.key, JSON.stringify(actData))
@@ -59,7 +56,8 @@ export class ActPush extends plugin {
         logger.debug('newAct', newAct)
 
         if (newAct.length !== 0) {
-            let img = await act.activity(Cfg.actPushServer, newAct)
+            act.data = newAct
+            let img = await act.activity(Cfg.actPushServer)
 
             for (let key of pushList) {
                 try {

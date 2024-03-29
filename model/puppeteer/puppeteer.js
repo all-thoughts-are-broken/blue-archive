@@ -15,7 +15,7 @@ const V = getV()
   * @param data 渲染数据
   * @param cfg 渲染配置
   * @param cfg.beforeRender({data}) 可改写渲染的data数据
-  * @returns {Promise<boolean>}
+  * @returns img
   */
 async function render(path, data = {}, cfg = {}) {
     // 处理传入的path
@@ -41,7 +41,7 @@ async function render(path, data = {}, cfg = {}) {
 
       //screenshot参数
       imgType: 'jpeg',
-      quality: 100,
+      quality: 90,  //图片质量
       omitBackground: false,
       pageGotoParams: {
         //waitUntil: "networkidle2"  //等待网络空闲（即在至少 500 毫秒内没有超过 2 个网络连接）后才返回

@@ -1,7 +1,7 @@
-import activity from '../model/activity.js'
+import Activity from '../model/activity.js'
 import { ba } from '../model/Cfg.js'
 
-export class Activity extends plugin {
+export class Activity_ extends plugin {
     constructor() {
         super({
             name: "BA活动日历",
@@ -29,9 +29,8 @@ export class Activity extends plugin {
     else if (!/活动|日历/.test(e.msg))
       return false
 
-    let img = await new activity(e).activity(server)
-    await e.reply(img)
+    const act = await Activity.init(e)
+    await e.reply(await act.activity(server))
     return true
-
   }
 }

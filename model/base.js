@@ -33,6 +33,6 @@ export default class base {
   }
 
   async render(name, data, cfg) {
-    return await render(`html/${this.model}/${name}`, data, cfg)
+    return await render(`html/${this.model}/${name}.html`, data, cfg)
   }
 }
