@@ -94,6 +94,8 @@ export class Caijuese extends plugin {
             hellMode: false, 
             normalMode: true
         }
+
+        this.set = Cfg.set.guessCharacters
     }
 
     async endGame(e) {
@@ -301,13 +303,23 @@ export class Caijuese extends plugin {
         let minTop = 0, limitTop = 0, minLeft = 0, limitLeft = 0
 
         if (this.imgPath == portraitPath) {
+            this.set.rectangle.max
             wh = imgSize.width < imgSize.height ? imgSize.width : imgSize.height  //选择较小的那一边
-            ratio = this.aspectRatio(imgSize.width, imgSize.height) > 70 ? lodash.random(0.05, 0.1) : lodash.random(0.1, 0.18) //根据高宽比例选择不同 区域 比例
+            ratio = this.aspectRatio(imgSize.width, imgSize.height) > 70 ? 
+            lodash.random(
+                this.set.rectangle.min, 
+                this.set.rectangle.max
+                ) : 
+            lodash.random(
+                this.set.square.min,
+                this.set.square.max
+                ) //根据高宽比例选择不同 框选区域 比例
+                
             size = Math.round(wh * ratio)  //区域大小为较小那一边的百分之n
             minLeft = 30
             limitLeft = 30
         } else {
-            size = Math.round(imgSize.width * 0.2)
+            size = Math.round(imgSize.width * this.set.size)
             minTop = 50
         }
 
