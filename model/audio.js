@@ -8,7 +8,7 @@ import fetch from 'node-fetch'
 import lodash from "lodash"
 
 const bgmPath = path.join(extraRes_path, `audio/bgm/`)
-const voicePath = path.join(audio_path, 'students')
+const voicePath = path.join(audio_path, 'students/')
 
 export default class Audio extends base {
     constructor (e, keyword, bgmList) {
@@ -51,7 +51,7 @@ export default class Audio extends base {
     /** 获取路径 */
     getFilePath(filename, isBGM = true) {
       this.fileName = filename
-      this.filePath = path.join(isBGM ? bgmPath : voicePath, filename)
+      this.filePath = path.join(isBGM ? bgmPath : voicePath + this.keyword, filename)
       return this.filePath
     }
 
@@ -163,6 +163,7 @@ export default class Audio extends base {
       }
       
       let fileName = lodash.sample(files)
+      this.keyword = name
       this.getFilePath(fileName, false)
 
       let text = path.parse(fileName).name
