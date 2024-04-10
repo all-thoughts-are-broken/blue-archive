@@ -50,7 +50,7 @@ export default class apiTool {
           url: 'https://api.arona.icu/api/v2/rank/list',
           body: {
             server: 1, //1国服，2B服
-            season: "latest", //期数，latest默认当前最新，可填数值查询具体期数
+            season: 1, //期数，latest默认当前最新，可填数值查询具体期数
             type: 2, //查询类型，1常规，2档线
             page: 1, //页
             size: 40 //单页大小默认10
@@ -66,7 +66,10 @@ export default class apiTool {
         /** 档线 */
         dx: {
           url: 'https://api.arona.icu/api/v2/rank/list_top',
-          body: {}
+          body: {
+            server: 1,
+            season: 1
+          }
         },
         /** 第20001位用户信息 */
         '20001': {
@@ -102,13 +105,23 @@ export default class apiTool {
         /** 期数 */
         season: {
           url: 'https://api.arona.icu/api/season/list',
-          body: {}
+          body: {
+            server: 1
+          }
         },
         /** 根据id查询BOSS信息 */
         idBoss: {
           url: 'https://api.arona.icu/raids/boss/info/id',
           body: {
             boss_id: 1
+          }
+        },
+        /** 查询好友信息 */
+        friends: {
+          url: 'https://api.arona.icu/api/friends/find',
+          body: {
+            server: 1, 
+            friend: data.friend
           }
         },
 

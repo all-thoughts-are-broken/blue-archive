@@ -43,10 +43,10 @@ async getdata(type, data = {}, cached = false) {
     let start = Date.now()
 
     try {
-      //logger.mark(`[访问接口][${type}]`,url, param)
+      //logger.debug(`[访问接口][${type}]`,url, param)
       response = await fetch(url, param)
 
-      //logger.mark(response.headers)
+      //logger.debug(response.headers)
 
     } catch (error) {
       logger.error(error.toString())
@@ -62,7 +62,7 @@ async getdata(type, data = {}, cached = false) {
     
     const res = await response.json()
     
-    //logger.mark(`[ba接口返回]`,res)//访问结果
+    //logger.debug(`[ba接口返回]`,res)//访问结果
 
     if (!res) {
       logger.mark('ba接口没有返回')
@@ -122,7 +122,7 @@ getUrl (type, data = {}) {
       return gamekee
     } else if (['voice', 'students', 'enemies', 'index'].includes(type)) {
       return schale
-    } else if (['rank', 'dx', 'student', '20001', 'act', 'draw', 'banners', 'boss', 'season', 'idBoss'].includes(type)) {
+    } else if (['rank', 'dx', 'student', '20001', 'act', 'draw', 'banners', 'boss', 'season', 'idBoss', 'friends'].includes(type)) {
       return arona_icu
     }
 
