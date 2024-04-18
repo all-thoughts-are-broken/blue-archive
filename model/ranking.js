@@ -15,11 +15,12 @@ export default class Rank extends base {
 async rank(token) {
 
   let { data } = await this.api.getdata('rank', { token })
+  if (!data) return
   let records = data.records
 
   let rank = []
   let obj = {}
-  let minRank = {}
+  let minRank = { EX: '暂无数据', HC: '暂无数据', N: '暂无数据' }
 
   rank.push(`<span class="rank_ text">排名</span>`
   + `<span class="rank_ text">分数</span>`
@@ -57,22 +58,23 @@ createRankHTML(data) {
 
 
 async dx(token) {
-  let res = await this.api.getdata('dx', { token })
+  let { data } = await this.api.getdata('dx', { token })
+  if (!data) return
   let html = {
     '三档': `<span class="dx_text">三档<br>暂无数据</span>`,
     '二档': `<span class="dx_text">二档<br>暂无数据</span>`,
     '一档': `<span class="dx_text">一档<br>暂无数据</span>`
   }
   
-  for (let data of res.data) {
-    let rank = data.rank.toString()
+  for (let info of data) {
+    let rank = info.rank.toString()
     .replace(/240000/, '三档')
     .replace(/120000/, '二档')
     .replace(/20000/, '一档')
 
     html[rank] = `<span class="dx_text">${rank}<br>
-    ${data.bestRankingPoint.toLocaleString()}<br>
-    <span class="_difficulty" id="${data.hard}">${data.hard}</span>&nbsp;${data.battleTime}</span>`
+    ${info.bestRankingPoint.toLocaleString()}<br>
+    <span class="_difficulty" id="${info.hard}">${info.hard}</span>&nbsp;${info.battleTime}</span>`
   }
 
   return html
@@ -80,6 +82,7 @@ async dx(token) {
 
 async boss(token) {
   let { data } = await this.api.getdata('season', { token })
+  if (!data) return
   let { season, map, boss, startTime, endTime } = data[0]
   let html = `<span class="title">第${season}期</span>&nbsp;`
   + `<span class="title">${map.value}&nbsp;${boss}</span>`
@@ -96,6 +99,10 @@ async _dx() {
   let boss = await this.boss(this.token)
   let dx = await this.dx(this.token)
   let rank = await this.rank(this.token)
+
+  if (!boss && !dx && !rank) {
+    return this.e.reply('获取数据失败')
+  }
 
   let qr = await QRCode.toDataURL(`https://arona.icu/raidRank`)
   let src = `<span class="infoSrc">数据来源：什亭之匣</span>` 

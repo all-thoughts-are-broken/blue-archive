@@ -69,6 +69,10 @@ async getdata(type, data = {}, cached = false) {
       return false
     }
 
+    if (res?.code == 4100) {
+      logger.error(`[ba接口][${type}]`, res.message)
+    }
+
     res.api = type
 
     if (cached) this.cache(res, cacheKey)
