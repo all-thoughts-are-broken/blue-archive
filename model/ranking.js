@@ -1,15 +1,15 @@
 import base from './base.js'
-import { getV } from "./tools.js"
 import Api from './api.js'
 import cfg from './Cfg.js'
 import QRCode from "qrcode"
+import puppeteer from "puppeteer"
 
 export default class Rank extends base {
     constructor (e) {
         super(e)
         this.model = 'rank'
         this.api = new Api()
-        this.token = cfg.getConfig('set').token
+        this.token = cfg.set.token
     }
 
 async rank(token) {
@@ -20,7 +20,13 @@ async rank(token) {
 
   let rank = []
   let obj = {}
-  let minRank = { EX: '暂无数据', HC: '暂无数据', N: '暂无数据' }
+  let minRank = { 
+    INS: '暂无数据', 
+    EX: '暂无数据', 
+    HC: '暂无数据', 
+    VH: '暂无数据', 
+    N: '暂无数据' 
+  }
 
   rank.push(`<span class="rank_ text">排名</span>`
   + `<span class="rank_ text">分数</span>`
@@ -52,8 +58,15 @@ async rank(token) {
 }
 
 createRankHTML(data) {
-  return `<span class="rank_ difficulty"><span class="_difficulty" id="${data.hard}">${data.hard.replace(/EX/, 'Extreme').replace(/HC/, 'HardCore').replace(/N/, 'Normal')}</span></span>` + `<br>`
-  + `<span class="rank_ ranking">${data.rank.toLocaleString()}</span>`
+  return `<span class="rank_ difficulty">` + 
+  `<span class="_difficulty" id="${data.hard}">${data.hard
+    .replace(/INS/, 'Insane')
+    .replace(/EX/, 'Extreme')
+    .replace(/HC/, 'HardCore')
+    .replace(/VH/, 'VeryHard')
+    .replace(/N/, 'Normal')}
+    </span></span>` + 
+    `<br><span class="rank_ ranking">${data.rank.toLocaleString()}</span>`
 }
 
 
@@ -101,7 +114,8 @@ async _dx() {
   let rank = await this.rank(this.token)
 
   if (!boss && !dx && !rank) {
-    return this.e.reply('获取数据失败')
+    await this.e.reply('获取数据失败...\n开始尝试网页截图...')
+    return await this.web()
   }
 
   let qr = await QRCode.toDataURL(`https://arona.icu/raidRank`)
@@ -116,6 +130,55 @@ async _dx() {
   })
 
   return this.e.reply(img)
+}
+
+//网站截图
+async web() {
+  const browser = await puppeteer.launch({
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-sandbox",
+      "--no-zygote",
+      "--single-process",
+  ],
+  })
+  const page = await browser.newPage()
+  await page.goto('https://arona.icu/raidRank', { waitUntil: 'networkidle0' })
+
+  try {
+    await page.waitForSelector('div.module', { timeout: 10000 })
+  } catch {
+    logger.error('截图请求超时！')
+    this.e.reply('截图失败，请手动前往查看\nhttps://arona.icu/raidRank')
+    return
+  }
+
+  await page.evaluate(() => {
+    let elements = document.querySelectorAll('div.echart-div');
+    for(let element of elements){
+        element.parentNode.removeChild(element);
+    }
+  })
+  
+  const element = await page.$('div.module')
+
+  let img = await element.screenshot({
+    //path: 'screenshot.jpeg',
+    type: 'jpeg',
+    quality: 80,
+    //fullPage: true
+  });
+  
+  await browser.close()
+
+  logger.debug(img)
+
+  await this.e.reply([segment.image(img), `数据来源：什亭之匣https://arona.icu/raidRank`])
+
+  return true
 }
 
 

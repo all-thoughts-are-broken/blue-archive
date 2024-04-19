@@ -127,6 +127,11 @@ body {
   font-weight: 1000; 
 }
 
+#INS {
+  background-color: hsla(288, 60%, 79%, 0.719);
+  border: 3px solid hsl(278, 48%, 65%);
+}
+
 #EX {
   background-color: hsla(288, 58%, 62%, 0.719);
   border: 3px solid hsl(278, 47%, 51%);
@@ -157,9 +162,9 @@ body {
   justify-content: flex-end;
   align-items: flex-end;
   text-align: center;
-  height: 110px;
+  height: 120px;
   background-repeat: no-repeat;
-  background-size: 80px;
+  background-size: 90px;
   background-position: right top;
   margin-bottom: -25px;
   margin-right: 15px
