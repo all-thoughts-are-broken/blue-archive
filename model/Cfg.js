@@ -295,7 +295,10 @@ class baCfg {
     logger.debug('keyword',keyword)
 
     this.roleMap()
-    keyword = keyword.replace(/（/g, '(').replace(/）/g, ')')
+    keyword = keyword
+    .replace(/（/g, '(')
+    .replace(/）/g, ')')
+    .replace(/邦尼/g, '邦妮') //处理错别字 懒得加别名，就在这处理了 (′▽`〃)
     
     //logger.debug('this.nameID',this.nameID)
 

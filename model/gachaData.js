@@ -276,14 +276,15 @@ export default class GachaData extends base {
       }
     })
 
-    let poolName = `限定池：${this.pool.name}`
+    let poolName = `限定池`
     if (this.type == 'permanent') poolName = '常驻池'
 
     let res = {
       info,
       nowThree,
       nowTwo,
-      poolName
+      poolName: poolName + `：${this.pool.name}`,
+      up: this.pool.up.join('，')
     }
 
     logger.debug(`[${poolName}] [出彩数：${nowThree}] [${info}]`)

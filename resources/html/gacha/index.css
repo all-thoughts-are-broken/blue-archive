@@ -24,11 +24,15 @@ body {
     padding: 50px 10px;
 }
 
-.info {
+.info_left{
+    text-align: left;
+}
+
+.info_right{
     text-align: right;
 }
 
-.info .text {
+.text, .pool {
     padding: 10px 20px 10px;
     color: #ffffff;
     background: #0000005e;
